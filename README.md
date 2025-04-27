@@ -1,6 +1,6 @@
-# NHL Stats Client
+# NHL stats frontend
 
-Client for [NHL stats backend](https://github.com/JeszC/nhl-stats-backend)
+Frontend for [NHL stats backend](https://github.com/JeszC/nhl-stats-backend)
 
 ## Installation prerequisites
 
