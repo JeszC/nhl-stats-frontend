@@ -1,0 +1,222 @@
+{
+  "columns": {
+    "team": {
+      "text": "TEAM",
+      "title": "Team",
+      "nhlKey": [
+        "teamName",
+        "default"
+      ]
+    },
+    "conference": {
+      "text": "CON",
+      "title": "Conference",
+      "nhlKey": [
+        "conferenceName"
+      ]
+    },
+    "division": {
+      "text": "DIV",
+      "title": "Division",
+      "nhlKey": [
+        "divisionName"
+      ]
+    },
+    "points": {
+      "text": "P",
+      "title": "Points",
+      "numeric": true,
+      "nhlKey": [
+        "points"
+      ]
+    },
+    "pointPercentage": {
+      "text": "P%",
+      "title": "Point percentage",
+      "numeric": true,
+      "nhlKey": [
+        "pointPctg"
+      ]
+    },
+    "record": {
+      "text": "REC",
+      "title": "Record (W-L-OTL)",
+      "nhlKey": [
+        "wins",
+        "losses",
+        "otLosses"
+      ]
+    },
+    "last10": {
+      "text": "L10",
+      "title": "Last 10 games (W-L-OTL)",
+      "nhlKey": [
+        "l10Wins",
+        "l10Losses",
+        "l10OtLosses"
+      ]
+    },
+    "streak": {
+      "text": "STRK",
+      "title": "Streak",
+      "nhlKey": [
+        "streakCode",
+        "streakCount"
+      ]
+    },
+    "gamesPlayed": {
+      "text": "GP",
+      "title": "Games played",
+      "numeric": true,
+      "nhlKey": [
+        "gamesPlayed"
+      ]
+    },
+    "wins": {
+      "text": "W",
+      "title": "Wins",
+      "numeric": true,
+      "nhlKey": [
+        "wins"
+      ]
+    },
+    "losses": {
+      "text": "L",
+      "title": "Losses",
+      "numeric": true,
+      "nhlKey": [
+        "totalLosses"
+      ]
+    },
+    "regulationWins": {
+      "text": "RW",
+      "title": "Regulation wins",
+      "numeric": true,
+      "nhlKey": [
+        "regulationWins"
+      ]
+    },
+    "regulationLosses": {
+      "text": "RL",
+      "title": "Regulation losses",
+      "numeric": true,
+      "nhlKey": [
+        "losses"
+      ]
+    },
+    "overtimeWins": {
+      "text": "OTW",
+      "title": "Overtime wins",
+      "numeric": true,
+      "nhlKey": [
+        "overtimePlusShootoutWins"
+      ]
+    },
+    "overtimeLosses": {
+      "text": "OTL",
+      "title": "Overtime losses",
+      "numeric": true,
+      "nhlKey": [
+        "otLosses"
+      ]
+    },
+    "ties": {
+      "text": "T",
+      "title": "Ties",
+      "numeric": true,
+      "nhlKey": [
+        "ties"
+      ]
+    },
+    "homeRecord": {
+      "text": "HOME",
+      "title": "Home record (W-L-OTL)",
+      "nhlKey": [
+        "homeWins",
+        "homeLosses",
+        "homeOtLosses"
+      ]
+    },
+    "awayRecord": {
+      "text": "AWAY",
+      "title": "Away record (W-L-OTL)",
+      "nhlKey": [
+        "roadWins",
+        "roadLosses",
+        "roadOtLosses"
+      ]
+    },
+    "faceoffWinPercentage": {
+      "text": "FO%",
+      "title": "Face-off win percentage",
+      "numeric": true,
+      "nhlKey": [
+        "faceOffWinPct"
+      ]
+    },
+    "powerPlayPercentage": {
+      "text": "PP%",
+      "title": "Net power play percentage",
+      "numeric": true,
+      "nhlKey": [
+        "powerPlayPct"
+      ]
+    },
+    "penaltyKillPercentage": {
+      "text": "PK%",
+      "title": "Net penalty kill percentage",
+      "numeric": true,
+      "nhlKey": [
+        "penaltyKillPct"
+      ]
+    },
+    "penaltyMinutesPerGame": {
+      "text": "PIM/G",
+      "title": "Penalty minutes per game",
+      "numeric": true,
+      "nhlKey": [
+        "pimPerGame"
+      ]
+    },
+    "shotsForPerGame": {
+      "text": "SF/G",
+      "title": "Shots for per game",
+      "numeric": true,
+      "nhlKey": [
+        "shotsForPerGame"
+      ]
+    },
+    "shotsAgainstPerGame": {
+      "text": "SA/G",
+      "title": "Shots against per game",
+      "numeric": true,
+      "nhlKey": [
+        "shotsAgainstPerGame"
+      ]
+    },
+    "goalsForPerGame": {
+      "text": "GF/G",
+      "title": "Goals for per game",
+      "numeric": true,
+      "nhlKey": [
+        "goalsForPctg"
+      ]
+    },
+    "goalsAgainstPerGame": {
+      "text": "GA/G",
+      "title": "Goals against per game",
+      "numeric": true,
+      "nhlKey": [
+        "goalsAgainstPctg"
+      ]
+    },
+    "goalDifferential": {
+      "text": "GD",
+      "title": "Goal differential",
+      "numeric": true,
+      "nhlKey": [
+        "goalDifferential"
+      ]
+    }
+  }
+}

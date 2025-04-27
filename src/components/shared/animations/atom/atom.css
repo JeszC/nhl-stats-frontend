@@ -1,0 +1,60 @@
+.atom {
+    --size: 7em;
+    --center-difference: calc(var(--size) / 2);
+    --color: var(--grey);
+    --width: 0.5em;
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    top: calc(50% - var(--center-difference));
+    left: calc(50% - var(--center-difference));
+    transform: rotateZ(45deg);
+    color: red;
+}
+
+.atom:before,
+.atom:after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: 100%;
+    transform: rotateX(70deg);
+    animation: 1s atom linear infinite;
+}
+
+.atom:after {
+    color: var(--color);
+    transform: rotateY(70deg);
+    animation-delay: -0.5s;
+}
+
+@keyframes atom {
+    0% {
+        box-shadow: var(--width) 0 0 0 currentcolor;
+    }
+    12.5% {
+        box-shadow: var(--width) var(--width) 0 0 currentcolor;
+    }
+    25% {
+        box-shadow: 0 var(--width) 0 0 currentcolor;
+    }
+    37.5% {
+        box-shadow: calc(var(--width) * -1) 0.2em 0 0 currentcolor;
+    }
+    50% {
+        box-shadow: calc(var(--width) * -1) 0 0 0 currentcolor;
+    }
+    62.5% {
+        box-shadow: calc(var(--width) * -1) calc(var(--width) * -1) 0 0 currentcolor;
+    }
+    75% {
+        box-shadow: 0 calc(var(--width) * -1) 0 0 currentcolor;
+    }
+    87.5% {
+        box-shadow: var(--width) calc(var(--width) * -1) 0 0 currentcolor;
+    }
+    100% {
+        box-shadow: var(--width) 0 0 0 currentcolor;
+    }
+}

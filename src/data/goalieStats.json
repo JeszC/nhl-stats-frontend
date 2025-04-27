@@ -1,0 +1,73 @@
+{
+  "columns": {
+    "player": {
+      "text": "PLAYER",
+      "title": "Player",
+      "nhlKey": [
+        "name",
+        "default"
+      ]
+    },
+    "number": {
+      "text": "NO",
+      "title": "Jersey number",
+      "numeric": true,
+      "nhlKey": [
+        "sweaterNumber"
+      ]
+    },
+    "role": {
+      "text": "ROLE",
+      "title": "Role",
+      "nhlKey": [
+        "starter"
+      ]
+    },
+    "decision": {
+      "text": "DEC",
+      "title": "Decision",
+      "nhlKey": [
+        "decision"
+      ]
+    },
+    "savePercentage": {
+      "text": "SV%",
+      "title": "Save percentage",
+      "numeric": true,
+      "nhlKey": [
+        "savePctg"
+      ]
+    },
+    "goalsAgainst": {
+      "text": "GA",
+      "title": "Goals against",
+      "numeric": true,
+      "nhlKey": [
+        "goalsAgainst"
+      ]
+    },
+    "shotsAgainst": {
+      "text": "SA",
+      "title": "Shots against",
+      "numeric": true,
+      "nhlKey": [
+        "shotsAgainst"
+      ]
+    },
+    "penaltyMinutes": {
+      "text": "PIM",
+      "title": "Penalty minutes",
+      "numeric": true,
+      "nhlKey": [
+        "pim"
+      ]
+    },
+    "timeOnIce": {
+      "text": "TOI",
+      "title": "Time on ice",
+      "nhlKey": [
+        "toi"
+      ]
+    }
+  }
+}

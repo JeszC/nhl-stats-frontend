@@ -1,0 +1,178 @@
+{
+  "columns": {
+    "player": {
+      "text": "PLAYER",
+      "title": "Player",
+      "nhlKey": [
+        "firstName",
+        "default",
+        "lastName",
+        "default"
+      ]
+    },
+    "team": {
+      "text": "TEAM",
+      "title": "Team",
+      "nhlKey": [
+        "team"
+      ]
+    },
+    "number": {
+      "text": "NO",
+      "title": "Jersey number",
+      "numeric": true,
+      "nhlKey": [
+        "number"
+      ]
+    },
+    "position": {
+      "text": "POS",
+      "title": "Position",
+      "nhlKey": [
+        "positionCode"
+      ]
+    },
+    "country": {
+      "text": "CTRY",
+      "title": "Country of birth",
+      "nhlKey": [
+        "birthCountry"
+      ]
+    },
+    "gamesPlayed": {
+      "text": "GP",
+      "title": "Games played",
+      "numeric": true,
+      "nhlKey": [
+        "gamesPlayed"
+      ]
+    },
+    "points": {
+      "text": "P",
+      "title": "Points",
+      "numeric": true,
+      "nhlKey": [
+        "points"
+      ]
+    },
+    "goals": {
+      "text": "G",
+      "title": "Goals",
+      "numeric": true,
+      "nhlKey": [
+        "goals"
+      ]
+    },
+    "assists": {
+      "text": "A",
+      "title": "Assists",
+      "numeric": true,
+      "nhlKey": [
+        "assists"
+      ]
+    },
+    "plusMinus": {
+      "text": "+/-",
+      "title": "Plus/minus",
+      "numeric": true,
+      "nhlKey": [
+        "plusMinus"
+      ]
+    },
+    "penaltyMinutes": {
+      "text": "PIM",
+      "title": "Penalty minutes",
+      "numeric": true,
+      "nhlKey": [
+        "penaltyMinutes"
+      ]
+    },
+    "powerPlayGoals": {
+      "text": "PPG",
+      "title": "Power play goals",
+      "numeric": true,
+      "nhlKey": [
+        "powerPlayGoals"
+      ]
+    },
+    "shorthandedGoals": {
+      "text": "SHG",
+      "title": "Shorthanded goals",
+      "numeric": true,
+      "nhlKey": [
+        "shorthandedGoals"
+      ]
+    },
+    "timeOnIcePerGame": {
+      "text": "TOI/G",
+      "title": "Time on ice per game",
+      "numeric": true,
+      "nhlKey": [
+        "avgTimeOnIcePerGame"
+      ]
+    },
+    "shiftsPerGame": {
+      "text": "SHF/G",
+      "title": "Shifts per game",
+      "numeric": true,
+      "nhlKey": [
+        "avgShiftsPerGame"
+      ]
+    },
+    "faceoffWinPercentage": {
+      "text": "FO%",
+      "title": "Face-off win percentage",
+      "numeric": true,
+      "nhlKey": [
+        "faceoffWinPctg"
+      ]
+    },
+    "shootingPercentage": {
+      "text": "S%",
+      "title": "Shooting percentage",
+      "numeric": true,
+      "nhlKey": [
+        "shootingPctg"
+      ]
+    },
+    "shotsPerGame": {
+      "text": "S/G",
+      "title": "Shots per game",
+      "numeric": true,
+      "nhlKey": [
+        "shotsPerGame"
+      ]
+    },
+    "age": {
+      "text": "AGE",
+      "title": "Age",
+      "numeric": true,
+      "nhlKey": [
+        "ageAtSeasonStart"
+      ]
+    },
+    "height": {
+      "text": "HGT",
+      "title": "Height (cm)",
+      "numeric": true,
+      "nhlKey": [
+        "height"
+      ]
+    },
+    "weight": {
+      "text": "WGT",
+      "title": "Weight (kg)",
+      "numeric": true,
+      "nhlKey": [
+        "weight"
+      ]
+    },
+    "shoots": {
+      "text": "SHT",
+      "title": "Shooting side",
+      "nhlKey": [
+        "shootsCatches"
+      ]
+    }
+  }
+}

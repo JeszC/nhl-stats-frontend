@@ -1,0 +1,504 @@
+.homeHeader {
+    height: var(--nav-bar-height);
+    line-height: var(--nav-bar-height);
+    position: sticky;
+    top: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.todayGames {
+    margin: 0 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
+    gap: 1em;
+}
+
+.individualGame {
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.individualGame img:first-of-type {
+    border-top-left-radius: 4px;
+}
+
+.individualGame img:last-of-type {
+    border-top-right-radius: 4px;
+}
+
+.individualGame .gameStateAndTeamInformation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.individualGame .teamInformation {
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.todayGameInformation {
+    font-weight: bold;
+}
+
+.dateTimeInformation {
+    padding: 0.25em 0;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.gameAndDate {
+    width: 100%;
+}
+
+.gameBoxImage {
+    min-width: 3em;
+    min-height: 3em;
+}
+
+.injuriesPage {
+    margin: 0 1em;
+}
+
+.injuriesDates {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.injuryDate {
+    margin-bottom: 2em;
+}
+
+.injuryDateHeader {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.injuries {
+    padding: 0.5em 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(21em, 1fr));
+    gap: 0.5em;
+}
+
+.injury {
+    list-style-type: none;
+}
+
+.injuryTeamAndPlayerInformation {
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+
+.injuryHeadshot {
+    --size: 6em;
+    width: var(--size);
+    height: var(--size);
+    aspect-ratio: 1 / 1;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.injuryPlayerInformation {
+    padding: 0 0.5em;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    justify-content: center;
+    align-items: flex-start;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.injuryName {
+    font-weight: bold;
+}
+
+.injuryPlayerRoleInformation {
+    font-style: italic;
+    gap: 1em;
+}
+
+.homePageTables {
+    margin: 0 1em;
+    display: grid;
+    justify-content: left;
+    grid-template-columns: repeat(auto-fit, minmax(26em, 1fr));
+    column-gap: 1em;
+}
+
+.homeTable {
+    overflow: hidden;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.homeTable th {
+    position: initial;
+    cursor: initial;
+}
+
+.homeTable tr {
+    cursor: pointer;
+}
+
+.homeTable td {
+    padding-top: 0.1875em;
+    padding-bottom: 0.1875em;
+}
+
+.teamLogoAndName {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    text-align: left;
+}
+
+.upcomingGames h2,
+.injuriesPage h2,
+.homePageTables h2,
+.playoffTree h2 {
+    text-align: center;
+}
+
+.tableAndTabs {
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+}
+
+.tabs {
+    height: 2.5em;
+}
+
+.homeTabs {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.teamTabs {
+    flex-wrap: wrap;
+}
+
+.homeTabs button {
+    height: 2.5em;
+}
+
+.teamTabs button:first-child {
+    width: 100%;
+}
+
+.teamTabs button:not(:first-child) {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+}
+
+.tab {
+    padding: 0 0.5em;
+    height: 100%;
+    line-height: 1em;
+    border-radius: 0;
+    border: 0;
+}
+
+.homeTab {
+    border-bottom: 3px solid transparent;
+}
+
+.teamTabs .homeTab:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.playerTabs:first-of-type .homeTab:first-of-type {
+    border-top-left-radius: 4px;
+}
+
+.playerTabs:first-of-type .homeTab:last-of-type {
+    border-top-right-radius: 4px;
+}
+
+.activeTab {
+    border-bottom: 3px solid var(--tab-border-color);
+}
+
+.topTeams {
+    width: 100%;
+    line-height: 2.5em;
+    text-align: center;
+}
+
+.playoffDetails {
+    height: 2em;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.playoffBanner {
+    height: 6em;
+}
+
+.playoffBanner .teamBackground {
+    width: 50%;
+    justify-content: center;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.playoffBanner .teamBackground:first-child {
+    border-right: 1px solid var(--grey);
+}
+
+.playoffBanner .teamBackground:last-child {
+    border-left: 1px solid var(--grey);
+}
+
+.playoffBanner .playoffBannerInformation {
+    padding: 0.5em;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.playoffBanner img {
+    --size: 6em;
+    min-width: var(--size);
+    min-height: var(--size);
+    width: var(--size);
+    height: var(--size);
+}
+
+.playoffGameNumberAndTime {
+    gap: 1em;
+}
+
+.playoffGameInformation {
+    padding: 1em 0;
+    font-weight: revert;
+    text-transform: revert;
+}
+
+.playoffGameInformation:not(:last-child) {
+    border-bottom: 1px solid var(--grey);
+}
+
+.playoffGameTeam {
+    min-width: 3em;
+    text-align: center;
+}
+
+.playoffGameResult {
+    align-items: center;
+    gap: 0.25em;
+}
+
+.playoffGameState {
+    min-width: 3em;
+}
+
+.playoffGameSeparator {
+    white-space: pre;
+}
+
+.playoffGameScore {
+    min-width: 1.25em;
+    text-align: center;
+}
+
+.playoffTree {
+    max-width: max(30em, 100vw);
+}
+
+.playoffRounds {
+    margin: 1em;
+    justify-content: space-between;
+    gap: 2em;
+    overflow: scroll;
+}
+
+.playoffRound {
+    gap: 2em;
+}
+
+.playoffRound:nth-child(2),
+.playoffRound:nth-child(7) {
+    margin: calc(6em + 3px) 0;
+    gap: 16.5em;
+}
+
+.playoffRound:nth-child(3),
+.playoffRound:nth-child(6) {
+    margin: calc(20.5em + 3px) 0;
+}
+
+.playoffRound:nth-child(4),
+.playoffRound:nth-child(5) {
+    margin: calc(23em + 3px) 0;
+}
+
+.playoffSeries {
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid var(--grey);
+}
+
+.playoffTeam {
+    min-width: 8em;
+    min-height: 5em;
+    width: inherit;
+    height: inherit;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+}
+
+.playoffTeam img {
+    --size: 5em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.playoffRound:nth-child(5) .playoffTeam,
+.playoffRound:nth-child(6) .playoffTeam,
+.playoffRound:nth-child(7) .playoffTeam,
+.playoffRound:nth-child(8) .playoffTeam {
+    flex-direction: row-reverse;
+}
+
+.playoffRound:nth-child(4) .playoffTeam,
+.playoffRound:nth-child(5) .playoffTeam {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:first-child {
+    border-bottom: 1px solid var(--grey);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child {
+    border-top: 1px solid var(--grey);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.playoffRound:nth-child(-n + 4) .playoffTeam:first-child .playoffInformation {
+    border-top-right-radius: 3px;
+}
+
+.playoffRound:nth-child(-n + 4) .playoffTeam:last-child .playoffInformation {
+    border-bottom-right-radius: 3px;
+}
+
+.playoffRound:nth-child(n + 5) .playoffTeam:first-child .playoffInformation {
+    border-top-left-radius: 3px;
+}
+
+.playoffRound:nth-child(n + 5) .playoffTeam:last-child .playoffInformation {
+    border-bottom-left-radius: 3px;
+}
+
+.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child .playoffInformation,
+.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child .playoffTeamInformation {
+    flex-direction: column-reverse;
+}
+
+.playoffInformation {
+    padding: 0.5em;
+    width: 2em;
+    height: 4em;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.playoffTeamInformation {
+    justify-content: center;
+    align-items: center;
+}
+
+.playoffTeamAbbreviation {
+    font-weight: bold;
+}
+
+.playoffPosition {
+    font-style: italic;
+}
+
+.playoffScore {
+    display: flex;
+    font-size: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: calc(82em - 1px)) {
+    .homePageTables {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 1439px) {
+    .playoffRounds {
+        margin: 0.5em;
+        gap: 0.5em;
+    }
+
+    .playoffRound {
+        gap: 0.5em;
+    }
+
+    .playoffRound:nth-child(2),
+    .playoffRound:nth-child(7) {
+        margin: calc(5.25em + 3px) 0;
+        gap: 13.5em;
+    }
+
+    .playoffRound:nth-child(3),
+    .playoffRound:nth-child(6) {
+        margin: calc(18.25em + 3px) 0;
+    }
+
+    .playoffRound:nth-child(4),
+    .playoffRound:nth-child(5) {
+        margin: calc(20.75em + 3px) 0;
+    }
+
+    .playoffTeam {
+        min-width: 6.5em;
+        min-height: 5em;
+        width: inherit;
+        height: inherit;
+    }
+
+    .playoffTeam img {
+        --size: 3.5em;
+        width: var(--size);
+        height: var(--size);
+    }
+}

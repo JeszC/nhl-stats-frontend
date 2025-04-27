@@ -1,0 +1,93 @@
+{
+  "baseURL": "http://localhost:3001",
+  "apiRecordSeparator": "-",
+  "apiTimeSeparator": ":",
+  "indicator": {
+    "ascending": "\r\n▲",
+    "descending": "\r\n▼"
+  },
+  "gameType": {
+    "preseason": {
+      "index": 1,
+      "name": "Preseason"
+    },
+    "season": {
+      "index": 2,
+      "name": "Season"
+    },
+    "playoff": {
+      "index": 3,
+      "name": "Playoff"
+    }
+  },
+  "scheduleState": {
+    "toBeDetermined": "TBD"
+  },
+  "gameState": {
+    "final": "FINAL",
+    "off": "OFF",
+    "live": "LIVE",
+    "crit": "CRIT",
+    "pre": "PRE",
+    "upcoming": "FUT"
+  },
+  "fetchState": {
+    "loading": "loading",
+    "finished": "finished",
+    "error": "error"
+  },
+  "localStorageKeys": {
+    "schedule": {
+      "season": "scheduleSeason",
+      "teams": "scheduleTeamSelections",
+      "view": "scheduleShowTable"
+    },
+    "standings": {
+      "season": "standingsSeason"
+    },
+    "player": {
+      "season": "playerSeason",
+      "teams": "playerTeamSelections",
+      "view": "playerShowGoalies"
+    },
+    "draft": {
+      "season": "draftSeason"
+    }
+  },
+  "seasonsStartingInJanuary": [
+    1994,
+    2012,
+    2020
+  ],
+  "seasonsEndingInSeptember": [
+    2020
+  ],
+  "lockoutSeason": "20042005",
+  "sortedColumnClassName": "sortedColumn",
+  "developers": [
+    {
+      "name": "JeszC",
+      "url": "https://github.com/JeszC",
+      "linkTitle": "GitHub profile",
+      "linkText": "GitHub"
+    },
+    {
+      "name": "Jamppah",
+      "url": "https://github.com/Jamppah",
+      "linkTitle": "GitHub profile",
+      "linkText": "GitHub"
+    }
+  ],
+  "externalResources": [
+    {
+      "url": "https://github.com/vtex/country-iso-3-to-2/",
+      "linkTitle": "Country parsing script",
+      "linkText": "Country parsing"
+    },
+    {
+      "url": "https://flagcdn.com/",
+      "linkTitle": "Country flags CDN",
+      "linkText": "Country flags"
+    }
+  ]
+}

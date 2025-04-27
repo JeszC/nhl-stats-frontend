@@ -1,0 +1,238 @@
+.buttonWithIcon span {
+    padding-right: 1em;
+}
+
+.venueBackground {
+    padding: 0.5em;
+    width: 100%;
+}
+
+.scheduleCalendarLegend dt {
+    min-width: 2em;
+}
+
+.scheduleCalendarLegend .chevron {
+    margin-top: calc(-1em / 6);
+    min-width: 1em;
+    font-size: 2em;
+    line-height: 0.75em;
+}
+
+.scheduleTableLegend dt {
+    min-width: 4em;
+}
+
+.scheduleTable td {
+    padding-top: 0.1875em;
+    padding-bottom: 0.1875em;
+}
+
+.scheduleTable tr {
+    cursor: pointer;
+}
+
+.scheduleImage {
+    border: 1px solid black;
+    border-radius: 100%;
+    background-color: white;
+    color: black;
+}
+
+.calendarImage {
+    --size: 40%;
+    margin-top: 0.125em;
+    width: var(--size);
+    height: var(--size);
+    max-width: var(--image-size);
+    max-height: var(--image-size);
+    aspect-ratio: 1 / 1;
+}
+
+.calendarHeader {
+    min-width: calc(var(--calendar-day-width) * 7);
+    height: var(--nav-bar-height);
+    position: sticky;
+    top: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.calendarHeader .horizontalFlex {
+    height: inherit;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendarHeader button {
+    width: calc(var(--nav-bar-height));
+}
+
+.calendarHeader button span {
+    margin-top: -0.2em;
+    font-size: 2em;
+}
+
+.monthLong,
+.monthShort {
+    padding: 0 1em;
+    min-width: 8em;
+    display: inline-block;
+    user-select: none;
+    font-weight: bold;
+}
+
+.weekdaysLong,
+.weekdaysShort,
+.days {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    list-style-type: none;
+}
+
+.weekdaysLong,
+.weekdaysShort {
+    height: var(--calendar-weekday-height);
+    line-height: var(--calendar-weekday-height);
+}
+
+.days {
+    margin-top: var(--calendar-weekday-height);
+}
+
+.weekday,
+.day {
+    min-width: var(--calendar-day-width);
+    border-bottom: 1px solid var(--grey);
+    border-right: 1px solid var(--grey);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.day {
+    min-height: 8.8125em;
+    max-height: 11.8125em;
+    overflow: auto;
+}
+
+.weekday:last-child,
+.day:nth-child(7n) {
+    border-right: 0;
+}
+
+.dateSquare {
+    padding: 0.25em;
+    background-color: inherit;
+}
+
+.numberOfGamesInHeader,
+.numberOfGamesInContent {
+    font-weight: bold;
+}
+
+.dayHeader {
+    padding: 0.25em 0.25em 0;
+    margin: -0.25em -0.25em 0;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: inherit;
+}
+
+.dayHeader span {
+    min-width: 1.125em;
+}
+
+.singleGame:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.singleGameButton {
+    padding: 0.25em 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: inherit;
+    color: inherit;
+}
+
+.dateNumber {
+    display: block;
+    text-align: left;
+    font-size: 1.5em;
+}
+
+.currentDayIndicator {
+    --size: 1em;
+    padding: 0.25em;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+}
+
+.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(100%);
+}
+
+.detailsButton {
+    margin: 0.5em 0;
+}
+
+.warningICS {
+    padding-top: 0.25em;
+}
+
+.legendKey .currentDayIndicator {
+    padding: 0;
+    display: inline;
+    vertical-align: middle;
+}
+
+.wrap {
+    overflow-wrap: anywhere;
+}
+
+.overtime {
+    padding: 0 0.5em;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 639px) {
+    .monthLong,
+    .weekdaysLong {
+        display: none;
+    }
+}
+
+@media (min-width: 640px) {
+    .monthShort,
+    .weekdaysShort {
+        display: none;
+    }
+}
+
+@media (max-width: 719px) {
+    .day {
+        min-height: 6.35625em;
+    }
+
+    .gameVenue {
+        display: none;
+    }
+}
+
+@media (max-width: 1279px) {
+    .numberOfGamesInHeader {
+        display: none;
+    }
+}
+
+@media (min-width: 1280px) {
+    .numberOfGamesInContent {
+        display: none;
+    }
+}

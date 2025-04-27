@@ -1,0 +1,33 @@
+{
+  "upperCategories": [
+    {
+      "default": true,
+      "value": "nhl",
+      "text": "NHL",
+      "title": "NHL"
+    },
+    {
+      "value": "prospects",
+      "text": "Prospects",
+      "title": "Prospects"
+    }
+  ],
+  "lowerCategories": [
+    {
+      "default": true,
+      "value": "forwards",
+      "text": "Forwards",
+      "title": "Forwards"
+    },
+    {
+      "value": "defenders",
+      "text": "Defenders",
+      "title": "Defenders"
+    },
+    {
+      "value": "goalies",
+      "text": "Goalies",
+      "title": "Goalies"
+    }
+  ]
+}

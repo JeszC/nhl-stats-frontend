@@ -1,0 +1,19 @@
+.draftTable tr {
+    cursor: pointer;
+}
+
+.draftTable td {
+    padding: 0.25em 0;
+}
+
+.draftTable td:has(.draftNotes) {
+    max-width: 10em;
+}
+
+.draftTable button {
+    padding: 0 0.25em;
+}
+
+.draftLegend dt {
+    min-width: 5em;
+}

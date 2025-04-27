@@ -1,0 +1,1263 @@
+.ANA {
+    --color: #F47A38;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.ANA.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.ANA.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.ANA.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.ANA.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.ANA.border {
+    border-color: var(--color);
+}
+
+.ANA.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.ARI,
+.PHX {
+    --color: #8C2633;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.ARI.gradient,
+.PHX.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.ARI.gradient.awayTeam,
+.PHX.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.ARI.gradient.homeTeam,
+.PHX.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.ARI.border,
+.PHX.border {
+    border-color: var(--color);
+}
+
+.ARI.layerImage,
+.PHX.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.BOS {
+    --color: #FFB81C;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.BOS.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.BOS.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: black;
+}
+
+.BOS.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.BOS.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.BOS.border {
+    border-color: var(--color);
+}
+
+.BOS.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.BUF {
+    --color: #003087;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.BUF.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.BUF.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.BUF.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.BUF.border {
+    border-color: var(--color);
+}
+
+.BUF.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.CAR {
+    --color: #CE1126;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.CAR.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.CAR.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CAR.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CAR.border {
+    border-color: var(--color);
+}
+
+.CAR.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.CBJ {
+    --color: #002654;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.CBJ.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
+    color: black;
+}
+
+.CBJ.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CBJ.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CBJ.border {
+    border-color: var(--color);
+}
+
+.CBJ.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.AFM,
+.CGY {
+    --color: #D2001C;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.AFM.gradient,
+.CGY.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), orange 50%, var(--color));
+    color: black;
+}
+
+.AFM.gradient.awayTeam,
+.CGY.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.AFM.gradient.homeTeam,
+.CGY.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.AFM.border,
+.CGY.border {
+    border-color: var(--color);
+}
+
+.AFM.layerImage,
+.CGY.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.CHI {
+    --color: #CF0A2C;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.CHI.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.CHI.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CHI.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CHI.border {
+    border-color: var(--color);
+}
+
+.CHI.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.CLE,
+.CBN {
+    --color: #C8102E;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.CLE.gradient,
+.CBN.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.CLE.gradient.awayTeam,
+.CBN.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CLE.gradient.homeTeam,
+.CBN.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CLE.border,
+.CBN.border {
+    border-color: var(--color);
+}
+
+.CLE.layerImage,
+.CBN.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.CLR,
+.KCS {
+    --color: #0033A0;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.CLR.gradient,
+.KCS.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.CLR.gradient.awayTeam,
+.KCS.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CLR.gradient.homeTeam,
+.KCS.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CLR.border,
+.KCS.border {
+    border-color: var(--color);
+}
+
+.CLR.layerImage,
+.KCS.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.COL {
+    --color: #6F263D;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.COL.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.COL.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.COL.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.COL.border {
+    border-color: var(--color);
+}
+
+.COL.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.DAL {
+    --color: #006847;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.DAL.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.DAL.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.DAL.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.DAL.border {
+    border-color: var(--color);
+}
+
+.DAL.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.DET {
+    --color: #CE1126;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.DET.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
+    color: black;
+}
+
+.DET.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.DET.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.DET.border {
+    border-color: var(--color);
+}
+
+.DET.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.EDM {
+    --color: #041E42;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.EDM.gradient {
+    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    color: white;
+}
+
+.EDM.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.EDM.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.EDM.border {
+    border-color: var(--color);
+}
+
+.EDM.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.FLA {
+    --color: #C8102E;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.FLA.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.FLA.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.FLA.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.FLA.border {
+    border-color: var(--color);
+}
+
+.FLA.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.HFD,
+.CGS,
+.CSE,
+.OAK {
+    --color: #046A38;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.HFD.gradient,
+.CGS.gradient,
+.CSE.gradient,
+.OAK.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.HFD.gradient.awayTeam,
+.CGS.gradient.awayTeam,
+.CSE.gradient.awayTeam,
+.OAK.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.HFD.gradient.homeTeam,
+.CGS.gradient.homeTeam,
+.CSE.gradient.homeTeam,
+.OAK.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.HFD.border,
+.CGS.border,
+.CSE.border,
+.OAK.border {
+    border-color: var(--color);
+}
+
+.HFD.layerImage,
+.CGS.layerImage,
+.CSE.layerImage,
+.OAK.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.LAK {
+    --color: #572A84;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.LAK.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.LAK.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.LAK.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.LAK.border {
+    border-color: var(--color);
+}
+
+.LAK.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.MIN {
+    --color: #154734;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.MIN.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.MIN.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.MIN.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.MIN.border {
+    border-color: var(--color);
+}
+
+.MIN.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.MNS {
+    --color: #007A33;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.MNS.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.MNS.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.MNS.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.MNS.border {
+    border-color: var(--color);
+}
+
+.MNS.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.MTL {
+    --color: #AF1E2D;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.MTL.gradient {
+    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    color: white;
+}
+
+.MTL.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.MTL.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.MTL.border {
+    border-color: var(--color);
+}
+
+.MTL.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.NJD {
+    --color: #CE1126;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.NJD.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.NJD.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.NJD.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.NJD.border {
+    border-color: var(--color);
+}
+
+.NJD.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.NSH {
+    --color: #FFB81C;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.NSH.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.NSH.gradient {
+    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    color: black;
+}
+
+.NSH.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.NSH.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.NSH.border {
+    border-color: var(--color);
+}
+
+.NSH.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.NYI {
+    --color: #00539B;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.NYI.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.NYI.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.NYI.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.NYI.border {
+    border-color: var(--color);
+}
+
+.NYI.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.NYR {
+    --color: #0038A8;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.NYR.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
+    color: black;
+}
+
+.NYR.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.NYR.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.NYR.border {
+    border-color: var(--color);
+}
+
+.NYR.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.OTT {
+    --color: #DA1A32;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.OTT.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.OTT.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.OTT.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.OTT.border {
+    border-color: var(--color);
+}
+
+.OTT.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.PHI {
+    --color: #F74902;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.PHI.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.PHI.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.PHI.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.PHI.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.PHI.border {
+    border-color: var(--color);
+}
+
+.PHI.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.PIT {
+    --color: #FCB514;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.PIT.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.PIT.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.PIT.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.PIT.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.PIT.border {
+    border-color: var(--color);
+}
+
+.PIT.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.QUE {
+    --color: #005EB8;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.QUE.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.QUE.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.QUE.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.QUE.border {
+    border-color: var(--color);
+}
+
+.QUE.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.SEA {
+    --color: #99D9D9;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.SEA.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.SEA.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: black;
+}
+
+.SEA.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.SEA.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.SEA.border {
+    border-color: var(--color);
+}
+
+.SEA.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.SJS {
+    --color: #006D75;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.SJS.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.SJS.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.SJS.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.SJS.border {
+    border-color: var(--color);
+}
+
+.SJS.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.STL {
+    --color: #002F87;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.STL.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.STL.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.STL.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.STL.border {
+    border-color: var(--color);
+}
+
+.STL.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.TBL {
+    --color: #002868;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.TBL.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
+    color: black;
+}
+
+.TBL.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.TBL.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.TBL.border {
+    border-color: var(--color);
+}
+
+.TBL.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.TOR {
+    --color: #00205B;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.TOR.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
+    color: black;
+}
+
+.TOR.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.TOR.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.TOR.border {
+    border-color: var(--color);
+}
+
+.TOR.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.UTA {
+    --color: #7ab2e1;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.UTA.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.UTA.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: black;
+}
+
+.UTA.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.UTA.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.UTA.border {
+    border-color: var(--color);
+}
+
+.UTA.layerImage {
+    background: transparent;
+    filter: invert(0%);
+}
+
+.VAN {
+    --color: #00205B;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.VAN.gradient {
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    color: white;
+}
+
+.VAN.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.VAN.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.VAN.border {
+    border-color: var(--color);
+}
+
+.VAN.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.VGK {
+    --color: #B4975A;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.VGK.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.VGK.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.VGK.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.VGK.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.VGK.border {
+    border-color: var(--color);
+}
+
+.VGK.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.ATL,
+.WIN,
+.WPG {
+    --color: #041E42;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.ATL.gradient,
+.WIN.gradient,
+.WPG.gradient {
+    background-image: linear-gradient(to bottom right, steelblue, var(--color) 50%, steelblue);
+    color: white;
+}
+
+.ATL.gradient.awayTeam,
+.WIN.gradient.awayTeam,
+.WPG.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.ATL.gradient.homeTeam,
+.WIN.gradient.homeTeam,
+.WPG.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.ATL.border,
+.WIN.border,
+.WPG.border {
+    border-color: var(--color);
+}
+
+.ATL.layerImage,
+.WIN.layerImage,
+.WPG.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.WSH {
+    --color: #C8102E;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.WSH.gradient {
+    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    color: white;
+}
+
+.WSH.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.WSH.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.WSH.border {
+    border-color: var(--color);
+}
+
+.WSH.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}

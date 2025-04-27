@@ -1,0 +1,130 @@
+{
+  "columns": {
+    "player": {
+      "text": "PLAYER",
+      "title": "Player",
+      "nhlKey": [
+        "name",
+        "default"
+      ]
+    },
+    "number": {
+      "text": "NO",
+      "title": "Jersey number",
+      "numeric": true,
+      "nhlKey": [
+        "sweaterNumber"
+      ]
+    },
+    "position": {
+      "text": "POS",
+      "title": "Position",
+      "nhlKey": [
+        "position"
+      ]
+    },
+    "points": {
+      "text": "P",
+      "title": "Points",
+      "numeric": true,
+      "nhlKey": [
+        "points"
+      ]
+    },
+    "goals": {
+      "text": "G",
+      "title": "Goals",
+      "numeric": true,
+      "nhlKey": [
+        "goals"
+      ]
+    },
+    "assists": {
+      "text": "A",
+      "title": "Assists",
+      "numeric": true,
+      "nhlKey": [
+        "assists"
+      ]
+    },
+    "plusMinus": {
+      "text": "+/-",
+      "title": "Plus/minus",
+      "numeric": true,
+      "nhlKey": [
+        "plusMinus"
+      ]
+    },
+    "penaltyMinutes": {
+      "text": "PIM",
+      "title": "Penalty minutes",
+      "numeric": true,
+      "nhlKey": [
+        "pim"
+      ]
+    },
+    "shots": {
+      "text": "S",
+      "title": "Shots",
+      "numeric": true,
+      "nhlKey": [
+        "sog"
+      ]
+    },
+    "hits": {
+      "text": "HT",
+      "title": "Hits",
+      "numeric": true,
+      "nhlKey": [
+        "hits"
+      ]
+    },
+    "blockedShots": {
+      "text": "BS",
+      "title": "Blocked shots",
+      "numeric": true,
+      "nhlKey": [
+        "blockedShots"
+      ]
+    },
+    "giveaways": {
+      "text": "GV",
+      "title": "Giveaways",
+      "numeric": true,
+      "nhlKey": [
+        "giveaways"
+      ]
+    },
+    "takeaways": {
+      "text": "TK",
+      "title": "Takeaways",
+      "numeric": true,
+      "nhlKey": [
+        "takeaways"
+      ]
+    },
+    "shifts": {
+      "text": "SHF",
+      "title": "Shifts",
+      "numeric": true,
+      "nhlKey": [
+        "shifts"
+      ]
+    },
+    "faceoffPercentage": {
+      "text": "FO%",
+      "title": "Face-off win percentage",
+      "numeric": true,
+      "nhlKey": [
+        "faceoffWinningPctg"
+      ]
+    },
+    "timeOnIce": {
+      "text": "TOI",
+      "title": "Time on ice",
+      "nhlKey": [
+        "toi"
+      ]
+    }
+  }
+}

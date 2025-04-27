@@ -1,0 +1,38 @@
+.slider {
+    --width: 10em;
+    --height: 1.25em;
+    --border: 3px;
+    --center-difference-horizontal: calc(var(--width) / 2);
+    --center-difference-vertical: calc(var(--height) / 2);
+    --color: var(--grey);
+    width: var(--width);
+    height: var(--height);
+    border: var(--border) solid var(--color);
+    border-radius: calc(var(--height) / 2);
+    position: fixed;
+    top: calc(50% - var(--center-difference-vertical));
+    left: calc(50% - var(--center-difference-horizontal));
+    box-sizing: border-box;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: calc(var(--height) - var(--border) * 2);
+    height: calc(var(--height) - var(--border) * 2);
+    border-radius: 100%;
+    background-color: red;
+    animation: slider 1s ease-in-out infinite alternate;
+}
+
+@keyframes slider {
+    0% {
+        left: 0;
+        transform: translateX(0%);
+    }
+    100% {
+        left: 100%;
+        transform: translateX(-100%);
+    }
+}

@@ -1,0 +1,321 @@
+.playersTable .horizontalFlex {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    text-align: left;
+}
+
+.playersTable tr {
+    cursor: pointer;
+}
+
+.playersTable td {
+    padding-top: 0.1875em;
+    padding-bottom: 0.1875em;
+}
+
+.playersLegend dt {
+    min-width: 4em;
+}
+
+.playerInformationBanner {
+    padding: 1em;
+    margin-bottom: 1em;
+    min-width: 24em;
+    box-sizing: border-box;
+}
+
+.playerInformationBanner:last-child {
+    margin-bottom: 0;
+}
+
+.playersBanner {
+    padding-bottom: 1em;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.playersBanner h2 {
+    margin: 0;
+    line-height: 1.5em;
+    text-align: left;
+}
+
+.playersImage {
+    --size: 13em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.playersCountryOfBirth {
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.playersCountryOfBirth span {
+    text-align: center;
+}
+
+.horizontalFlex.playersCountryOfBirth {
+    justify-content: center;
+}
+
+.playersCountryOfBirth img {
+    width: auto;
+    height: 1em;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.playersInformation {
+    padding: 0.5em;
+    min-height: 11em;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.playersInformation h2 {
+    line-height: 1.25em;
+    overflow-wrap: anywhere;
+}
+
+.numberAndPosition {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+}
+
+.draftInformation {
+    align-items: flex-start;
+}
+
+.roundInformation span:first-child {
+    min-width: 5em;
+}
+
+.playersStatistics {
+    padding: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
+    gap: 1em;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.playersStatistics span {
+    min-width: max-content;
+}
+
+.awardImage {
+    width: auto;
+    height: 7em;
+}
+
+.awardImagePlaceholder {
+    width: auto;
+    height: 5em;
+}
+
+.biography {
+    padding: 0 1em;
+    max-height: 15em;
+    overflow: hidden;
+}
+
+.biography p,
+.biography ul {
+    text-align: left;
+}
+
+.biography p:last-of-type {
+    margin-bottom: 0;
+}
+
+.biographySubheading {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.biography ul {
+    padding: 0 0 0 1em;
+    margin: 0;
+}
+
+.biography ~ input {
+    display: none;
+}
+
+.biography ~ label {
+    padding: 0 0.25em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.biography ~ label:after {
+    content: "Show more";
+}
+
+.biography ~ input:checked + label:after {
+    content: "Show less";
+}
+
+.biography:has(~ input:checked) {
+    max-height: 100%;
+}
+
+.awardGrid {
+    grid-template-columns: repeat(auto-fill, minmax(19.5em, 1fr));
+}
+
+.awardGrid h3 {
+    line-height: 1em;
+}
+
+.awardYears {
+    margin-top: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.5em;
+    column-gap: 1em;
+}
+
+.scrollableTable {
+    overflow: auto;
+}
+
+.lastFiveTable tr {
+    height: 3em;
+}
+
+.lastFiveTable th {
+    padding: 0 0.25em;
+    min-width: 2em;
+    cursor: initial;
+}
+
+.lastFiveTable tr:nth-child(even):last-child td {
+    border-bottom: 1px solid var(--grey);
+}
+
+.seasonHistory {
+    padding: 0 1em;
+    gap: 1em;
+}
+
+.seasonHistory:has(.seasonStats > :nth-child(3)) {
+    max-height: 100%;
+}
+
+.seasonHistory:not(:has(.seasonStats > :nth-child(3))):has(.statistics :nth-child(9)) {
+    max-height: 45em;
+}
+
+.seasonButtons {
+    min-width: 6.5em;
+    overflow: auto;
+}
+
+.seasonButton {
+    min-height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0;
+    border-radius: 0;
+}
+
+.seasonButton:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.seasonButton:last-child {
+    border-bottom: 1px solid var(--grey);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.seasonStats {
+    width: 100%;
+    height: 100%;
+}
+
+.seasonStatsTabs.tabs {
+    height: 3em;
+    width: 100%;
+    gap: 0.75em;
+}
+
+.seasonStats .statistics {
+    width: 100%;
+}
+
+.seasonStats .statistics:not(:last-child) {
+    margin-bottom: 0.75em;
+}
+
+.playoffHeader {
+    margin-top: 1.4375em;
+}
+
+.selectSeasonSpan {
+    margin-left: -8em;
+}
+
+.previousSeasonSummary {
+    top: var(--nav-bar-height);
+    z-index: 0;
+}
+
+.previousSeason .statistics {
+    margin-bottom: 1em;
+}
+
+.previousSeason:last-of-type .statistics:last-of-type {
+    margin-bottom: 0;
+}
+
+.previousSeason h4 {
+    text-align: center;
+}
+
+.previousSeason h4:first-of-type {
+    margin-top: 0.25em;
+}
+
+.previousSeason summary {
+    gap: 0.5em;
+}
+
+.previousSeason summary:before {
+    content: "+";
+}
+
+.previousSeason[open] summary:before {
+    content: "-";
+}
+
+@media (max-width: 479px) {
+    .playersImage {
+        --size: 10em;
+        width: var(--size);
+        height: var(--size);
+    }
+
+    .seasonHistory {
+        padding: 0 0.5em;
+        gap: 0.5em;
+    }
+
+    .selectSeasonSpan {
+        margin-left: 0;
+    }
+}

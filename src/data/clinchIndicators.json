@@ -1,0 +1,29 @@
+{
+  "columns": {
+    "E": {
+      "text": "E",
+      "title": "Eliminated from playoffs",
+      "class": "eliminated"
+    },
+    "X": {
+      "text": "X",
+      "title": "Clinched playoffs",
+      "class": "clinched"
+    },
+    "Y": {
+      "text": "Y",
+      "title": "Division champion",
+      "class": "divisionChampion"
+    },
+    "Z": {
+      "text": "Z",
+      "title": "Conference champion",
+      "class": "conferenceChampion"
+    },
+    "P": {
+      "text": "P",
+      "title": "President's trophy",
+      "class": "presidentsTrophy"
+    }
+  }
+}

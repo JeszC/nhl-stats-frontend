@@ -1,0 +1,59 @@
+.standingsTable .horizontalFlex {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    text-align: left;
+}
+
+.standingsTable tr {
+    cursor: pointer;
+}
+
+.standingsTable .clinchedSpot {
+    --size: 1.5em;
+    min-width: var(--size);
+    min-height: var(--size);
+    padding: 0.25em;
+    font-size: 0.75em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.standingsTable .clinchedSpot.eliminated {
+    background-color: crimson;
+    color: white;
+}
+
+.standingsTable .clinchedSpot.divisionChampion {
+    background-color: gold;
+    color: black;
+}
+
+.standingsTable .clinchedSpot.conferenceChampion {
+    background-color: green;
+    color: white;
+}
+
+.standingsTable .clinchedSpot.presidentsTrophy {
+    background-color: lightskyblue;
+    color: black;
+}
+
+.standingsTable .standingsImage {
+    min-width: var(--image-size);
+    min-height: var(--image-size);
+}
+
+.standingsTable .transparent {
+    background-color: inherit;
+}
+
+.standingsTable .record {
+    white-space: nowrap;
+}
+
+.standingsLegend dt {
+    min-width: 4em;
+}

@@ -1,0 +1,63 @@
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16em, 1fr));
+}
+
+.dayResults {
+    max-height: 22.5em;
+    border-left: 1px solid var(--grey);
+    border-right: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    overflow: auto;
+}
+
+.dayResults .resultSummary {
+    padding: 0 1em;
+    gap: 1em;
+}
+
+.dayResults .dateAndNumberOfGames {
+    gap: 0.25em;
+}
+
+.dayResults .todayGames {
+    margin: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+}
+
+.dayResults .numberOfGamesInOneDay {
+    font-weight: normal;
+}
+
+.dayResults summary {
+    gap: 0.5em;
+}
+
+.dayResults summary:before {
+    content: "+";
+}
+
+.dayResults[open] summary:before {
+    content: "-";
+}
+
+.resultsPlaceholder {
+    text-align: center;
+}
+
+@media (max-width: 959px) {
+    .dayResults {
+        max-height: 22.666em;
+    }
+}
+
+@media (min-width: 960px) and (max-width: 999px), (min-width: 1280px) {
+    .dayResults {
+        max-height: calc(100vh - var(--nav-bar-height) - 1px);
+        border-right: 0;
+    }
+
+    .dayResults:first-child {
+        border-left: 0;
+    }
+}

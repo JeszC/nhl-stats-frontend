@@ -1,0 +1,445 @@
+@media (prefers-color-scheme: light) {
+
+    body,
+    dialog[open] {
+        background-color: white;
+        color: black;
+    }
+
+    nav {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .hamburgerButton,
+    .helpButton {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .dialogLeftElement:hover:disabled,
+    .dialogRightElement:hover:disabled,
+    .dialogLeftElement:active:disabled,
+    .dialogRightElement:active:disabled {
+        background-color: transparent;
+    }
+
+    .dialogLeftElement:hover:not([disabled]) .icon,
+    .dialogRightElement:hover:not([disabled]) .icon,
+    .dialogLeftElement:active:not([disabled]) .icon,
+    .dialogRightElement:active:not([disabled]) .icon {
+        filter: initial;
+    }
+
+    a {
+        color: mediumblue;
+    }
+
+    a:visited {
+        color: purple;
+    }
+
+    .gameLinks a {
+        color: deepskyblue;
+    }
+
+    .gameLinks a:visited {
+        color: violet;
+    }
+
+    input[type="search"] {
+        background-color: white;
+        color: black;
+    }
+
+    table th {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    table th:hover {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    table tr:hover {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    select {
+        background-color: white;
+        color: black;
+    }
+
+    option:hover {
+        background-color: var(--dark-grey);
+        color: white;
+    }
+
+    option:checked {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    button {
+        background-color: white;
+        color: black;
+    }
+
+    button:hover {
+        background-color: var(--dark-grey);
+        color: white;
+    }
+
+    button:active {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    button:disabled:hover,
+    button:disabled:active {
+        background-color: white;
+        color: black;
+    }
+
+    .calendarHeader button:disabled:hover,
+    .calendarHeader button:disabled:active {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .pageBar button:disabled:hover,
+    .pageBar button:disabled:active {
+        background-color: white;
+        color: black;
+    }
+
+    aside {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    aside > header {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .standingsTable .clinchedSpot {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .transparentButton {
+        color: white;
+    }
+
+    .transparentButton:hover,
+    .sidebarButton:hover {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .transparentButton:active,
+    .sidebarButton:active {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .sortedColumn {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .error {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .icon {
+        filter: invert(100%);
+    }
+
+    .sidebarButton:hover .icon,
+    .sidebarButton:active .icon,
+    nav .transparentButton:hover .icon,
+    nav .transparentButton:active .icon,
+    nav .transparentButton.selectedView .icon {
+        filter: initial;
+    }
+
+    .sidebarButtonActive {
+        background-color: var(--light-grey);
+    }
+
+    .sidebarButtonActive .icon {
+        filter: initial;
+    }
+
+    .transparentButton.selectedView {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .injuriesHome .injuryPlayerInformation,
+    .teamsContent .injuryTeamAndPlayerInformation:not(:hover, :active) {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .individualGame {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .dateTimeInformation {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .individualGame:hover .dateTimeInformation {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .individualGame:active .dateTimeInformation {
+        background-color: var(--darkest-grey);
+        color: white;
+    }
+
+    .teamsButton:hover .teamsPlayer {
+        background-color: var(--dark-grey);
+        color: white;
+    }
+
+    .teamsButton:hover .teamsStatistics {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .teamsButton:active .teamsPlayer {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .teamsButton:active .teamsStatistics {
+        background-color: var(--darkest-grey);
+        color: white;
+    }
+
+    .teamsPlayer {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .teamsStatistics {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .tab {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .teamsRosterTabs {
+        background-color: white;
+        color: black;
+    }
+
+    .activeTab {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .noGame {
+        background-color: white;
+        color: black;
+    }
+
+    .notThisMonth {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .buttonWithIcon:hover .buttonIndicator,
+    .buttonWithIcon:active .buttonIndicator {
+        filter: invert(100%);
+    }
+
+    .homeHeader,
+    .calendarHeader,
+    .gamesHeader {
+        background: var(--darker-grey);
+        color: white;
+    }
+
+    .weekdaysLong,
+    .weekdaysShort {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .pageBar {
+        background-color: white;
+        color: black;
+    }
+
+    .gamesTableWithHeader h4 {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .singleGameButton:hover {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .singleGameButton:active {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .gamesSummary {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .statistics .statisticsColumn .statisticsHeader {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .statisticsHeader {
+        border-color: var(--dark-grey);
+    }
+
+    .statisticsColumn span,
+    .statisticsColumn .singlePlayer:not(.upcomingGameButton),
+    .statisticsColumn .upcomingGameButton:not(:hover, :active) {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .statisticsColumn span:first-child {
+        background-color: var(--darkest-grey);
+        color: white;
+    }
+
+    .previousSeasonSummary:hover {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .shootoutImageAndResult .goalIcon {
+        background-color: green;
+        color: black;
+    }
+
+    .shootoutImageAndResult .saveIcon {
+        background-color: red;
+        color: black;
+    }
+
+    .tableAlternateRows tr:nth-child(even):not(:hover),
+    .lastFiveTable tr:nth-child(odd):not(:hover) {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
+    .previousSeasons details[open] summary {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .previousSeasons details summary:hover {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .dayResults .today {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .selectedSingleSelectionButton {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .playoffSeries .playoffTeam:hover {
+        background: var(--dark-grey);
+        color: white;
+    }
+
+    .playoffSeries .playoffTeam:active {
+        background: var(--darker-grey);
+        color: white;
+    }
+
+    .playoffGameInformation.transparentButton:not(:hover, :active) {
+        color: black;
+    }
+
+    .playoffDetails {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .playoffDetails:hover {
+        background-color: var(--lighter-grey);
+        color: black;
+    }
+
+    .playoffDetails:active {
+        background-color: var(--light-grey);
+        color: black;
+    }
+
+    .biography ~ label:hover {
+        background-color: var(--dark-grey);
+        color: white;
+    }
+
+    .biography ~ label:active {
+        background-color: var(--darker-grey);
+        color: white;
+    }
+
+    .periodSeparator {
+        background-color: white;
+        color: black;
+    }
+
+    .gameLinks .playButton {
+        filter: invert(100%);
+    }
+
+    .default {
+        --color: var(--lightest-grey);
+        accent-color: var(--color);
+        background-color: var(--color);
+        color: black;
+    }
+
+    .default.gradient {
+        background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+        color: black;
+    }
+
+    .default.gradient.awayTeam {
+        background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+        color: white;
+    }
+
+    .default.gradient.homeTeam {
+        background-image: linear-gradient(120deg, black 10%, var(--color) 100%);
+        color: white;
+    }
+
+    .default.layerImage {
+        background: transparent;
+        filter: invert(0%);
+    }
+
+}

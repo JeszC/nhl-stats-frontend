@@ -1,0 +1,44 @@
+.bars {
+    --size: 7em;
+    --center-difference: calc(var(--size) / 2);
+    --color: var(--grey);
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    top: calc(50% - var(--center-difference));
+    left: calc(50% - var(--center-difference));
+}
+
+.bars div {
+    --barWidth: calc(var(--size) / 5);
+    position: absolute;
+    width: var(--barWidth);
+    background-color: var(--color);
+    animation: bars 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.bars .firstBar {
+    left: 0;
+    animation-delay: -0.25s;
+}
+
+.bars .secondBar {
+    left: calc(50% - var(--barWidth) / 2);
+    animation-delay: -0.125s;
+}
+
+.bars .thirdBar {
+    right: 0;
+    animation-delay: 0s;
+}
+
+@keyframes bars {
+    0% {
+        top: 0;
+        height: var(--size);
+    }
+    50%, 100% {
+        top: calc(var(--size) / 4);
+        height: calc(var(--size) / 2);
+    }
+}

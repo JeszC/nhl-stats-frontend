@@ -1,0 +1,43 @@
+{
+  "columns": {
+    "awayTeam": {
+      "text": "AWAY",
+      "title": "Away team",
+      "nhlKey": [
+        "awayTeam",
+        "abbrev"
+      ]
+    },
+    "homeTeam": {
+      "text": "HOME",
+      "title": "Home team",
+      "nhlKey": [
+        "homeTeam",
+        "abbrev"
+      ]
+    },
+    "startTimeUTC": {
+      "text": "DATE",
+      "title": "Game date",
+      "nhlKey": [
+        "startTimeUTC"
+      ]
+    },
+    "venue": {
+      "text": "ARENA",
+      "title": "Game location",
+      "nhlKey": [
+        "venue",
+        "default"
+      ]
+    },
+    "gameType": {
+      "text": "TYPE",
+      "title": "Game type",
+      "numeric": true,
+      "nhlKey": [
+        "gameType"
+      ]
+    }
+  }
+}

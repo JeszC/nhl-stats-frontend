@@ -1,0 +1,129 @@
+{
+  "teamCategories": {
+    "league": {
+      "default": true,
+      "text": "League",
+      "title": "League",
+      "nhlKey": [
+        ""
+      ]
+    },
+    "western": {
+      "text": "Western",
+      "title": "Western",
+      "nhlKey": [
+        "W"
+      ]
+    },
+    "eastern": {
+      "text": "Eastern",
+      "title": "Eastern",
+      "nhlKey": [
+        "E"
+      ]
+    }
+  },
+  "upperCategories": {
+    "season": {
+      "default": true,
+      "text": "Season",
+      "title": "Season",
+      "nhlKey": [
+        "season"
+      ],
+      "defaultTab": true
+    },
+    "playoffs": {
+      "text": "Playoffs",
+      "title": "Playoffs",
+      "nhlKey": [
+        "playoff"
+      ]
+    }
+  },
+  "lowerCategoriesSkater": {
+    "points": {
+      "default": true,
+      "text": "P",
+      "title": "Points",
+      "nhlKey": [
+        "points"
+      ],
+      "defaultTab": true
+    },
+    "goals": {
+      "text": "G",
+      "title": "Goals",
+      "nhlKey": [
+        "goals"
+      ]
+    },
+    "assists": {
+      "text": "A",
+      "title": "Assists",
+      "nhlKey": [
+        "assists"
+      ]
+    },
+    "penaltyMinutes": {
+      "text": "PIM",
+      "title": "Penalty minutes",
+      "nhlKey": [
+        "penaltyMins"
+      ]
+    },
+    "timeOnIce": {
+      "text": "TOI/G",
+      "title": "Time on ice per game",
+      "nhlKey": [
+        "toi"
+      ]
+    },
+    "faceOffWinPercentage": {
+      "text": "FO%",
+      "title": "Face-off win percentage",
+      "nhlKey": [
+        "faceoffLeaders"
+      ]
+    },
+    "plusMinus": {
+      "text": "+/-",
+      "title": "Plus/minus",
+      "nhlKey": [
+        "plusMinus"
+      ]
+    }
+  },
+  "lowerCategoriesGoalie": {
+    "savePercentage": {
+      "default": true,
+      "text": "SV%",
+      "title": "Save percentage",
+      "nhlKey": [
+        "savePctg"
+      ],
+      "defaultTab": true
+    },
+    "goalsAgainstAverage": {
+      "text": "GAA",
+      "title": "Goals against average",
+      "nhlKey": [
+        "goalsAgainstAverage"
+      ]
+    },
+    "shutouts": {
+      "text": "SO",
+      "title": "Shutouts",
+      "nhlKey": [
+        "shutouts"
+      ]
+    },
+    "wins": {
+      "text": "W",
+      "title": "Wins",
+      "nhlKey": [
+        "wins"
+      ]
+    }
+  }
+}

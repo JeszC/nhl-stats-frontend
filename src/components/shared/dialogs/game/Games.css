@@ -1,0 +1,829 @@
+.gamesHeader {
+    height: var(--nav-bar-height);
+    line-height: var(--nav-bar-height);
+    position: sticky;
+    top: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.gamesDetails:not(:last-of-type, [open]) {
+    border-bottom: 1px solid var(--grey);
+}
+
+.gamesSummary {
+    height: var(--nav-bar-height);
+    position: sticky;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    text-align: center;
+    font-weight: bold;
+    z-index: 10;
+}
+
+dialog[open] .gamesSummary {
+    min-width: 24em;
+}
+
+.gamesSummary h1 {
+    font-size: 1em;
+}
+
+.gamesContent {
+    padding-bottom: 1em;
+    min-width: 24em;
+}
+
+.gamesContent:nth-child(n+5 of .gamesContent):not(:last-child, details:not([open])) {
+    padding-bottom: 5em;
+}
+
+.gamesContent span {
+    text-align: left;
+}
+
+.eventBanner {
+    padding: 0 1em;
+    width: 100%;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    background-color: black;
+    color: white;
+}
+
+.eventBannerImage {
+    width: 100%;
+    object-fit: contain;
+}
+
+.gameInformationBanner {
+    margin-bottom: 1em;
+    min-height: 12em;
+}
+
+.singleTeam {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.singleTeam .teamLogo {
+    --size: 12em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.singleTeam .teamScore {
+    min-width: 1.25em;
+    text-align: center;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.teamOrGameInformation {
+    min-width: 7em;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleTeam.awayTeam .teamOrGameInformation {
+    font-size: 1.5em;
+    align-items: flex-start;
+}
+
+.teamOrGameInformation.gameInformation {
+    min-width: 12em;
+    font-size: 1.25em;
+    text-align: center;
+    gap: 0.25em;
+    background-color: black;
+    color: white;
+}
+
+.singleTeam.homeTeam .teamOrGameInformation {
+    font-size: 1.5em;
+    align-items: flex-end;
+}
+
+.gameLinks {
+    gap: 0.25em;
+}
+
+.gameLinks:hover .zoom {
+    transform: scale(1.5);
+}
+
+.gameLinks:hover a {
+    font-weight: bold;
+}
+
+.statistics {
+    justify-content: space-between;
+    gap: 0.25em;
+}
+
+.statisticsColumn {
+    width: 100%;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.statisticsColumn span {
+    padding: 0 0.5em;
+    width: 100%;
+    height: 3.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.scorerImageAndLinks {
+    gap: 1em;
+}
+
+.goalLinks {
+    gap: 0.25em;
+}
+
+.individualGoal {
+    margin-left: 1em;
+    min-width: 5em;
+    justify-content: flex-start;
+    gap: 0.25em;
+}
+
+.individualGoal:hover .zoom {
+    transform: scale(1.5);
+}
+
+.individualGoal:hover a {
+    font-weight: bold;
+}
+
+.playButton {
+    --size: 1em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.singlePlayer {
+    padding: 0.5em;
+    width: 100%;
+    height: 5em;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 0;
+}
+
+.singlePlayer:hover .zoom {
+    transform: scale(1.25);
+}
+
+.statisticsColumn .singlePlayer .singlePlayerText {
+    padding: 0;
+    height: revert;
+    font-weight: revert;
+    text-transform: revert;
+    text-align: left;
+    background-color: revert;
+    color: revert;
+}
+
+.singlePlayer .singlePlayerText.lastFiveLeaderCategory {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.singlePlayerImageAndInformation {
+    min-width: min-content;
+    justify-content: flex-start;
+    gap: 0.5em;
+}
+
+.singlePlayerImageAndInformation img {
+    --size: 4em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.singlePlayerInformation {
+    min-width: 9em;
+    justify-content: center;
+}
+
+.singlePlayerInformation .singlePlayerText {
+    min-width: 3em;
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.singlePlayerNumberAndPosition {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.singlePlayerNumberAndPosition .singlePlayerText {
+    width: 3em;
+}
+
+.singleGoalieStatistic .singlePlayerText {
+    min-width: 4em;
+}
+
+.statisticsColumn .singlePlayer .singlePlayerStatistic {
+    width: 2em;
+    font-size: 1.5em;
+}
+
+.statisticsColumn span:first-child,
+.statisticsColumn:nth-child(2) span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.twoColumn .statisticsColumn:first-child span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.twoColumn .statisticsColumn:nth-child(2) span:not(:first-child) {
+    text-transform: initial;
+    font-weight: initial;
+}
+
+.statisticsHeader {
+    border-bottom: 5px solid var(--grey);
+    position: sticky;
+    top: 3em;
+    z-index: 1;
+}
+
+.gamesLegend:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.gamesLegend span {
+    min-width: 4em;
+}
+
+.teamBackground {
+    width: 100%;
+    justify-content: space-around;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.teamSeparatedInformation {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22.75em, 1fr));
+    align-items: start;
+    gap: 1em;
+}
+
+.periodInformation {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22.75em, 1fr));
+    gap: 1em;
+}
+
+.playerInformation {
+    padding: 0 1em;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    border-radius: 5px;
+}
+
+.gamesContent h2 {
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+}
+
+.gamesContent h3,
+.gamesContent .gamesTitle {
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.75em;
+    line-height: 1em;
+    text-align: center;
+}
+
+.gamesContent .gamesTitle {
+    width: fit-content;
+}
+
+.gamesContent h4 {
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.periodSeparator {
+    padding: 0 1em;
+    top: 3em;
+    grid-column: 1 / -1;
+    z-index: 1;
+    border-bottom: 2px dashed var(--grey);
+}
+
+.periodSeparator .horizontalFlex {
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.periodSeparator .horizontalFlex span {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.periodSeparatorInformation {
+    font-family: monospace;
+}
+
+.threeStars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+    box-sizing: border-box;
+}
+
+.singleStar {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    gap: 1em;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+.singleStar:hover .zoom {
+    transform: scale(1.25);
+}
+
+.starImage {
+    --size: 8em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.singleStarInformation {
+    padding: 0.5em;
+    min-width: 12em;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: 0.5em;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.starNumber {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.starName {
+    font-weight: bold;
+}
+
+.singleStarStatistics {
+    gap: 1em;
+}
+
+.periodInformation .verticalFlex {
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.periodInformation .verticalFlex span {
+    line-height: 1.5em;
+}
+
+.gamesImage {
+    --size: 7.5em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.zoom {
+    transition: transform 0.25s;
+}
+
+.zoom:hover {
+    transform: scale(1.25);
+}
+
+.teamColorLayer {
+    position: absolute;
+}
+
+.stats {
+    gap: 1em;
+}
+
+.stats span {
+    min-width: 3em;
+    font-family: monospace;
+}
+
+.stats.scratchStats {
+    gap: 2em;
+}
+
+.stats .scratchSingleStat {
+    min-width: auto;
+}
+
+.stats .statType {
+    font-family: inherit;
+}
+
+.shootoutShooters {
+    padding: 1em;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    column-gap: 1em;
+    row-gap: 2em;
+}
+
+.shootoutShooter {
+    gap: 0.75em;
+    justify-content: center;
+    align-items: center;
+}
+
+.shootoutShooter:nth-child(even) .goalIndicatorIcon {
+    order: -1;
+}
+
+.shootoutShooter:nth-child(even) .shootoutShooterInformation,
+.shootoutShooter:nth-child(even) .shootoutShooterName,
+.shootoutShooter:nth-child(even) .stats {
+    align-items: flex-end;
+}
+
+.shootoutShooter:nth-child(even) .shootoutShotInformation {
+    justify-content: flex-end;
+}
+
+.shootoutShooter:nth-child(even) .stats span {
+    text-align: right;
+}
+
+.shootoutImageAndResult {
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.shootoutImage {
+    --size: 7.5em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.goalIndicatorIcon {
+    border-radius: 100%;
+}
+
+.shootoutShooterInformation {
+    width: 100%;
+    align-items: flex-start;
+    gap: 0.5em;
+}
+
+.shootoutShooterInformation .textOnlyButton {
+    width: initial;
+}
+
+.shootoutShooterName {
+    align-items: flex-start;
+    gap: 0.25em;
+}
+
+.shootoutShotInformation {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+}
+
+.shootoutShotInformation .stats {
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.25em;
+}
+
+.primary {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.secondary {
+    font-style: italic;
+}
+
+.skaterGoalieTables {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(44em, 1fr));
+    gap: 1em;
+    overflow: auto;
+}
+
+.gamesTableWithHeader {
+    width: 100%;
+}
+
+.gamesTableWithHeader h4 {
+    width: calc(50% - 1em / 3);
+    position: absolute;
+    text-align: center;
+    border-bottom: 5px solid var(--grey);
+}
+
+.gamesTableWithHeader tr:nth-child(odd):last-child td {
+    border-bottom: 1px solid var(--grey);
+}
+
+.gamesTable {
+    margin-top: calc(2.25em + 5px);
+}
+
+.gamesTable tr {
+    height: 2.5em;
+    cursor: pointer;
+}
+
+.gamesTable th {
+    min-width: 2em;
+}
+
+.gamesTable th button {
+    padding: 0 0.25em;
+}
+
+.gamesTable .playerName {
+    max-width: 8em;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.eventChartFilters {
+    padding: 0 1em;
+    margin-bottom: 1em;
+    gap: 1em;
+}
+
+.eventChartFilter {
+    gap: 0.25em;
+}
+
+.eventChartButtons {
+    justify-content: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.eventChartFilters span {
+    display: block;
+    text-align: center;
+}
+
+.eventChartButtons button {
+    padding: 0 0.5em;
+    width: max-content;
+}
+
+.eventChart {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.rink {
+    --rink-width: 200;
+    --rink-height: 85;
+    --curve-factor: calc(1 / 3);
+    --horizontal-radius: calc(var(--rink-height) / var(--rink-width) * var(--curve-factor) * 100%);
+    --vertical-radius: calc(var(--curve-factor) * 100%);
+    border-radius: var(--horizontal-radius)/var(--vertical-radius);
+    width: 100%;
+    max-width: max-content;
+    height: 100%;
+}
+
+.events {
+    position: absolute;
+    top: 0;
+    left: auto;
+}
+
+.centerIceLogo {
+    --center-faceoff-circle-size: 30;
+    --rink-height: 85;
+    --empty-space-factor: 0.6;
+    --size-without-padding: calc(var(--center-faceoff-circle-size) / var(--rink-height) * 100%);
+    --size-with-padding: calc(var(--size-without-padding) * var(--empty-space-factor));
+    width: var(--size-with-padding);
+    height: var(--size-with-padding);
+    position: absolute;
+    top: calc(50% - var(--size-with-padding) / 2);
+    left: calc(50% - var(--size-with-padding) / 2);
+    color: black;
+}
+
+@media (max-width: 375px) {
+    .statisticsColumn:has(.singlePlayer):nth-child(2) {
+        width: min-content;
+    }
+
+    .statisticsColumn:has(.emptyGoalieData):nth-child(2) {
+        width: 100%;
+    }
+}
+
+@media (min-width: 376px) {
+    .statisticsColumn:has(.singlePlayer):nth-child(2) {
+        min-width: min-content;
+    }
+}
+
+@media (max-width: 479px) {
+    .singlePlayerInformation {
+        min-width: revert;
+    }
+
+    .shootoutImage {
+        --size: 6em;
+        width: var(--size);
+        height: var(--size);
+    }
+}
+
+@media (max-width: 719px) {
+    .statisticsColumn:has(.singlePlayer):not(:nth-child(2)) {
+        min-width: 4em;
+    }
+
+    .singlePlayer {
+        align-items: center;
+        height: 9.5em;
+    }
+
+    .statisticsColumn .singlePlayer .singlePlayerStatistic {
+        font-size: 2em;
+    }
+
+    .singlePlayerImageAndInformation,
+    .singleGoalieStatistic {
+        flex-direction: column;
+    }
+
+    .statisticsColumn:has(.singleGoalieStatistic) {
+        flex: 1 1 0;
+    }
+
+    .SingleGoalieStatistics {
+        gap: 0.25em;
+    }
+}
+
+@media (max-width: 999px) {
+    .events {
+        width: 100%;
+        height: 100%;
+    }
+
+    .gameInformationBanner {
+        flex-direction: column;
+    }
+
+    .gameInformationBanner .singleTeam.gradient.awayTeam,
+    .gameInformationBanner .singleTeam.gradient.homeTeam {
+        background-image: linear-gradient(90deg, var(--color), black 100%);
+        color: white;
+    }
+
+    .teamOrGameInformation.gameInformation {
+        padding: 0.5em 0;
+        order: -1;
+    }
+
+    .singleTeam {
+        gap: 1em;
+    }
+
+    .singleTeam .teamLogo {
+        --size: 5em;
+        width: var(--size);
+        height: var(--size);
+        order: -1;
+    }
+
+    .singleTeam .teamScore {
+        order: 1;
+    }
+
+    .singleTeam .teamOrGameInformation {
+        padding: 0.25em;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+    }
+
+    .singleTeam.homeTeam .teamOrGameInformation {
+        align-items: flex-start;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1279px) {
+    .gameInformationBanner {
+        min-height: 9em;
+    }
+
+    .teamOrGameInformation.gameInformation {
+        font-size: 0.9375em;
+    }
+
+    .singleTeam {
+        gap: 1em;
+    }
+
+    .singleTeam .teamLogo {
+        --size: 5em;
+        width: var(--size);
+        height: var(--size);
+    }
+
+    .singleTeam .teamScore {
+        font-size: 3em;
+    }
+
+    .singleTeam.homeTeam .teamOrGameInformation,
+    .singleTeam.awayTeam .teamOrGameInformation {
+        font-size: 1.125em;
+    }
+}
+
+@media (max-width: 1279px) {
+    .threeStars {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+    .gameInformationBanner {
+        min-height: 10em;
+    }
+
+    .teamOrGameInformation.gameInformation {
+        font-size: 1em;
+    }
+
+    .singleTeam {
+        gap: 1em;
+    }
+
+    .singleTeam .teamLogo {
+        --size: 8em;
+        width: var(--size);
+        height: var(--size);
+    }
+
+    .singleTeam .teamScore {
+        font-size: 3em;
+    }
+
+    .singleTeam.homeTeam .teamOrGameInformation,
+    .singleTeam.awayTeam .teamOrGameInformation {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 1779px) {
+    .gamesTableWithHeader h4 {
+        width: 80vw;
+    }
+}

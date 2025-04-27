@@ -1,0 +1,92 @@
+nav {
+    margin: 0 var(--nav-bar-height);
+    position: fixed;
+    bottom: 0;
+    width: calc(100vw - 2 * var(--nav-bar-height));
+    height: var(--nav-bar-height);
+    z-index: 100;
+}
+
+.navBarLinks {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: auto;
+    list-style-type: none;
+    justify-content: center;
+}
+
+.navBarLink {
+    user-select: none;
+}
+
+.routerLink {
+    text-decoration: none;
+}
+
+.navBarButton {
+    padding: 0 1.75em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    text-transform: none;
+    font-weight: normal;
+    line-height: calc(1em - 1px);
+}
+
+.homePage {
+    font-weight: bold;
+}
+
+.icon {
+    margin: auto;
+    min-width: calc(var(--nav-bar-height) / 2);
+    min-height: 50%;
+    width: 50%;
+    height: 50%;
+}
+
+.pageTitle {
+    width: min-content;
+}
+
+.sidebarButton {
+    position: fixed;
+    bottom: 0;
+    min-width: var(--nav-bar-height);
+    min-height: var(--nav-bar-height);
+    width: var(--nav-bar-height);
+    height: var(--nav-bar-height);
+    border: 0;
+    border-radius: 0;
+    z-index: 100;
+}
+
+.hamburgerButton {
+    left: 0;
+}
+
+.helpButton {
+    right: 0;
+}
+
+@media (max-width: 639px) {
+    .navBarLink {
+        min-width: 4em;
+    }
+
+    nav .transparentButton {
+        padding: 0 0.5em;
+    }
+
+    .pageTitle {
+        display: none;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 799px) {
+    nav .transparentButton {
+        padding: 0 1em;
+    }
+}

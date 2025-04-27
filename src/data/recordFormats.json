@@ -1,0 +1,184 @@
+{
+  "winsLossesOvertimelosses": {
+    "record": {
+      "text": "REC",
+      "title": "Record (W-L-OTL)",
+      "comparison": [
+        1,
+        -1,
+        -1
+      ],
+      "nhlKey": [
+        "wins",
+        "losses",
+        "otLosses"
+      ]
+    },
+    "lastTen": {
+      "text": "L10",
+      "title": "Last ten games (W-L-OTL)",
+      "comparison": [
+        1,
+        -1,
+        -1
+      ],
+      "nhlKey": [
+        "l10Wins",
+        "l10Losses",
+        "l10OtLosses"
+      ]
+    },
+    "homeRecord": {
+      "text": "HOME",
+      "title": "Home record (W-L-OTL)",
+      "comparison": [
+        1,
+        -1,
+        -1
+      ],
+      "nhlKey": [
+        "homeWins",
+        "homeLosses",
+        "homeOtLosses"
+      ]
+    },
+    "awayRecord": {
+      "text": "AWAY",
+      "title": "Away record (W-L-OTL)",
+      "comparison": [
+        1,
+        -1,
+        -1
+      ],
+      "nhlKey": [
+        "roadWins",
+        "roadLosses",
+        "roadOtLosses"
+      ]
+    }
+  },
+  "winsLossesTiesOvertimelosses": {
+    "record": {
+      "text": "REC",
+      "title": "Record (W-L-T-OTL)",
+      "comparison": [
+        1,
+        -1,
+        0,
+        -1
+      ],
+      "nhlKey": [
+        "wins",
+        "losses",
+        "ties",
+        "otLosses"
+      ]
+    },
+    "lastTen": {
+      "text": "L10",
+      "title": "Last ten games (W-L-T-OTL)",
+      "comparison": [
+        1,
+        -1,
+        0,
+        -1
+      ],
+      "nhlKey": [
+        "l10Wins",
+        "l10Losses",
+        "l10Ties",
+        "l10OtLosses"
+      ]
+    },
+    "homeRecord": {
+      "text": "HOME",
+      "title": "Home record (W-L-T-OTL)",
+      "comparison": [
+        1,
+        -1,
+        0,
+        -1
+      ],
+      "nhlKey": [
+        "homeWins",
+        "homeLosses",
+        "homeTies",
+        "homeOtLosses"
+      ]
+    },
+    "awayRecord": {
+      "text": "AWAY",
+      "title": "Away record (W-L-T-OTL)",
+      "comparison": [
+        1,
+        -1,
+        0,
+        -1
+      ],
+      "nhlKey": [
+        "roadWins",
+        "roadLosses",
+        "roadTies",
+        "roadOtLosses"
+      ]
+    }
+  },
+  "winsLossesTies": {
+    "record": {
+      "text": "REC",
+      "title": "Record (W-L-T)",
+      "comparison": [
+        1,
+        -1,
+        0
+      ],
+      "nhlKey": [
+        "wins",
+        "losses",
+        "ties"
+      ]
+    },
+    "lastTen": {
+      "text": "L10",
+      "title": "Last ten games (W-L-T)",
+      "comparison": [
+        1,
+        -1,
+        0
+      ],
+      "nhlKey": [
+        "l10Wins",
+        "l10Losses",
+        "l10Ties"
+      ]
+    },
+    "homeRecord": {
+      "text": "HOME",
+      "title": "Home record (W-L-T)",
+      "comparison": [
+        1,
+        -1,
+        0
+      ],
+      "nhlKey": [
+        "homeWins",
+        "homeLosses",
+        "homeTies"
+      ]
+    },
+    "awayRecord": {
+      "text": "AWAY",
+      "title": "Away record (W-L-T)",
+      "comparison": [
+        1,
+        -1,
+        0
+      ],
+      "nhlKey": [
+        "roadWins",
+        "roadLosses",
+        "roadTies"
+      ]
+    }
+  }
+}

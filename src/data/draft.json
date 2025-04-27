@@ -1,0 +1,114 @@
+{
+  "columns": {
+    "player": {
+      "text": "Player",
+      "title": "Player",
+      "nhlKey": [
+        "playerName"
+      ]
+    },
+    "overallPick": {
+      "text": "OA",
+      "title": "Overall pick",
+      "numeric": true,
+      "nhlKey": [
+        "overallPickNumber"
+      ]
+    },
+    "round": {
+      "text": "R",
+      "title": "Draft round",
+      "numeric": true,
+      "nhlKey": [
+        "roundNumber"
+      ]
+    },
+    "draftTeam": {
+      "text": "DT",
+      "title": "Draft team",
+      "nhlKey": [
+        "triCode"
+      ]
+    },
+    "position": {
+      "text": "POS",
+      "title": "Position",
+      "nhlKey": [
+        "position"
+      ]
+    },
+    "countryCode": {
+      "text": "CTRY",
+      "title": "Country",
+      "nhlKey": [
+        "countryCode"
+      ]
+    },
+    "birthPlace": {
+      "text": "POB",
+      "title": "Place of birth",
+      "nhlKey": [
+        "birthPlace"
+      ]
+    },
+    "birthDate": {
+      "text": "DOB",
+      "title": "Date of birth",
+      "nhlKey": [
+        "birthDate"
+      ]
+    },
+    "age": {
+      "text": "AGE",
+      "title": "Age",
+      "numeric": true,
+      "nhlKey": [
+        "ageInYears"
+      ]
+    },
+    "amateurClub": {
+      "text": "AT",
+      "title": "Amateur team",
+      "nhlKey": [
+        "amateurClubName"
+      ]
+    },
+    "amateurLeague": {
+      "text": "AL",
+      "title": "Amateur league",
+      "nhlKey": [
+        "amateurLeague"
+      ]
+    },
+    "height": {
+      "text": "HGT",
+      "title": "Height (cm)",
+      "numeric": true,
+      "nhlKey": [
+        "height"
+      ]
+    },
+    "weight": {
+      "text": "WGT",
+      "title": "Weight (kg)",
+      "numeric": true,
+      "nhlKey": [
+        "weight"
+      ]
+    },
+    "shootsCatches": {
+      "text": "SHT/GLV",
+      "title": "Shooting/glove side",
+      "nhlKey": [
+        "shootsCatches"
+      ]
+    },
+    "notes": {
+      "text": "NOTES",
+      "title": "Notes",
+      "nhlKey": [
+        "notes"
+      ]
+    }
+  }
+}

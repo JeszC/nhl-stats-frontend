@@ -1,0 +1,24 @@
+.spinner {
+    --size: 7em;
+    --center-difference: calc(var(--size) / 2);
+    --color: var(--grey);
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    top: calc(50% - var(--center-difference));
+    left: calc(50% - var(--center-difference));
+    border: calc(var(--size) / 7) solid;
+    border-radius: 100%;
+    border-color: var(--color) transparent var(--color) transparent;
+    box-sizing: border-box;
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
