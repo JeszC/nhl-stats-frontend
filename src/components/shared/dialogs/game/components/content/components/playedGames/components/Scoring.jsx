@@ -9,9 +9,9 @@ import {
     parsePeriodTime
 } from "../../../../../../../../../scripts/parsing.js";
 import {getPlayer, getVideoURL, getVisualizerURL} from "../../../../../../../../../scripts/utils.js";
-import playIcon from "../../../../../images/play.svg";
-import checkmarkIcon from "../../../../../images/checkmark.svg";
-import crossIcon from "../../../../../images/cross.svg";
+import checkmarkIcon from "../../../../../images/Checkmark.svg";
+import crossIcon from "../../../../../images/Cross.svg";
+import playIcon from "../../../../../images/Play.svg";
 
 function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
 
