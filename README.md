@@ -1,5 +1,7 @@
 # NHL stats frontend
 
+## About
+
 Frontend for [NHL stats backend](https://github.com/JeszC/nhl-stats-backend)
 
 ## Installation prerequisites
