@@ -44,8 +44,8 @@ function TeamDataColumn({data, gameType, columnTitle, teamAbbreviation}) {
         <div className={"verticalFlex statisticsColumn"}>
             <span className={`statisticsHeader ${teamAbbreviation} border`}>{columnTitle}</span>
             {
-                getStatistics().map(statistic =>
-                    <span>{statistic}</span>
+                getStatistics().map((statistic, index) =>
+                    <span key={statistic + index.toString()}>{statistic}</span>
                 )
             }
         </div>
