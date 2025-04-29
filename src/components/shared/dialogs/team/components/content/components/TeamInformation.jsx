@@ -52,6 +52,14 @@ function TeamInformation({selectedTeam, recordFormat, lastTenFormat}) {
                     }
                     </span>
                 </div>
+                {
+                    selectedTeam.franchiseInfo[0]?.lastSeasonId
+                    ? <div>
+                        <h4>Last season</h4>
+                        <span>{getSeasonWithSeparator(selectedTeam.franchiseInfo[0]?.lastSeasonId.toString())}</span>
+                    </div>
+                    : null
+                }
                 <div>
                     <h4>Stanley Cups</h4>
                     <span>{getValue(["cups"], selectedTeam.franchiseInfo[0], false, fallback).toLocaleString()}</span>
