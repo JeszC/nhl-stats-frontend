@@ -62,7 +62,8 @@ function PlayoffMatchup({playoffSeries, seed}) {
                         Series details
                     </button>
                     {
-                        !seed && series.topSeedTeam?.conference === series.bottomSeedTeam?.conference
+                        !seed && (series.topSeedTeam?.conference === series.bottomSeedTeam?.conference
+                                  || series.topSeedTeam?.abbrev === "TBD" || series.bottomSeedTeam?.abbrev === "TBD")
                         ? <>
                             <PlayoffTeam series={series}
                                          seed={series.topSeedTeam}
