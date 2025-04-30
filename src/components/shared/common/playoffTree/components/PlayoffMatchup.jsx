@@ -37,18 +37,20 @@ function PlayoffMatchup({playoffSeries, seed}) {
 
     async function openTeamDialog(team) {
         setSelectedTeam({});
-        setFetchState(constants.fetchState.loading);
-        teamDialog.current.showModal();
-        try {
-            let response = await fetch(`${constants.baseURL}/teams/getTeam/${team}/${playoffSeries[0].season}`);
-            if (response.ok) {
-                setSelectedTeam(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
+        if (team !== "TBD") {
+            setFetchState(constants.fetchState.loading);
+            teamDialog.current.showModal();
+            try {
+                let response = await fetch(`${constants.baseURL}/teams/getTeam/${team}/${playoffSeries[0].season}`);
+                if (response.ok) {
+                    setSelectedTeam(await response.json());
+                    setFetchState(constants.fetchState.finished);
+                } else {
+                    setFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
         }
     }
 
