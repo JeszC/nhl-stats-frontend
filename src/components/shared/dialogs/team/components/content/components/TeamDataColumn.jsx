@@ -1,5 +1,5 @@
-import {getValue} from "../../../../../../../scripts/utils.js";
 import {parseDecimals} from "../../../../../../../scripts/parsing.js";
+import {getValue} from "../../../../../../../scripts/utils.js";
 
 function TeamDataColumn({data, gameType, columnTitle, teamAbbreviation}) {
     const fallback = "N/A";
@@ -24,9 +24,7 @@ function TeamDataColumn({data, gameType, columnTitle, teamAbbreviation}) {
                 values.push(format(category, data));
             }
         } else {
-            for (const category of categories) {
-                values.push(fallback);
-            }
+            categories.forEach(() => values.push(fallback));
         }
         return values;
     }
