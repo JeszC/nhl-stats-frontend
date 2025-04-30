@@ -18,18 +18,20 @@ function PlayerTable({dialog, category, players, setSelectedPlayer, setFetchStat
 
     async function openDialog(playerID) {
         setSelectedPlayer({});
-        setFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let response = await fetch(`${constants.baseURL}/players/getPlayer/${playerID}`);
-            if (response.ok) {
-                setSelectedPlayer(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
+        if (playerID) {
+            setFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let response = await fetch(`${constants.baseURL}/players/getPlayer/${playerID}`);
+                if (response.ok) {
+                    setSelectedPlayer(await response.json());
+                    setFetchState(constants.fetchState.finished);
+                } else {
+                    setFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
         }
     }
 

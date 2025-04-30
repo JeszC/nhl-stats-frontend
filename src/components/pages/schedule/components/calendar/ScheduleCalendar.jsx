@@ -19,18 +19,20 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState,
 
     async function openDialog(gameID) {
         setSelectedGame({});
-        setGameFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
-            if (response.ok) {
-                setSelectedGame(await response.json());
-                setGameFetchState(constants.fetchState.finished);
-            } else {
+        if (gameID) {
+            setGameFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
+                if (response.ok) {
+                    setSelectedGame(await response.json());
+                    setGameFetchState(constants.fetchState.finished);
+                } else {
+                    setGameFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setGameFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setGameFetchState(constants.fetchState.error);
         }
     }
 

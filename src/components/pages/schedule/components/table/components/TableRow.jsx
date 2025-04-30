@@ -67,18 +67,20 @@ function TableRow({game, index, selectedTeams, showScores, setSelectedGame, dial
 
     async function openDialog(gameID) {
         setSelectedGame({});
-        setFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
-            if (response.ok) {
-                setSelectedGame(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
+        if (gameID) {
+            setFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
+                if (response.ok) {
+                    setSelectedGame(await response.json());
+                    setFetchState(constants.fetchState.finished);
+                } else {
+                    setFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
         }
     }
 

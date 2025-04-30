@@ -78,19 +78,21 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
 
     async function openDialog(team) {
         setSelectedTeam({});
-        setTeamFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let url = `${constants.baseURL}/teams/getTeam/${team.teamAbbrev.default}/${team.seasonId}`;
-            let response = await fetch(url);
-            if (response.ok) {
-                setSelectedTeam(await response.json());
-                setTeamFetchState(constants.fetchState.finished);
-            } else {
+        if (team) {
+            setTeamFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let url = `${constants.baseURL}/teams/getTeam/${team.teamAbbrev.default}/${team.seasonId}`;
+                let response = await fetch(url);
+                if (response.ok) {
+                    setSelectedTeam(await response.json());
+                    setTeamFetchState(constants.fetchState.finished);
+                } else {
+                    setTeamFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setTeamFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setTeamFetchState(constants.fetchState.error);
         }
     }
 

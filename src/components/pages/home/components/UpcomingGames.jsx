@@ -10,16 +10,18 @@ function UpcomingGames({games}) {
 
     async function openDialog(gameID) {
         setSelectedGame({});
-        setFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
-            if (response.ok) {
-                setSelectedGame(await response.json());
-                setFetchState(constants.fetchState.finished);
+        if (gameID) {
+            setFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
+                if (response.ok) {
+                    setSelectedGame(await response.json());
+                    setFetchState(constants.fetchState.finished);
+                }
+            } catch (ignored) {
+                setFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
         }
     }
 

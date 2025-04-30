@@ -42,19 +42,21 @@ function TopTeams({teams}) {
 
     async function openDialog(team) {
         setSelectedTeam({});
-        setFetchState(constants.fetchState.loading);
-        dialog.current.showModal();
-        try {
-            let latestSeason = await getLatestSeason();
-            let response = await fetch(`${constants.baseURL}/teams/getTeam/${team.teamAbbrev.default}/${latestSeason}`);
-            if (response.ok) {
-                setSelectedTeam(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
+        if (team) {
+            setFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                let latestSeason = await getLatestSeason();
+                let response = await fetch(`${constants.baseURL}/teams/getTeam/${team.teamAbbrev.default}/${latestSeason}`);
+                if (response.ok) {
+                    setSelectedTeam(await response.json());
+                    setFetchState(constants.fetchState.finished);
+                } else {
+                    setFetchState(constants.fetchState.error);
+                }
+            } catch (ignored) {
                 setFetchState(constants.fetchState.error);
             }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
         }
     }
 
