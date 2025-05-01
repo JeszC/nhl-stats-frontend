@@ -66,7 +66,7 @@ function TeamInformation({selectedTeam, recordFormat, lastTenFormat}) {
                 </div>
             </div>
         </div>
-        <div className={"playersStatistics"}>
+        <div className={"dialogStatistics dialogTeamStatistics"}>
             <div className={"verticalFlex"}>
                 <h4>Conference</h4>
                 <span>

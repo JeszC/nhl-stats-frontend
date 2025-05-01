@@ -1,8 +1,8 @@
 import {
+    getHandSideTitle,
     getOrdinalNumber,
     getPlayerFullName,
-    getPositionTitle,
-    getHandSideTitle
+    getPositionTitle
 } from "../../../../../../../scripts/parsing.js";
 
 function PlayerInformation({player}) {
@@ -64,7 +64,7 @@ function PlayerInformation({player}) {
                 </div>
             </div>
         </div>
-        <div className={"playersStatistics"}>
+        <div className={"dialogStatistics dialogPlayerStatistics"}>
             <div className={"verticalFlex"}>
                 <h4>Place of birth</h4>
                 <div className={"horizontalFlex playersCountryOfBirth"}>
