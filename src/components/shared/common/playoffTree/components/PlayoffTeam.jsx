@@ -10,7 +10,7 @@ function playoffTeam({series, seed, seedName, openDialog}) {
         if (parseInt(series.season.slice(0, 4)) < 2013 && team.conference) {
             return team.conference.slice(2) + teamRank;
         }
-        if (teamRankAbbrev.slice(0, 2) === "WC") {
+        if (teamRankAbbrev?.slice(0, 2) === "WC") {
             return teamRankAbbrev;
         }
         if (team.division && teamRank) {
