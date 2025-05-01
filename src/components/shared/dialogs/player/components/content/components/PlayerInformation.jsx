@@ -51,7 +51,7 @@ function PlayerInformation({player}) {
                     {
                         player.fullTeamName && player.currentTeamAbbrev
                         ? <span>{`${player.fullTeamName.default} (${player.currentTeamAbbrev})`}</span>
-                        : <span>-</span>
+                        : <span>N/A</span>
                     }
                 </div>
                 <div>
