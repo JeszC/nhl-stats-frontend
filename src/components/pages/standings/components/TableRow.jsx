@@ -69,6 +69,17 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
         return null;
     }
 
+    function getClassName(column, columnIndex) {
+        let values = [];
+        if (columnIndex === sortedColumn) {
+            values.push("selectedColumn");
+        }
+        if (column.extraClass) {
+            values.push(column.extraClass);
+        }
+        return values.join(" ");
+    }
+
     async function openDialogKeyboard(event, team) {
         if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -104,7 +115,7 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
         {
             Object.keys(data.columns).map((column, columnIndex) =>
                 <td key={column + columnIndex.toString()}
-                    className={columnIndex === sortedColumn ? "selectedColumn" : ""}>
+                    className={getClassName(data.columns[column], columnIndex)}>
                     {getContents(data.columns[column])}
                 </td>
             )

@@ -3,6 +3,7 @@
     "record": {
       "text": "REC",
       "title": "Record (W-L-OTL)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -17,6 +18,7 @@
     "lastTen": {
       "text": "L10",
       "title": "Last ten games (W-L-OTL)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -31,6 +33,7 @@
     "homeRecord": {
       "text": "HOME",
       "title": "Home record (W-L-OTL)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -45,6 +48,7 @@
     "awayRecord": {
       "text": "AWAY",
       "title": "Away record (W-L-OTL)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -61,6 +65,7 @@
     "record": {
       "text": "REC",
       "title": "Record (W-L-T-OTL)",
+      "extraClass": "recordFourValues",
       "comparison": [
         1,
         -1,
@@ -77,6 +82,7 @@
     "lastTen": {
       "text": "L10",
       "title": "Last ten games (W-L-T-OTL)",
+      "extraClass": "recordFourValues",
       "comparison": [
         1,
         -1,
@@ -93,6 +99,7 @@
     "homeRecord": {
       "text": "HOME",
       "title": "Home record (W-L-T-OTL)",
+      "extraClass": "recordFourValues",
       "comparison": [
         1,
         -1,
@@ -109,6 +116,7 @@
     "awayRecord": {
       "text": "AWAY",
       "title": "Away record (W-L-T-OTL)",
+      "extraClass": "recordFourValues",
       "comparison": [
         1,
         -1,
@@ -127,6 +135,7 @@
     "record": {
       "text": "REC",
       "title": "Record (W-L-T)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -141,6 +150,7 @@
     "lastTen": {
       "text": "L10",
       "title": "Last ten games (W-L-T)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -155,6 +165,7 @@
     "homeRecord": {
       "text": "HOME",
       "title": "Home record (W-L-T)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
@@ -169,6 +180,7 @@
     "awayRecord": {
       "text": "AWAY",
       "title": "Away record (W-L-T)",
+      "extraClass": "recordThreeValues",
       "comparison": [
         1,
         -1,
