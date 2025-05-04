@@ -67,23 +67,23 @@ function PlayoffContent({setGame, selectedSeries, fetchState, setFetchState, clo
             ? <div className={"horizontalFlex playoffBanner"}>
                 <div className={`horizontalFlex teamBackground default
                 ${selectedSeries.bottomSeedTeam.abbrev} gradient`}>
+                    <img src={selectedSeries.bottomSeedTeam.logo} alt={`${selectedSeries.bottomSeedTeam.abbrev} logo`}/>
                     <div className={"verticalFlex playoffBannerInformation"}>
                         <h4>{selectedSeries.bottomSeedTeam.abbrev}</h4>
                         <span className={"playoffScore"}>
                             {selectedSeries.bottomSeedTeam.seriesWins.toLocaleString()}
                         </span>
                     </div>
-                    <img src={selectedSeries.bottomSeedTeam.logo} alt={`${selectedSeries.bottomSeedTeam.abbrev} logo`}/>
                 </div>
                 <div className={`horizontalFlex teamBackground default
                 ${selectedSeries.topSeedTeam.abbrev} gradient`}>
-                    <img src={selectedSeries.topSeedTeam.logo} alt={`${selectedSeries.topSeedTeam.abbrev} logo`}/>
                     <div className={"verticalFlex playoffBannerInformation"}>
                         <h4>{selectedSeries.topSeedTeam.abbrev}</h4>
                         <span className={"playoffScore"}>
                             {selectedSeries.topSeedTeam.seriesWins.toLocaleString()}
                         </span>
                     </div>
+                    <img src={selectedSeries.topSeedTeam.logo} alt={`${selectedSeries.topSeedTeam.abbrev} logo`}/>
                 </div>
             </div>
             : null

@@ -251,19 +251,11 @@
     border-radius: 3px 3px 0 0;
 }
 
-.playoffBanner {
-    height: 6em;
-}
-
 .playoffBanner .teamBackground {
     width: 50%;
     justify-content: center;
     border-radius: 0;
     box-sizing: border-box;
-}
-
-.playoffBanner .teamBackground:first-child {
-    border-right: 1px solid var(--grey);
 }
 
 .playoffBanner .teamBackground:last-child {
@@ -282,7 +274,7 @@
 }
 
 .playoffBanner img {
-    --size: 6em;
+    --size: 6.75em;
     min-width: var(--size);
     min-height: var(--size);
     width: var(--size);
