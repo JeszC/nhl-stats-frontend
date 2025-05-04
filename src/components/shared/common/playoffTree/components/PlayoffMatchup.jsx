@@ -1,10 +1,10 @@
-import {Fragment, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import PlayoffDialog from "../../../dialogs/playoff/PlayoffDialog";
 import TeamDialog from "../../../dialogs/team/TeamDialog";
 import PlayoffTeam from "./PlayoffTeam";
 
-function PlayoffMatchup({playoffSeries, seed}) {
+function PlayoffMatchup({playoffSeries}) {
     const [selectedTeam, setSelectedTeam] = useState({});
     const [selectedSeries, setSelectedSeries] = useState({});
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
@@ -64,9 +64,9 @@ function PlayoffMatchup({playoffSeries, seed}) {
                         Series details
                     </button>
                     {
-                        !seed && (series.topSeedTeam?.conference === series.bottomSeedTeam?.conference
-                                  || series.topSeedTeam?.abbrev === "TBD" || series.bottomSeedTeam?.abbrev === "TBD")
-                        ? <>
+                        series.topSeedTeam?.conference === series.bottomSeedTeam?.conference
+                        || series.topSeedTeam?.abbrev === "TBD" || series.bottomSeedTeam?.abbrev === "TBD"
+                        ? <div className={"verticalFlex playoffTeams"}>
                             <PlayoffTeam series={series}
                                          seed={series.topSeedTeam}
                                          seedName={"topSeed"}
@@ -77,31 +77,33 @@ function PlayoffMatchup({playoffSeries, seed}) {
                                          seedName={"bottomSeed"}
                                          openDialog={openTeamDialog}>
                             </PlayoffTeam>
-                        </>
-                        : seed === "top"
-                          ? series.topSeedTeam.conference === "E" || series.topSeedTeam.conference === "XVE"
-                            ? <PlayoffTeam series={series}
+                        </div>
+                        : series.topSeedTeam.conference === "E" || series.topSeedTeam.conference === "XVE"
+                          ? <div className={"verticalFlex playoffTeams"}>
+                              <PlayoffTeam series={series}
                                            seed={series.bottomSeedTeam}
                                            seedName={"bottomSeed"}
                                            openDialog={openTeamDialog}>
-                            </PlayoffTeam>
-                            : <PlayoffTeam series={series}
+                              </PlayoffTeam>
+                              <PlayoffTeam series={series}
                                            seed={series.topSeedTeam}
                                            seedName={"topSeed"}
                                            openDialog={openTeamDialog}>
-                            </PlayoffTeam>
-                          : seed === "bottom"
-                            ? series.topSeedTeam.conference === "E" || series.topSeedTeam.conference === "XVE"
-                              ? <PlayoffTeam series={series}
+                              </PlayoffTeam>
+                          </div>
+                          : series.topSeedTeam.conference === "W" || series.topSeedTeam.conference === "XVW"
+                            ? <div className={"verticalFlex playoffTeams"}>
+                                <PlayoffTeam series={series}
                                              seed={series.topSeedTeam}
                                              seedName={"topSeed"}
                                              openDialog={openTeamDialog}>
-                              </PlayoffTeam>
-                              : <PlayoffTeam series={series}
+                                </PlayoffTeam>
+                                <PlayoffTeam series={series}
                                              seed={series.bottomSeedTeam}
                                              seedName={"bottomSeed"}
                                              openDialog={openTeamDialog}>
-                              </PlayoffTeam>
+                                </PlayoffTeam>
+                            </div>
                             : null
                     }
                 </div>

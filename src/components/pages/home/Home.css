@@ -342,25 +342,28 @@
 }
 
 .playoffRound:nth-child(2),
-.playoffRound:nth-child(7) {
-    margin: calc(6em + 3px) 0;
-    gap: 16.5em;
+.playoffRound:nth-child(6) {
+    margin: calc(6em + 1.5px) 0;
+    gap: calc(16em + 6px);
 }
 
 .playoffRound:nth-child(3),
-.playoffRound:nth-child(6) {
-    margin: calc(20.5em + 3px) 0;
+.playoffRound:nth-child(5) {
+    margin: calc(20em + 7px) 0;
 }
 
-.playoffRound:nth-child(4),
-.playoffRound:nth-child(5) {
-    margin: calc(23em + 3px) 0;
+.playoffRound:nth-child(4) {
+    margin: calc(22em + 15px) 0;
 }
 
 .playoffSeries {
     border-radius: 5px;
     box-sizing: border-box;
     border: 2px solid var(--grey);
+}
+
+.playoffRound:nth-child(4) .playoffTeams {
+    flex-direction: row;
 }
 
 .playoffTeam {
@@ -383,47 +386,36 @@
 
 .playoffRound:nth-child(5) .playoffTeam,
 .playoffRound:nth-child(6) .playoffTeam,
-.playoffRound:nth-child(7) .playoffTeam,
-.playoffRound:nth-child(8) .playoffTeam {
+.playoffRound:nth-child(7) .playoffTeam {
     flex-direction: row-reverse;
 }
 
-.playoffRound:nth-child(4) .playoffTeam,
-.playoffRound:nth-child(5) .playoffTeam {
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:first-child {
-    border-bottom: 1px solid var(--grey);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child {
+.playoffRound:not(:nth-child(4)) .playoffTeam:last-child {
     border-top: 1px solid var(--grey);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
 }
 
-.playoffRound:nth-child(-n + 4) .playoffTeam:first-child .playoffInformation {
-    border-top-right-radius: 3px;
+.playoffRound:nth-child(4) .playoffTeam:last-child {
+    border-left: 1px solid var(--grey);
 }
 
-.playoffRound:nth-child(-n + 4) .playoffTeam:last-child .playoffInformation {
+.playoffRound:nth-child(4) .playoffTeam:last-child,
+.playoffRound:nth-child(-n + 3) .playoffTeam:last-child .playoffInformation {
     border-bottom-right-radius: 3px;
 }
 
-.playoffRound:nth-child(n + 5) .playoffTeam:first-child .playoffInformation {
-    border-top-left-radius: 3px;
-}
-
+.playoffRound:nth-child(4) .playoffTeam:first-child,
 .playoffRound:nth-child(n + 5) .playoffTeam:last-child .playoffInformation {
     border-bottom-left-radius: 3px;
 }
 
-.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child .playoffInformation,
-.playoffRound:not(:nth-child(4), :nth-child(5)) .playoffTeam:last-child .playoffTeamInformation {
+.playoffRound:nth-child(4) .playoffTeam:last-child .playoffInformation {
+    order: -1;
+}
+
+.playoffRound:not(:nth-child(4)) .playoffTeam:last-child .playoffInformation,
+.playoffRound:not(:nth-child(4)) .playoffTeam:last-child .playoffTeamInformation {
     flex-direction: column-reverse;
 }
 
@@ -463,9 +455,8 @@
     }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1279px) {
     .playoffRounds {
-        margin: 0.5em;
         gap: 0.5em;
     }
 
@@ -474,31 +465,17 @@
     }
 
     .playoffRound:nth-child(2),
-    .playoffRound:nth-child(7) {
-        margin: calc(5.25em + 3px) 0;
-        gap: 13.5em;
+    .playoffRound:nth-child(6) {
+        margin: calc(5.25em + 2.5px) 0;
+        gap: calc(13em + 5px);
     }
 
     .playoffRound:nth-child(3),
-    .playoffRound:nth-child(6) {
-        margin: calc(18.25em + 3px) 0;
-    }
-
-    .playoffRound:nth-child(4),
     .playoffRound:nth-child(5) {
-        margin: calc(20.75em + 3px) 0;
+        margin: calc(18.25em + 1.5px) 0;
     }
 
-    .playoffTeam {
-        min-width: 6.5em;
-        min-height: 5em;
-        width: inherit;
-        height: inherit;
-    }
-
-    .playoffTeam img {
-        --size: 3.5em;
-        width: var(--size);
-        height: var(--size);
+    .playoffRound:nth-child(4) {
+        margin: calc(20.75em + 2.5px) 0;
     }
 }

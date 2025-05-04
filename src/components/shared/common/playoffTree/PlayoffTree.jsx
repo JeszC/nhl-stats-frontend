@@ -27,8 +27,7 @@ function PlayoffTree({playoffTree, fetchState, hasStickyTitle = false}) {
                                                         playoffTree.series[11]]}>
                         </PlayoffMatchup>
                         <PlayoffMatchup playoffSeries={[playoffTree.series[13]]}></PlayoffMatchup>
-                        <PlayoffMatchup playoffSeries={[playoffTree.series[14]]} seed={"top"}></PlayoffMatchup>
-                        <PlayoffMatchup playoffSeries={[playoffTree.series[14]]} seed={"bottom"}></PlayoffMatchup>
+                        <PlayoffMatchup playoffSeries={[playoffTree.series[14]]}></PlayoffMatchup>
                         <PlayoffMatchup playoffSeries={[playoffTree.series[12]]}></PlayoffMatchup>
                         <PlayoffMatchup playoffSeries={[playoffTree.series[8],
                                                         playoffTree.series[9]]}>
