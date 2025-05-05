@@ -2,7 +2,7 @@ import {getGameType} from "./parsing.js";
 
 const separator = "\r\n";
 
-export function getICSFile(games) {
+export function getICSFile(games, useAlarm, alarmTime) {
     let creationTime = formatDate(new Date().toUTCString());
     let file = [
         "BEGIN:VCALENDAR",
@@ -24,15 +24,16 @@ export function getICSFile(games) {
         let summary = `NHL: ${game.awayTeam.abbrev}-${game.homeTeam.abbrev} (${getGameType(game)})`;
         let location = `${game.venue.default}, ${game.homeTeam.placeName.default}`;
         let description = `NHL game between ${getTeamName(game.awayTeam)} and ${getTeamName(game.homeTeam)}`;
-        let event = createEvent(uid, creationTime, startTime, status, summary, description, location);
+        let event = createEvent(uid, creationTime, startTime, status, summary,
+            description, location, useAlarm, alarmTime);
         file = file.concat(event);
     }
     file = file.concat("END:VCALENDAR");
     return file;
 }
 
-function createEvent(uid, creationTime, startTime, status, summary, description, location) {
-    return [
+function createEvent(uid, creationTime, startTime, status, summary, description, location, useAlarm, alarmTime) {
+    let fields = [
         "BEGIN:VEVENT",
         `UID:${uid}`,
         `DTSTAMP:${creationTime}`,
@@ -40,9 +41,20 @@ function createEvent(uid, creationTime, startTime, status, summary, description,
         `STATUS:${status}`,
         `SUMMARY:${summary}`,
         `DESCRIPTION:${description}`,
-        `LOCATION:${location}`,
-        "END:VEVENT"
+        `LOCATION:${location}`
     ].join(separator).concat(separator);
+    let alarmFields = [
+        "BEGIN:VALARM",
+        `TRIGGER:-PT${alarmTime}M`,
+        "ACTION:DISPLAY",
+        `DESCRIPTION:${description}`,
+        "END:VALARM"
+    ].join(separator).concat(separator);
+    if (useAlarm) {
+        fields = fields.concat(alarmFields);
+    }
+    fields = fields.concat("END:VEVENT").concat(separator);
+    return fields;
 }
 
 function getTeamName(team) {
