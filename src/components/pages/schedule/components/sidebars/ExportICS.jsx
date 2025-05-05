@@ -6,9 +6,7 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
     const [gamesToImport, setGamesToImport] = useState([]);
     const [upcomingChecked, setUpcomingChecked] = useState(true);
     const [useAlarmChecked, setUseAlarmChecked] = useState(false);
-    const upcomingGamesOnly = useRef(null);
-    const useAlarm = useRef(null);
-    const alarmTime = useRef(null);
+    const [alarmTime, setAlarmTime] = useState("30");
     const downloadLink = useRef(null);
 
     async function createICSFile() {
@@ -17,13 +15,11 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
         }
     }
 
-    function filterUpcomingGames(games) {
-        return games.filter(game => new Date(game.startTimeUTC) > new Date());
-    }
-
     function updateICSFile() {
         if (selectedTeams.length > 0) {
-            let gamesToImport = upcomingChecked ? filterUpcomingGames(games) : games;
+            let gamesToImport = upcomingChecked
+                                ? games.filter(game => new Date(game.startTimeUTC) > new Date())
+                                : games;
             setGamesToImport(gamesToImport);
         }
     }
@@ -33,8 +29,7 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
     return <>
         <h4>Export to ICS</h4>
         <label className={"checkboxLabel"}>
-            <input ref={upcomingGamesOnly}
-                   type={"checkbox"}
+            <input type={"checkbox"}
                    name={"upcomingGamesOnly"}
                    className={selectedTeams.length === 1 ? selectedTeams[0].teamAbbrev : "default"}
                    checked={upcomingChecked}
@@ -42,8 +37,7 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
             Exclude past games
         </label>
         <label className={"checkboxLabel alarmCheckboxLabel"}>
-            <input ref={useAlarm}
-                   type={"checkbox"}
+            <input type={"checkbox"}
                    name={"useAlarm"}
                    className={selectedTeams.length === 1 ? selectedTeams[0].teamAbbrev : "default"}
                    onChange={() => setUseAlarmChecked(!useAlarmChecked)}/>
@@ -51,15 +45,16 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
         </label>
         <label className={"verticalFlex"}>
             <span>Minutes before game start to trigger alarm</span>
-            <input ref={alarmTime}
-                   type={"range"}
+            <input type={"range"}
                    name={"alarmTime"}
                    className={selectedTeams.length === 1 ? selectedTeams[0].teamAbbrev : "default"}
                    disabled={!useAlarmChecked}
-                   min={0}
-                   max={60}
-                   step={5}
-                   list={"tickmarks"}/>
+                   min={"0"}
+                   max={"60"}
+                   value={alarmTime}
+                   step={"5"}
+                   list={"tickmarks"}
+                   onChange={event => setAlarmTime(event.target.value)}/>
             <datalist id="tickmarks">
                 <option value="0" label={"0"}></option>
                 <option value="15" label={"15"}></option>
@@ -95,7 +90,7 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
         }
         <a ref={downloadLink}
            href={window.URL.createObjectURL(new Blob(
-               [getICSFile(gamesToImport, useAlarmChecked, alarmTime.current?.value)],
+               [getICSFile(gamesToImport, useAlarmChecked, alarmTime)],
                {type: "text/calendar"}))}
            download={`nhl-schedule-${selectedSeason}`}
            title={"Download link for schedule"}
