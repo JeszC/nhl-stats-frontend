@@ -176,6 +176,8 @@ option {
 input[type="checkbox"] {
     --size: 1.5em;
     margin: 0 0.5em 0 0;
+    min-width: var(--size);
+    min-height: var(--size);
     width: var(--size);
     height: var(--size);
 }
@@ -510,6 +512,8 @@ tr:nth-child(even):not(:hover, :active) .selectedColumn {
     input[type="checkbox"] {
         --size: 1.125em;
         margin: 0 0.375em 0 0;
+        min-width: var(--size);
+        min-height: var(--size);
         width: var(--size);
         height: var(--size);
     }
