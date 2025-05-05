@@ -43,26 +43,30 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
                    onChange={() => setUseAlarmChecked(!useAlarmChecked)}/>
             Include alarms
         </label>
-        <label className={"verticalFlex"}>
-            <span>Minutes before game start to trigger alarm</span>
-            <input type={"range"}
-                   name={"alarmTime"}
-                   className={selectedTeams.length === 1 ? selectedTeams[0].teamAbbrev : "default"}
-                   disabled={!useAlarmChecked}
-                   min={"0"}
-                   max={"60"}
-                   value={alarmTime}
-                   step={"5"}
-                   list={"tickmarks"}
-                   onChange={event => setAlarmTime(event.target.value)}/>
-            <datalist id="tickmarks">
-                <option value="0" label={"0"}></option>
-                <option value="15" label={"15"}></option>
-                <option value="30" label={"30"}></option>
-                <option value="45" label={"45"}></option>
-                <option value="60" label={"60"}></option>
-            </datalist>
-        </label>
+        {
+            useAlarmChecked
+            ? <label className={"verticalFlex"}>
+                <span>Alarm time (minutes)</span>
+                <input type={"range"}
+                       name={"alarmTime"}
+                       className={selectedTeams.length === 1 ? selectedTeams[0].teamAbbrev : "default"}
+                       disabled={!useAlarmChecked}
+                       min={"0"}
+                       max={"60"}
+                       value={alarmTime}
+                       step={"5"}
+                       list={"tickmarks"}
+                       onChange={event => setAlarmTime(event.target.value)}/>
+                <datalist id="tickmarks">
+                    <option value="0" label={"0"}></option>
+                    <option value="15" label={"15"}></option>
+                    <option value="30" label={"30"}></option>
+                    <option value="45" label={"45"}></option>
+                    <option value="60" label={"60"}></option>
+                </datalist>
+            </label>
+            : null
+        }
         <button type={"button"}
                 title={"Export"}
                 onClick={createICSFile}
