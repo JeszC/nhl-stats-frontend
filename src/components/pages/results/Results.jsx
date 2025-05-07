@@ -129,7 +129,8 @@ function Results({showOptions, setShowOptions, showHelp}) {
                                              results.map(date =>
                                                  <DateGames key={date.date}
                                                             date={date}
-                                                            openDialog={openDialog}></DateGames>
+                                                            openDialog={openDialog}>
+                                                 </DateGames>
                                              )
                                          }
                                      </div>
