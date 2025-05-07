@@ -13,7 +13,7 @@ function CareerStatistics({player}) {
                                               teamAbbreviation={player.currentTeamAbbrev}>
                    </CareerAndSeasonDataColumn>
                    <CareerAndSeasonTitleColumn position={player.position}
-                                               columnTitle={"Time span"}
+                                               columnTitle={"Type"}
                                                teamAbbreviation={player.currentTeamAbbrev}>
                    </CareerAndSeasonTitleColumn>
                    <CareerAndSeasonDataColumn data={player.careerTotals.playoffs}
