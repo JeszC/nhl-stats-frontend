@@ -1,26 +1,10 @@
 import constants from "../../../../../data/constants.json";
-import {isGameLive} from "../../../../../scripts/utils.js";
+import {getGame, isGameLive} from "../../../../../scripts/utils.js";
 import Slider from "../../../animations/slider/Slider";
 import BackButtonIcon from "../../../images/Back.svg";
 import CloseButtonIcon from "../../../images/Close.svg";
 
 function PlayoffContent({setGame, selectedSeries, fetchState, setFetchState, closeDialog, setActiveView}) {
-
-    async function getGame(gameID) {
-        setFetchState(constants.fetchState.loading);
-        setActiveView("game");
-        try {
-            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
-            if (response.ok) {
-                setGame(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
-                setFetchState(constants.fetchState.error);
-            }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
-        }
-    }
 
     function getTeam(abbrev) {
         if (selectedSeries.bottomSeedTeam.abbrev === abbrev) {
@@ -96,7 +80,7 @@ function PlayoffContent({setGame, selectedSeries, fetchState, setFetchState, clo
                     <button key={game.id}
                             className={"verticalFlex transparentButton playoffGameInformation"}
                             title={"Show game details"}
-                            onClick={() => getGame(game.id)}>
+                            onClick={() => getGame(game.id, setGame, setFetchState, setActiveView)}>
                         <div className={"horizontalFlex playoffGameNumberAndTime"}>
                             <h4>Game {game.gameNumber.toLocaleString()}/{selectedSeries.length.toLocaleString()}</h4>
                             <h4>

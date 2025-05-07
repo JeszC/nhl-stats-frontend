@@ -1,6 +1,7 @@
+import {getGame} from "../../../../../../../scripts/utils.js";
 import GameBox from "../../../../../common/gameBox/GameBox.jsx";
 
-function Games({games, getGame, headerText = "Games"}) {
+function Games({games, setGame, setFetchState, setActiveView, headerText = "Games"}) {
 
     return games.length > 0
            ? <div className={"teamsContent"}>
@@ -8,7 +9,10 @@ function Games({games, getGame, headerText = "Games"}) {
                <div className={"todayGames"}>
                    {
                        games.map(game =>
-                           <GameBox key={game.id} game={game} onClick={getGame} isScorable={true}></GameBox>
+                           <GameBox key={game.id}
+                                    game={game}
+                                    onClick={() => getGame(game.id, setGame, setFetchState, setActiveView)}
+                                    isScorable={true}></GameBox>
                        )
                    }
                </div>

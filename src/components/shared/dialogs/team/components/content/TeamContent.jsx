@@ -1,5 +1,8 @@
 import {useEffect, useState} from "react";
 import constants from "../../../../../../data/constants.json";
+import recordFormats from "../../../../../../data/recordFormats.json";
+import {getSeasonWithSeparator} from "../../../../../../scripts/parsing.js";
+import {getValue} from "../../../../../../scripts/utils.js";
 import Slider from "../../../../animations/slider/Slider";
 import ErrorDialog from "../../../../errors/ErrorDialog";
 import BackButtonIcon from "../../../../images/Back.svg";
@@ -8,9 +11,6 @@ import Games from "./components/Games.jsx";
 import Injuries from "./components/Injuries.jsx";
 import TeamInformation from "./components/TeamInformation";
 import TeamRoster from "./components/TeamRoster";
-import recordFormats from "../../../../../../data/recordFormats.json";
-import {getValue} from "../../../../../../scripts/utils.js";
-import {getSeasonWithSeparator} from "../../../../../../scripts/parsing.js";
 import TeamStatistics from "./components/TeamStatistics.jsx";
 
 function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog, setActiveView, setFetchState}) {
@@ -18,22 +18,6 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
     const [upcomingGames, setUpcomingGames] = useState([]);
     const [injuries, setInjuries] = useState([]);
     const maxGames = 12;
-
-    async function getGame(gameID) {
-        setFetchState(constants.fetchState.loading);
-        setActiveView("game");
-        try {
-            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
-            if (response.ok) {
-                setGame(await response.json());
-                setFetchState(constants.fetchState.finished);
-            } else {
-                setFetchState(constants.fetchState.error);
-            }
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
-        }
-    }
 
     function getRecordFormat(season) {
         let seasonStartYear = season.slice(0, 4);
@@ -135,18 +119,32 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
                         {
                             upcomingGames.length > 0
                             ? <Games games={pastGames.slice(-(maxGames / 2))}
-                                     getGame={getGame}
+                                     setGame={setGame}
+                                     setFetchState={setFetchState}
+                                     setActiveView={setActiveView}
                                      headerText={"Past games"}>
                             </Games>
-                            : <Games games={pastGames} getGame={getGame} headerText={"Past games"}></Games>
+                            : <Games games={pastGames}
+                                     setGame={setGame}
+                                     setFetchState={setFetchState}
+                                     setActiveView={setActiveView}
+                                     headerText={"Past games"}>
+                            </Games>
                         }
                         {
                             pastGames.length > 0
                             ? <Games games={upcomingGames.slice(0, maxGames / 2)}
-                                     getGame={getGame}
+                                     setGame={setGame}
+                                     setFetchState={setFetchState}
+                                     setActiveView={setActiveView}
                                      headerText={"Upcoming games"}>
                             </Games>
-                            : <Games games={upcomingGames} getGame={getGame} headerText={"Upcoming games"}></Games>
+                            : <Games games={upcomingGames}
+                                     setGame={setGame}
+                                     setFetchState={setFetchState}
+                                     setActiveView={setActiveView}
+                                     headerText={"Upcoming games"}>
+                            </Games>
                         }
                     </div>
                     {

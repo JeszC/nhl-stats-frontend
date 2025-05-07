@@ -49,6 +49,24 @@ export async function getPlayer(playerID, setPlayer, setFetchState, setActiveVie
     }
 }
 
+export async function getGame(gameID, setGame, setFetchState, setActiveView) {
+    if (gameID) {
+        setFetchState(constants.fetchState.loading);
+        setActiveView("game");
+        try {
+            let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
+            if (response.ok) {
+                setGame(await response.json());
+                setFetchState(constants.fetchState.finished);
+            } else {
+                setFetchState(constants.fetchState.error);
+            }
+        } catch (ignored) {
+            setFetchState(constants.fetchState.error);
+        }
+    }
+}
+
 export function compareNumeric(a, b) {
     if (typeof a === "string" || typeof b === "string") {
         return compareTextual(a, b);
