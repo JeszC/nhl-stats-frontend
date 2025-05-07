@@ -1,7 +1,7 @@
-import {getGameType} from "../../../../../../../../scripts/parsing.js";
+import constants from "../../../../../../../../data/constants.json";
+import {getGameType, getPeriodTitle} from "../../../../../../../../scripts/parsing.js";
 import {getVideoURL, isGameFinished, isGameLive, isGameUpcoming} from "../../../../../../../../scripts/utils.js";
 import playIcon from "../../../../images/Play.svg";
-import constants from "../../../../../../../../data/constants.json";
 
 function GameInformation({game}) {
 
@@ -47,7 +47,17 @@ function GameInformation({game}) {
                     isGameUpcoming(game.gameState)
                     ? <span>Upcoming</span>
                     : isGameLive(game.gameState)
-                      ? <span>LIVE</span>
+                      ? <>
+                          <span>LIVE</span>
+                          <span>
+                              {
+                                  `${getPeriodTitle(game.gameType,
+                                      game.periodDescriptor.number,
+                                      game.periodDescriptor.otPeriods
+                                  )}, ${game.clock.timeRemaining}`
+                              }
+                          </span>
+                      </>
                       : <span>{getGameEndType()}</span>
                 }
                 <span>{getGameType(game)}</span>
