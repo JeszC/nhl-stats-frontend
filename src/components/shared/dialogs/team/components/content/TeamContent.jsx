@@ -116,36 +116,18 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
                                      lastTenFormat={getLastTenFormat(selectedTeam.schedule[0].season.toString())}>
                     </TeamInformation>
                     <div className={"pastAndUpcomingGames"}>
-                        {
-                            upcomingGames.length > 0
-                            ? <Games games={pastGames.slice(-(maxGames / 2))}
-                                     setGame={setGame}
-                                     setFetchState={setFetchState}
-                                     setActiveView={setActiveView}
-                                     headerText={"Past games"}>
-                            </Games>
-                            : <Games games={pastGames}
-                                     setGame={setGame}
-                                     setFetchState={setFetchState}
-                                     setActiveView={setActiveView}
-                                     headerText={"Past games"}>
-                            </Games>
-                        }
-                        {
-                            pastGames.length > 0
-                            ? <Games games={upcomingGames.slice(0, maxGames / 2)}
-                                     setGame={setGame}
-                                     setFetchState={setFetchState}
-                                     setActiveView={setActiveView}
-                                     headerText={"Upcoming games"}>
-                            </Games>
-                            : <Games games={upcomingGames}
-                                     setGame={setGame}
-                                     setFetchState={setFetchState}
-                                     setActiveView={setActiveView}
-                                     headerText={"Upcoming games"}>
-                            </Games>
-                        }
+                        <Games games={upcomingGames.length > 0 ? pastGames.slice(-(maxGames / 2)) : pastGames}
+                               setGame={setGame}
+                               setFetchState={setFetchState}
+                               setActiveView={setActiveView}
+                               headerText={"Past games"}>
+                        </Games>
+                        <Games games={pastGames.length > 0 ? upcomingGames.slice(0, maxGames / 2) : upcomingGames}
+                               setGame={setGame}
+                               setFetchState={setFetchState}
+                               setActiveView={setActiveView}
+                               headerText={"Upcoming games"}>
+                        </Games>
                     </div>
                     {
                         injuries && injuries.length > 0
