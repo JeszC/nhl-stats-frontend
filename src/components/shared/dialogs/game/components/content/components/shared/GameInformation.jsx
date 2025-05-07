@@ -54,7 +54,7 @@ function GameInformation({game}) {
                                   `${getPeriodTitle(game.gameType,
                                       game.periodDescriptor.number,
                                       game.periodDescriptor.otPeriods
-                                  )}, ${game.clock.timeRemaining}`
+                                  )}${game.clock.inIntermission ? " intermission" : `, ${game.clock.timeRemaining}`}`
                               }
                           </span>
                       </>
