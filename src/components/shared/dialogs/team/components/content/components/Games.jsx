@@ -12,7 +12,8 @@ function Games({games, setGame, setFetchState, setActiveView, headerText = "Game
                            <GameBox key={game.id}
                                     game={game}
                                     onClick={() => getGame(game.id, setGame, setFetchState, setActiveView)}
-                                    isScorable={true}></GameBox>
+                                    isScorable={true}>
+                           </GameBox>
                        )
                    }
                </div>
