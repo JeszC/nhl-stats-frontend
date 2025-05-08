@@ -1,5 +1,5 @@
 import constants from "../../../../../../../../data/constants.json";
-import {getGameType, getPeriodTitle} from "../../../../../../../../scripts/parsing.js";
+import {getGameType, getPeriodTitle, parseTime} from "../../../../../../../../scripts/parsing.js";
 import {getVideoURL, isGameFinished, isGameLive, isGameUpcoming} from "../../../../../../../../scripts/utils.js";
 import playIcon from "../../../../images/Play.svg";
 
@@ -54,7 +54,10 @@ function GameInformation({game}) {
                                   `${getPeriodTitle(game.gameType,
                                       game.periodDescriptor.number,
                                       game.periodDescriptor.otPeriods
-                                  )}${game.clock.inIntermission ? " intermission" : `, ${game.clock.timeRemaining}`}`
+                                  )}${game.clock.inIntermission
+                                      ? " intermission"
+                                      : `, ${parseTime(game.clock.timeRemaining)}`
+                                  }`
                               }
                           </span>
                       </>

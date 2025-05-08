@@ -4,7 +4,7 @@ const defaultDigits = 2;
 const defaultDecimals = 2;
 const defaultMissingValue = "N/A";
 const defaultRecordSeparator = constants.apiRecordSeparator;
-const defaultIceTimeSeparator = constants.apiTimeSeparator;
+const defaultTimeSeparator = constants.apiTimeSeparator;
 const pluralRulesEnglish = new Intl.PluralRules("en-US", {type: "ordinal"});
 const suffixesEnglish = new Map([
     ["one", "st"],
@@ -140,24 +140,29 @@ export function parseRecord(record, separator = defaultRecordSeparator) {
     return result;
 }
 
-export function parsePeriodTime(gameType, period, time, digits = defaultDigits, separator = defaultIceTimeSeparator) {
+export function parsePeriodTime(gameType, period, time, digits = defaultDigits, separator = defaultTimeSeparator) {
     if (time !== undefined) {
-        let parts = time.split(constants.apiTimeSeparator);
         if (gameType === constants.gameType.playoff.index || period < 5) {
+            let parts = time.split(constants.apiTimeSeparator);
             let periodMinutes = 20 * (period - 1);
             let minutesSoFar = periodMinutes + parseInt(parts[0]);
             let minutes = minutesSoFar.toLocaleString(undefined, {minimumIntegerDigits: digits});
             let seconds = parseInt(parts[1]).toLocaleString(undefined, {minimumIntegerDigits: digits});
             return `${minutes}${separator}${seconds}`;
         }
-        let minutes = parseInt(parts[0]).toLocaleString(undefined, {minimumIntegerDigits: digits});
-        let seconds = parseInt(parts[1]).toLocaleString(undefined, {minimumIntegerDigits: digits});
-        return `${minutes}${separator}${seconds}`;
+        return parseTime(time, digits, separator);
     }
     return defaultMissingValue;
 }
 
-export function parseIceTimeFromTotalTime(iceTime, digits = defaultDigits, separator = defaultIceTimeSeparator) {
+export function parseTime(time, digits = defaultDigits, separator = defaultTimeSeparator) {
+    let parts = time.split(constants.apiTimeSeparator);
+    let minutes = parseInt(parts[0]).toLocaleString(undefined, {minimumIntegerDigits: digits});
+    let seconds = parseInt(parts[1]).toLocaleString(undefined, {minimumIntegerDigits: digits});
+    return `${minutes}${separator}${seconds}`;
+}
+
+export function parseIceTimeFromTotalTime(iceTime, digits = defaultDigits, separator = defaultTimeSeparator) {
     if (iceTime !== undefined) {
         let iceTimeRounded = Math.round(parseInt(iceTime));
         let minutes = Math.floor(iceTimeRounded / 60);
@@ -168,7 +173,7 @@ export function parseIceTimeFromTotalTime(iceTime, digits = defaultDigits, separ
     return defaultMissingValue;
 }
 
-export function parseIceTime(iceTime, digits = defaultDigits, separator = defaultIceTimeSeparator) {
+export function parseIceTime(iceTime, digits = defaultDigits, separator = defaultTimeSeparator) {
     if (iceTime !== undefined) {
         let iceTimeParts = iceTime.split(constants.apiTimeSeparator);
         let minutes = parseInt(iceTimeParts[0]).toLocaleString(undefined, {minimumIntegerDigits: digits});
@@ -178,7 +183,7 @@ export function parseIceTime(iceTime, digits = defaultDigits, separator = defaul
     return defaultMissingValue;
 }
 
-export function parseGoalieIceTime(iceTime, gamesPlayed, digits = defaultDigits, separator = defaultIceTimeSeparator) {
+export function parseGoalieIceTime(iceTime, gamesPlayed, digits = defaultDigits, separator = defaultTimeSeparator) {
     if (iceTime !== undefined) {
         let iceTimeParts = iceTime.split(constants.apiTimeSeparator);
         let seconds = parseInt(iceTimeParts[0]) * 60 + parseInt(iceTimeParts[1]);
