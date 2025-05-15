@@ -1,12 +1,8 @@
 .ANA {
-    --color: #F47A38;
+    --color: #CF4520;
     accent-color: var(--color);
     background-color: var(--color);
-    color: black;
-}
-
-.ANA.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
-    filter: invert(0%);
+    color: white;
 }
 
 .ANA.gradient {
@@ -35,7 +31,7 @@
 
 .ARI,
 .PHX {
-    --color: #8C2633;
+    --color: #862633;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -137,7 +133,7 @@
 }
 
 .CAR {
-    --color: #CE1126;
+    --color: #C8102E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -168,7 +164,7 @@
 }
 
 .CBJ {
-    --color: #002654;
+    --color: #041E42;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -200,7 +196,7 @@
 
 .AFM,
 .CGY {
-    --color: #D2001C;
+    --color: #C8102E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -208,7 +204,7 @@
 
 .AFM.gradient,
 .CGY.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), orange 50%, var(--color));
+    background-image: linear-gradient(to bottom right, var(--color), #F1BE48 50%, var(--color));
     color: black;
 }
 
@@ -236,7 +232,7 @@
 }
 
 .CHI {
-    --color: #CF0A2C;
+    --color: #CE1126;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -341,7 +337,7 @@
 }
 
 .COL {
-    --color: #6F263D;
+    --color: #8A2432;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -372,7 +368,7 @@
 }
 
 .DAL {
-    --color: #006847;
+    --color: #00823E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -403,7 +399,7 @@
 }
 
 .DET {
-    --color: #CE1126;
+    --color: #C8102E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -434,7 +430,7 @@
 }
 
 .EDM {
-    --color: #041E42;
+    --color: #00205B;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -545,7 +541,7 @@
 }
 
 .LAK {
-    --color: #572A84;
+    --color: #250E62;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -576,7 +572,7 @@
 }
 
 .MIN {
-    --color: #154734;
+    --color: #0E4431;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -638,7 +634,7 @@
 }
 
 .MTL {
-    --color: #AF1E2D;
+    --color: #A6192E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -669,7 +665,7 @@
 }
 
 .NJD {
-    --color: #CE1126;
+    --color: #CC0000;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -735,7 +731,7 @@
 }
 
 .NYI {
-    --color: #00539B;
+    --color: #00468B;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -766,7 +762,7 @@
 }
 
 .NYR {
-    --color: #0038A8;
+    --color: #0030A1;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -797,7 +793,7 @@
 }
 
 .OTT {
-    --color: #DA1A32;
+    --color: #C8102E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -828,14 +824,10 @@
 }
 
 .PHI {
-    --color: #F74902;
+    --color: #D24303;
     accent-color: var(--color);
     background-color: var(--color);
-    color: black;
-}
-
-.PHI.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
-    filter: invert(0%);
+    color: white;
 }
 
 .PHI.gradient {
@@ -863,7 +855,7 @@
 }
 
 .PIT {
-    --color: #FCB514;
+    --color: #FFB81C;
     accent-color: var(--color);
     background-color: var(--color);
     color: black;
@@ -929,7 +921,7 @@
 }
 
 .SEA {
-    --color: #99D9D9;
+    --color: #96D8D8;
     accent-color: var(--color);
     background-color: var(--color);
     color: black;
@@ -964,7 +956,7 @@
 }
 
 .SJS {
-    --color: #006D75;
+    --color: #00778B;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -995,7 +987,7 @@
 }
 
 .STL {
-    --color: #002F87;
+    --color: #003087;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -1026,7 +1018,7 @@
 }
 
 .TBL {
-    --color: #002868;
+    --color: #00205B;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -1088,7 +1080,7 @@
 }
 
 .UTA {
-    --color: #7ab2e1;
+    --color: #6CACE4;
     accent-color: var(--color);
     background-color: var(--color);
     color: black;
@@ -1154,7 +1146,7 @@
 }
 
 .VGK {
-    --color: #B4975A;
+    --color: #B9975B;
     accent-color: var(--color);
     background-color: var(--color);
     color: black;
@@ -1200,7 +1192,7 @@
 .ATL.gradient,
 .WIN.gradient,
 .WPG.gradient {
-    background-image: linear-gradient(to bottom right, steelblue, var(--color) 50%, steelblue);
+    background-image: linear-gradient(to bottom right, #5C88DA, var(--color) 50%, #5C88DA);
     color: white;
 }
 
