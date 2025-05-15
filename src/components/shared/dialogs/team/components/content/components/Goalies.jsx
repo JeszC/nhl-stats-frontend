@@ -3,10 +3,34 @@ import {getPlayer} from "../../../../../../../scripts/utils.js";
 
 function Goalies({selectedTeam, goaliesSeason, goaliesPlayoffs, setPlayer, setFetchState, setActiveView}) {
 
+    function hasPlayedDuringSeason(goaliesPlayoffs) {
+        for (let goalieSeason of goaliesSeason) {
+            if (goaliesPlayoffs.playerId === goalieSeason.playerId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getSeasonAndPlayoffGoalies() {
+        let goalies = goaliesSeason;
+        for (let goaliePlayoffs of goaliesPlayoffs) {
+            if (!hasPlayedDuringSeason(goaliePlayoffs)) {
+                let goalie = JSON.parse(JSON.stringify(goaliePlayoffs));
+                goalie.gamesPlayed = 0;
+                goalie.savePercentage = 0;
+                goalie.goalsAgainstAverage = 0;
+                goalie.shutouts = 0;
+                goalies.push(goalie);
+            }
+        }
+        return goalies;
+    }
+
     return <div className={"teamsPlayers"}>
         <div className={"teamsGrid"}>
             {
-                goaliesSeason.map(goalieSeason =>
+                getSeasonAndPlayoffGoalies().map(goalieSeason =>
                     <button key={goalieSeason.playerId}
                             type={"button"}
                             className={"teamsButton"}
@@ -44,45 +68,49 @@ function Goalies({selectedTeam, goaliesSeason, goaliesPlayoffs, setPlayer, setFe
                                     </div>
                                 </div>
                             </div>
-                            <div className={"horizontalFlex teamsStatistics"}>
-                                {
-                                    goalieSeason.gamesPlayed === undefined
-                                    ? null
-                                    : <h4 className={"teamsStatIndicator"}>Season:</h4>
-                                }
-                                {
-                                    goalieSeason.gamesPlayed === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Games</h4>
-                                        <span>{goalieSeason.gamesPlayed.toLocaleString()}</span>
-                                    </div>
-                                }
-                                {
-                                    goalieSeason.savePercentage === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>SV%</h4>
-                                        <span>{parseDecimals(goalieSeason.savePercentage)}</span>
-                                    </div>
-                                }
-                                {
-                                    goalieSeason.goalsAgainstAverage === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>GAA</h4>
-                                        <span>{parseDecimals(goalieSeason.goalsAgainstAverage, 1)}</span>
-                                    </div>
-                                }
-                                {
-                                    goalieSeason.shutouts === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Shutouts</h4>
-                                        <span>{goalieSeason.shutouts.toLocaleString()}</span>
-                                    </div>
-                                }
-                            </div>
+                            {
+                                goalieSeason.gamesPlayed > 0
+                                ? <div className={"horizontalFlex teamsStatistics"}>
+                                    {
+                                        goalieSeason.gamesPlayed === undefined
+                                        ? null
+                                        : <h4 className={"teamsStatIndicator"}>Season:</h4>
+                                    }
+                                    {
+                                        goalieSeason.gamesPlayed === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Games</h4>
+                                            <span>{goalieSeason.gamesPlayed.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                    {
+                                        goalieSeason.savePercentage === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>SV%</h4>
+                                            <span>{parseDecimals(goalieSeason.savePercentage)}</span>
+                                        </div>
+                                    }
+                                    {
+                                        goalieSeason.goalsAgainstAverage === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>GAA</h4>
+                                            <span>{parseDecimals(goalieSeason.goalsAgainstAverage, 1)}</span>
+                                        </div>
+                                    }
+                                    {
+                                        goalieSeason.shutouts === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Shutouts</h4>
+                                            <span>{goalieSeason.shutouts.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                </div>
+                                : null
+                            }
                             {
                                 goaliesPlayoffs
                                 ? goaliesPlayoffs.filter(goaliePlayoffs =>

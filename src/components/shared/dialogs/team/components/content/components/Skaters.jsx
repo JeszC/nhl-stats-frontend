@@ -3,10 +3,34 @@ import {getPlayer} from "../../../../../../../scripts/utils.js";
 
 function Skaters({selectedTeam, skatersSeason, skatersPlayoffs, setPlayer, setFetchState, setActiveView}) {
 
+    function hasPlayedDuringSeason(skaterPlayoffs) {
+        for (let skaterSeason of skatersSeason) {
+            if (skaterPlayoffs.playerId === skaterSeason.playerId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getSeasonAndPlayoffSkaters() {
+        let skaters = skatersSeason;
+        for (let skaterPlayoffs of skatersPlayoffs) {
+            if (!hasPlayedDuringSeason(skaterPlayoffs)) {
+                let skater = JSON.parse(JSON.stringify(skaterPlayoffs));
+                skater.gamesPlayed = 0;
+                skater.points = 0;
+                skater.goals = 0;
+                skater.assists = 0;
+                skaters.push(skater);
+            }
+        }
+        return skaters;
+    }
+
     return <div className={"teamsPlayers"}>
         <div className={"teamsGrid"}>
             {
-                skatersSeason.map(skaterSeason =>
+                getSeasonAndPlayoffSkaters().map(skaterSeason =>
                     <button key={skaterSeason.playerId}
                             type={"button"}
                             className={"teamsButton"}
@@ -48,45 +72,49 @@ function Skaters({selectedTeam, skatersSeason, skatersPlayoffs, setPlayer, setFe
                                     </div>
                                 </div>
                             </div>
-                            <div className={"horizontalFlex teamsStatistics"}>
-                                {
-                                    skaterSeason.gamesPlayed === undefined
-                                    ? null
-                                    : <h4 className={"teamsStatIndicator"}>Season:</h4>
-                                }
-                                {
-                                    skaterSeason.gamesPlayed === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Games</h4>
-                                        <span>{skaterSeason.gamesPlayed.toLocaleString()}</span>
-                                    </div>
-                                }
-                                {
-                                    skaterSeason.points === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Points</h4>
-                                        <span>{skaterSeason.points.toLocaleString()}</span>
-                                    </div>
-                                }
-                                {
-                                    skaterSeason.goals === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Goals</h4>
-                                        <span>{skaterSeason.goals.toLocaleString()}</span>
-                                    </div>
-                                }
-                                {
-                                    skaterSeason.assists === undefined
-                                    ? null
-                                    : <div className={"verticalFlex"}>
-                                        <h4>Assists</h4>
-                                        <span>{skaterSeason.assists.toLocaleString()}</span>
-                                    </div>
-                                }
-                            </div>
+                            {
+                                skaterSeason.gamesPlayed > 0
+                                ? <div className={"horizontalFlex teamsStatistics"}>
+                                    {
+                                        skaterSeason.gamesPlayed === undefined
+                                        ? null
+                                        : <h4 className={"teamsStatIndicator"}>Season:</h4>
+                                    }
+                                    {
+                                        skaterSeason.gamesPlayed === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Games</h4>
+                                            <span>{skaterSeason.gamesPlayed.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                    {
+                                        skaterSeason.points === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Points</h4>
+                                            <span>{skaterSeason.points.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                    {
+                                        skaterSeason.goals === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Goals</h4>
+                                            <span>{skaterSeason.goals.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                    {
+                                        skaterSeason.assists === undefined
+                                        ? null
+                                        : <div className={"verticalFlex"}>
+                                            <h4>Assists</h4>
+                                            <span>{skaterSeason.assists.toLocaleString()}</span>
+                                        </div>
+                                    }
+                                </div>
+                                : null
+                            }
                             {
                                 skatersPlayoffs
                                 ? skatersPlayoffs.filter(skaterPlayoffs =>
