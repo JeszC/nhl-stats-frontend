@@ -60,8 +60,8 @@ function Penalties({game, setPlayer, setActiveView, setPreviousView, setFetchSta
                                         default ${penalty.teamAbbrev.default} gradient`}
                                              src={penalty.headshot}
                                              alt={penalty.committedByPlayer
-                                                  ? `${penalty.committedByPlayer} headshot`
-                                                  : `${penalty.servedBy} headshot`}/>
+                                                  ? `${penalty.committedByPlayer.default} headshot`
+                                                  : `${penalty.servedBy.default} headshot`}/>
                                     </button>
                                     <div className={"verticalFlex"}>
                                         <button type={"button"}
