@@ -583,7 +583,7 @@
 }
 
 .MIN.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
     color: white;
 }
 
