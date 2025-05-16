@@ -6,7 +6,7 @@
 }
 
 .ANA.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -39,7 +39,7 @@
 
 .ARI.gradient,
 .PHX.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .BOS.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: black;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .BUF.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .CAR.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -171,8 +171,8 @@
 }
 
 .CBJ.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .CBJ.gradient.awayTeam {
@@ -204,8 +204,8 @@
 
 .AFM.gradient,
 .CGY.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), #F1BE48 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .AFM.gradient.awayTeam,
@@ -239,7 +239,7 @@
 }
 
 .CHI.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -272,7 +272,7 @@
 
 .CLE.gradient,
 .CBN.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -309,7 +309,7 @@
 
 .CLR.gradient,
 .KCS.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -344,7 +344,7 @@
 }
 
 .COL.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -375,7 +375,7 @@
 }
 
 .DAL.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -406,8 +406,8 @@
 }
 
 .DET.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .DET.gradient.awayTeam {
@@ -437,7 +437,7 @@
 }
 
 .EDM.gradient {
-    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -468,7 +468,7 @@
 }
 
 .FLA.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -505,7 +505,7 @@
 .CGS.gradient,
 .CSE.gradient,
 .OAK.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -548,7 +548,7 @@
 }
 
 .LAK.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -579,7 +579,7 @@
 }
 
 .MIN.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -610,7 +610,7 @@
 }
 
 .MNS.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -641,7 +641,7 @@
 }
 
 .MTL.gradient {
-    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -672,7 +672,7 @@
 }
 
 .NJD.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -707,7 +707,7 @@
 }
 
 .NSH.gradient {
-    background-image: linear-gradient(to bottom right, white, var(--color) 50%, white);
+    background-image: linear-gradient(0deg, var(--color) 0%, white 150%);
     color: black;
 }
 
@@ -738,7 +738,7 @@
 }
 
 .NYI.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -769,8 +769,8 @@
 }
 
 .NYR.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .NYR.gradient.awayTeam {
@@ -800,7 +800,7 @@
 }
 
 .OTT.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -831,7 +831,7 @@
 }
 
 .PHI.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -866,8 +866,8 @@
 }
 
 .PIT.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
-    color: white;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: black;
 }
 
 .PIT.gradient.awayTeam {
@@ -897,7 +897,7 @@
 }
 
 .QUE.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -932,7 +932,7 @@
 }
 
 .SEA.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: black;
 }
 
@@ -963,7 +963,7 @@
 }
 
 .SJS.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -994,7 +994,7 @@
 }
 
 .STL.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -1025,8 +1025,8 @@
 }
 
 .TBL.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .TBL.gradient.awayTeam {
@@ -1056,8 +1056,8 @@
 }
 
 .TOR.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), white 50%, var(--color));
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .TOR.gradient.awayTeam {
@@ -1091,8 +1091,8 @@
 }
 
 .UTA.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
-    color: black;
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
 }
 
 .UTA.gradient.awayTeam {
@@ -1122,7 +1122,7 @@
 }
 
 .VAN.gradient {
-    background-image: linear-gradient(to bottom right, black, var(--color) 50%, black);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -1157,7 +1157,7 @@
 }
 
 .VGK.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -1192,7 +1192,7 @@
 .ATL.gradient,
 .WIN.gradient,
 .WPG.gradient {
-    background-image: linear-gradient(to bottom right, #5C88DA, var(--color) 50%, #5C88DA);
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
@@ -1231,7 +1231,7 @@
 }
 
 .WSH.gradient {
-    background-image: linear-gradient(to bottom right, var(--color), black 50%, var(--color));
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
