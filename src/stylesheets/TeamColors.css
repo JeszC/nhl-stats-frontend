@@ -231,6 +231,48 @@
     filter: invert(0%);
 }
 
+.CGS,
+.CSE {
+    --color: #009CA6;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.CGS.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator,
+.CSE.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.CGS.gradient,
+.CSE.gradient {
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
+}
+
+.CGS.gradient.awayTeam,
+.CSE.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.CGS.gradient.homeTeam,
+.CSE.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.CGS.border,
+.CSE.border {
+    border-color: var(--color);
+}
+
+.CGS.layerImage,
+.CSE.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
 .CHI {
     --color: #CE1126;
     accent-color: var(--color);
@@ -299,39 +341,33 @@
     filter: invert(100%);
 }
 
-.CLR,
-.KCS {
-    --color: #0033A0;
+.CLR {
+    --color: #00205B;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
 }
 
-.CLR.gradient,
-.KCS.gradient {
+.CLR.gradient {
     background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
-.CLR.gradient.awayTeam,
-.KCS.gradient.awayTeam {
+.CLR.gradient.awayTeam {
     background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
     color: white;
 }
 
-.CLR.gradient.homeTeam,
-.KCS.gradient.homeTeam {
+.CLR.gradient.homeTeam {
     background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
     color: white;
 }
 
-.CLR.border,
-.KCS.border {
+.CLR.border {
     border-color: var(--color);
 }
 
-.CLR.layerImage,
-.KCS.layerImage {
+.CLR.layerImage {
     background: transparent;
     filter: invert(100%);
 }
@@ -491,51 +527,64 @@
     filter: invert(100%);
 }
 
-.HFD,
-.CGS,
-.CSE,
-.OAK {
-    --color: #046A38;
+.HFD {
+    --color: #00843D;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
 }
 
-.HFD.gradient,
-.CGS.gradient,
-.CSE.gradient,
-.OAK.gradient {
+.HFD.gradient {
     background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
     color: white;
 }
 
-.HFD.gradient.awayTeam,
-.CGS.gradient.awayTeam,
-.CSE.gradient.awayTeam,
-.OAK.gradient.awayTeam {
+.HFD.gradient.awayTeam {
     background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
     color: white;
 }
 
-.HFD.gradient.homeTeam,
-.CGS.gradient.homeTeam,
-.CSE.gradient.homeTeam,
-.OAK.gradient.homeTeam {
+.HFD.gradient.homeTeam {
     background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
     color: white;
 }
 
-.HFD.border,
-.CGS.border,
-.CSE.border,
-.OAK.border {
+.HFD.border {
     border-color: var(--color);
 }
 
-.HFD.layerImage,
-.CGS.layerImage,
-.CSE.layerImage,
-.OAK.layerImage {
+.HFD.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
+.KCS {
+    --color: #041E42;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: white;
+}
+
+.KCS.gradient {
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
+}
+
+.KCS.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.KCS.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.KCS.border {
+    border-color: var(--color);
+}
+
+.KCS.layerImage {
     background: transparent;
     filter: invert(100%);
 }
@@ -603,10 +652,14 @@
 }
 
 .MNS {
-    --color: #007A33;
+    --color: #009639;
     accent-color: var(--color);
     background-color: var(--color);
-    color: white;
+    color: black;
+}
+
+.MNS.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
 }
 
 .MNS.gradient {
@@ -792,6 +845,41 @@
     filter: invert(0%);
 }
 
+.OAK {
+    --color: #00965E;
+    accent-color: var(--color);
+    background-color: var(--color);
+    color: black;
+}
+
+.OAK.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
+    filter: invert(0%);
+}
+
+.OAK.gradient {
+    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    color: white;
+}
+
+.OAK.gradient.awayTeam {
+    background-image: linear-gradient(120deg, var(--color) 0%, black 90%);
+    color: white;
+}
+
+.OAK.gradient.homeTeam {
+    background-image: linear-gradient(60deg, black 10%, var(--color) 100%);
+    color: white;
+}
+
+.OAK.border {
+    border-color: var(--color);
+}
+
+.OAK.layerImage {
+    background: transparent;
+    filter: invert(100%);
+}
+
 .OTT {
     --color: #C8102E;
     accent-color: var(--color);
@@ -890,7 +978,7 @@
 }
 
 .QUE {
-    --color: #005EB8;
+    --color: #0072CE;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -1025,7 +1113,7 @@
 }
 
 .TBL.gradient {
-    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    background-image: linear-gradient(0deg, var(--color) 0%, white 150%);
     color: white;
 }
 
@@ -1056,7 +1144,7 @@
 }
 
 .TOR.gradient {
-    background-image: linear-gradient(0deg, var(--color) 0%, black 150%);
+    background-image: linear-gradient(0deg, var(--color) 0%, white 150%);
     color: white;
 }
 
