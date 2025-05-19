@@ -14,14 +14,16 @@ function Skaters({selectedTeam, skatersSeason, skatersPlayoffs, setPlayer, setFe
 
     function getSeasonAndPlayoffSkaters() {
         let skaters = skatersSeason;
-        for (let skaterPlayoffs of skatersPlayoffs) {
-            if (!hasPlayedDuringSeason(skaterPlayoffs)) {
-                let skater = JSON.parse(JSON.stringify(skaterPlayoffs));
-                skater.gamesPlayed = 0;
-                skater.points = 0;
-                skater.goals = 0;
-                skater.assists = 0;
-                skaters.push(skater);
+        if (skatersPlayoffs) {
+            for (let skaterPlayoffs of skatersPlayoffs) {
+                if (!hasPlayedDuringSeason(skaterPlayoffs)) {
+                    let skater = JSON.parse(JSON.stringify(skaterPlayoffs));
+                    skater.gamesPlayed = 0;
+                    skater.points = 0;
+                    skater.goals = 0;
+                    skater.assists = 0;
+                    skaters.push(skater);
+                }
             }
         }
         return skaters;

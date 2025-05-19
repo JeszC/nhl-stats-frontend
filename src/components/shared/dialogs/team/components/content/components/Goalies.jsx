@@ -14,14 +14,16 @@ function Goalies({selectedTeam, goaliesSeason, goaliesPlayoffs, setPlayer, setFe
 
     function getSeasonAndPlayoffGoalies() {
         let goalies = goaliesSeason;
-        for (let goaliePlayoffs of goaliesPlayoffs) {
-            if (!hasPlayedDuringSeason(goaliePlayoffs)) {
-                let goalie = JSON.parse(JSON.stringify(goaliePlayoffs));
-                goalie.gamesPlayed = 0;
-                goalie.savePercentage = 0;
-                goalie.goalsAgainstAverage = 0;
-                goalie.shutouts = 0;
-                goalies.push(goalie);
+        if (goaliesPlayoffs) {
+            for (let goaliePlayoffs of goaliesPlayoffs) {
+                if (!hasPlayedDuringSeason(goaliePlayoffs)) {
+                    let goalie = JSON.parse(JSON.stringify(goaliePlayoffs));
+                    goalie.gamesPlayed = 0;
+                    goalie.savePercentage = 0;
+                    goalie.goalsAgainstAverage = 0;
+                    goalie.shutouts = 0;
+                    goalies.push(goalie);
+                }
             }
         }
         return goalies;
