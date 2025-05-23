@@ -2,7 +2,7 @@ import {describe, expect, it} from "vitest";
 import {compareNumeric} from "../../src/scripts/utils.js";
 
 describe("compareNumeric", () => {
-    describe("given two numbers", () => {
+    describe("given two (not NaN) numbers", () => {
         it("it should return the difference between the two arguments", () => {
             expect(compareNumeric(5, 3)).toBe(2);
             expect(compareNumeric(-5, 3)).toBe(-8);
@@ -19,11 +19,18 @@ describe("compareNumeric", () => {
             expect(compareNumeric(null, undefined)).toBe(0);
             expect(compareNumeric(undefined, null)).toBe(0);
             expect(compareNumeric(undefined, undefined)).toBe(0);
-            expect(compareNumeric(NaN, null)).toBe(-1);
-            expect(compareNumeric({}, NaN)).toBe(1);
             expect(compareNumeric([], {})).toBe(0);
             expect(compareNumeric([], [])).toBe(0);
             expect(compareNumeric("", [])).toBe(0);
+        });
+    });
+    describe("given two arguments of which either (or both) is NaN", () => {
+        it("should function with NaN", () => {
+            expect(compareNumeric(NaN, null)).toBe(-1);
+            expect(compareNumeric({}, NaN)).toBe(1);
+            expect(compareNumeric(NaN, 5)).toBe(NaN);
+            expect(compareNumeric(-3, NaN)).toBe(NaN);
+            expect(compareNumeric(NaN, NaN)).toBe(NaN);
         });
     });
 });
