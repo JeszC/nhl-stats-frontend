@@ -191,7 +191,7 @@
 
 .CBJ.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .AFM,
@@ -228,7 +228,7 @@
 .AFM.layerImage,
 .CGY.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .CGS,
@@ -462,7 +462,7 @@
 
 .DET.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .EDM {
@@ -714,7 +714,7 @@
 
 .MTL.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .NJD {
@@ -842,7 +842,7 @@
 
 .NYR.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .OAK {
@@ -974,7 +974,7 @@
 
 .PIT.layerImage {
     background: transparent;
-    filter: invert(100%);
+    filter: invert(0%);
 }
 
 .QUE {
@@ -1133,7 +1133,7 @@
 
 .TBL.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .TOR {
@@ -1164,7 +1164,7 @@
 
 .TOR.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .UTA {
@@ -1265,7 +1265,7 @@
 
 .VGK.layerImage {
     background: transparent;
-    filter: invert(100%);
+    filter: invert(0%);
 }
 
 .ATL,
