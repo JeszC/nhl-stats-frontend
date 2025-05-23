@@ -33,8 +33,15 @@ function Staff({game}) {
                             : null
                         }
                         <span className={"secondary"}>Head coach</span>
-                        <div className={"horizontalFlex stats"}>
-                            <span>{game.awayTeam.abbrev}</span>
+                        <div className={"horizontalFlex stats scratchStats playersCountryOfBirth"}>
+                            <span className={"scratchSingleStat"}>{game.awayTeam.abbrev}</span>
+                            {
+                                game.summary.gameInfo.awayTeam.headCoach.nationalityCode
+                                ? <img src={game.summary.gameInfo.awayTeam.headCoach.countryFlag}
+                                       alt={`${game.summary.gameInfo.awayTeam.headCoach.nationalityCode} flag`}
+                                       title={game.summary.gameInfo.awayTeam.headCoach.nationalityCode}/>
+                                : null
+                            }
                         </div>
                     </div>
                 </div>
@@ -67,8 +74,15 @@ function Staff({game}) {
                             : null
                         }
                         <span className={"secondary"}>Head coach</span>
-                        <div className={"horizontalFlex stats"}>
-                            <span>{game.homeTeam.abbrev}</span>
+                        <div className={"horizontalFlex stats scratchStats playersCountryOfBirth"}>
+                            <span className={"scratchSingleStat"}>{game.homeTeam.abbrev}</span>
+                            {
+                                game.summary.gameInfo.homeTeam.headCoach.nationalityCode
+                                ? <img src={game.summary.gameInfo.homeTeam.headCoach.countryFlag}
+                                       alt={`${game.summary.gameInfo.homeTeam.headCoach.nationalityCode} flag`}
+                                       title={game.summary.gameInfo.homeTeam.headCoach.nationalityCode}/>
+                                : null
+                            }
                         </div>
                     </div>
                 </div>
