@@ -68,19 +68,16 @@ export async function getGame(gameID, setGame, setFetchState, setActiveView) {
 }
 
 export function compareNumeric(a, b) {
-    if (typeof a === "string" || typeof b === "string") {
-        return compareTextual(a, b);
+    if (typeof a === "number" && typeof b === "number") {
+        return a - b;
     }
-    if (a === null || typeof a === "undefined") {
-        if (b === null || typeof b === "undefined") {
-            return 0;
-        }
-        return -b;
+    if (typeof a === "number" && typeof b !== "number") {
+        return -1;
     }
-    if (b === null || typeof b === "undefined") {
-        return a;
+    if (typeof a !== "number" && typeof b === "number") {
+        return 1;
     }
-    return a - b;
+    return 0;
 }
 
 export function compareTextual(a, b) {
