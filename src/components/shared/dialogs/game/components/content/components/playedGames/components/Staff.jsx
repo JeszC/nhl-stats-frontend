@@ -8,13 +8,23 @@ function Staff({game}) {
             <div className={"periodInformation"}>
                 <div className={"horizontalFlex playerInformation"}>
                     <div>
-                        <img className={`defaultImage gamesImage teamColorLayer 
-                        default ${game.awayTeam.abbrev} gradient`} alt={""}/>
-                        <img className={`defaultImage gamesImage default ${game.awayTeam.abbrev} layerImage`}
-                             src={coachIndicator}
-                             alt={game.summary.gameInfo.awayTeam.headCoach
-                                  ? `${game.summary.gameInfo.awayTeam.headCoach.default} headshot`
-                                  : `${game.awayTeam.abbrev} head coach headshot`}/>
+                        {
+                            game.summary.gameInfo.awayTeam.headCoach?.headshot
+                            ? <img className={`defaultImage gamesImage default ${game.awayTeam.abbrev} gradient`}
+                                   src={game.summary.gameInfo.awayTeam.headCoach.headshot}
+                                   alt={game.summary.gameInfo.awayTeam.headCoach
+                                        ? `${game.summary.gameInfo.awayTeam.headCoach.default} headshot`
+                                        : `${game.awayTeam.abbrev} head coach headshot`}/>
+                            : <>
+                                <img className={`defaultImage gamesImage teamColorLayer
+                                 default ${game.awayTeam.abbrev} gradient`} alt={""}/>
+                                <img className={`defaultImage gamesImage default ${game.awayTeam.abbrev} layerImage`}
+                                     src={coachIndicator}
+                                     alt={game.summary.gameInfo.awayTeam.headCoach
+                                          ? `${game.summary.gameInfo.awayTeam.headCoach.default} headshot`
+                                          : `${game.awayTeam.abbrev} head coach headshot`}/>
+                            </>
+                        }
                     </div>
                     <div className={"verticalFlex"}>
                         {
@@ -32,13 +42,23 @@ function Staff({game}) {
             <div className={"periodInformation"}>
                 <div className={"horizontalFlex playerInformation"}>
                     <div>
-                        <img className={`defaultImage gamesImage teamColorLayer 
-                        default ${game.homeTeam.abbrev} gradient`} alt={""}/>
-                        <img className={`defaultImage gamesImage default ${game.homeTeam.abbrev} layerImage`}
-                             src={coachIndicator}
-                             alt={game.summary.gameInfo.homeTeam.headCoach
-                                  ? `${game.summary.gameInfo.homeTeam.headCoach.default} headshot`
-                                  : `${game.homeTeam.abbrev} head coach headshot`}/>
+                        {
+                            game.summary.gameInfo.homeTeam.headCoach?.headshot
+                            ? <img className={`defaultImage gamesImage default ${game.homeTeam.abbrev} gradient`}
+                                   src={game.summary.gameInfo.homeTeam.headCoach.headshot}
+                                   alt={game.summary.gameInfo.homeTeam.headCoach
+                                        ? `${game.summary.gameInfo.homeTeam.headCoach.default} headshot`
+                                        : `${game.homeTeam.abbrev} head coach headshot`}/>
+                            : <>
+                                <img className={`defaultImage gamesImage teamColorLayer
+                                 default ${game.homeTeam.abbrev} gradient`} alt={""}/>
+                                <img className={`defaultImage gamesImage default ${game.homeTeam.abbrev} layerImage`}
+                                     src={coachIndicator}
+                                     alt={game.summary.gameInfo.homeTeam.headCoach
+                                          ? `${game.summary.gameInfo.homeTeam.headCoach.default} headshot`
+                                          : `${game.homeTeam.abbrev} head coach headshot`}/>
+                            </>
+                        }
                     </div>
                     <div className={"verticalFlex"}>
                         {
