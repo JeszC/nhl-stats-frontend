@@ -12,16 +12,6 @@ function LastFiveLeaders({game, setPlayer, setActiveView, setPreviousView, setFe
                             setPreviousView={setPreviousView}
                             setFetchState={setFetchState}>
             </LastFiveLeader>
-            <div className={"verticalFlex statisticsColumn"}>
-                <span className={"statisticsHeader"}>TEAM</span>
-                {
-                    game.matchup.skaterComparison.leaders.map(category =>
-                        <div className={"horizontalFlex singlePlayer"} key={category.category}>
-                            <span className={"singlePlayerText lastFiveLeaderCategory"}>{category.category}</span>
-                        </div>
-                    )
-                }
-            </div>
             <LastFiveLeader game={game}
                             isAway={false}
                             setPlayer={setPlayer}

@@ -82,7 +82,7 @@ function teamGoalies({game, isAway, setPlayer, setActiveView, setPreviousView, s
                                      </div>
                                  </div>
                              </div>
-                             <div className={"verticalFlex SingleGoalieStatistics"}>
+                             <div className={"verticalFlex singleGoalieStatistics"}>
                                  <div className={"horizontalFlex singleGoalieStatistic"}>
                                      <span className={"singlePlayerText"}>Record</span>
                                      <span className={"singlePlayerText"}>

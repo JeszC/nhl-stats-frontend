@@ -242,9 +242,26 @@ dialog[open] .gamesSummary {
     min-width: 4em;
 }
 
-.statisticsColumn .singlePlayer .singlePlayerStatistic {
-    width: 2em;
-    font-size: 1.5em;
+.singlePlayerStatistic {
+    min-width: 4em;
+}
+
+.statisticsColumn:last-of-type .singlePlayer .singleGoalieStatistics,
+.statisticsColumn:last-of-type .singlePlayer .singleGoalieStatistic .singlePlayerText:last-of-type,
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerInformation,
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerCategoryAndValue,
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerCategoryAndValue .singlePlayerText:last-of-type,
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerNumberAndPosition .singlePlayerText:last-of-type {
+    order: -1;
+}
+
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerText,
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerNumberAndPosition {
+    text-align: right;
+}
+
+.statisticsColumn:last-of-type .singlePlayer .singlePlayerNumberAndPosition {
+    justify-content: flex-end;
 }
 
 .statisticsColumn span:first-child,
@@ -654,22 +671,6 @@ dialog[open] .gamesSummary {
     color: black;
 }
 
-@media (max-width: 375px) {
-    .statisticsColumn:has(.singlePlayer):nth-child(2) {
-        width: min-content;
-    }
-
-    .statisticsColumn:has(.emptyGoalieData):nth-child(2) {
-        width: 100%;
-    }
-}
-
-@media (min-width: 376px) {
-    .statisticsColumn:has(.singlePlayer):nth-child(2) {
-        min-width: min-content;
-    }
-}
-
 @media (max-width: 479px) {
     .singlePlayerInformation {
         min-width: revert;
@@ -692,20 +693,23 @@ dialog[open] .gamesSummary {
         height: 9.5em;
     }
 
-    .statisticsColumn .singlePlayer .singlePlayerStatistic {
-        font-size: 2em;
-    }
-
     .singlePlayerImageAndInformation,
+    .singlePlayerCategoryAndValue,
     .singleGoalieStatistic {
         flex-direction: column;
     }
 
-    .statisticsColumn:has(.singleGoalieStatistic) {
-        flex: 1 1 0;
+    .statisticsColumn:last-of-type .singlePlayer .singleGoalieStatistic .singlePlayerText:last-of-type,
+    .statisticsColumn:last-of-type .singlePlayer .singlePlayerInformation,
+    .statisticsColumn:last-of-type .singlePlayer .singlePlayerCategoryAndValue .singlePlayerText:last-of-type {
+        order: revert;
     }
 
-    .SingleGoalieStatistics {
+    .statisticsColumn:last-of-type .singlePlayer .singlePlayerImageAndInformation {
+        align-items: flex-end;
+    }
+
+    .singleGoalieStatistics {
         gap: 0.25em;
     }
 }

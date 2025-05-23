@@ -1,4 +1,9 @@
-import {getPlayerFirstName, getPlayerFullName, getPlayerLastName} from "../../../../../../../../../scripts/parsing.js";
+import {
+    capitalize,
+    getPlayerFirstName,
+    getPlayerFullName,
+    getPlayerLastName
+} from "../../../../../../../../../scripts/parsing.js";
 import {getPlayer} from "../../../../../../../../../scripts/utils.js";
 
 function LastFiveLeader({game, isAway, setPlayer, setActiveView, setPreviousView, setFetchState}) {
@@ -38,9 +43,14 @@ function LastFiveLeader({game, isAway, setPlayer, setActiveView, setPreviousView
                             </div>
                         </div>
                     </div>
-                    <span className={"singlePlayerText singlePlayerStatistic"}>
-                        {category[teamLeader].value.toLocaleString()}
-                    </span>
+                    <div className={"horizontalFlex singlePlayerCategoryAndValue"}>
+                        <span className={"singlePlayerText singlePlayerStatistic"}>
+                            {capitalize(category.category)}
+                        </span>
+                        <span className={"singlePlayerText singlePlayerStatistic"}>
+                            {category[teamLeader].value.toLocaleString()}
+                        </span>
+                    </div>
                 </button>
             )
         }
