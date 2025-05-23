@@ -6,6 +6,7 @@ import {
     parseRecord
 } from "../../../../../../../../../scripts/parsing.js";
 import {compareNumeric, getPlayer, getValue} from "../../../../../../../../../scripts/utils.js";
+import constants from "../../../../../../../../../data/constants.json";
 
 function teamGoalies({game, isAway, setPlayer, setActiveView, setPreviousView, setFetchState}) {
     const team = isAway ? "awayTeam" : "homeTeam";
@@ -13,19 +14,23 @@ function teamGoalies({game, isAway, setPlayer, setActiveView, setPreviousView, s
     const placeholderValue = "N/A";
 
     function setValues(goalie) {
-        if (!goalie.gamesPlayed) {
+        if (goalie.gamesPlayed === undefined) {
             goalie.gamesPlayed = 0;
         }
         if (!goalie.record) {
-            goalie.record = "0-0-0";
+            if (game.gameType === constants.gameType.playoff.index) {
+                goalie.record = "0-0";
+            } else {
+                goalie.record = "0-0-0";
+            }
         }
-        if (!goalie.gaa) {
+        if (goalie.gaa === undefined) {
             goalie.gaa = 0;
         }
-        if (!goalie.savePctg) {
+        if (goalie.savePctg === undefined) {
             goalie.savePctg = 0;
         }
-        if (!goalie.shutouts) {
+        if (goalie.shutouts === undefined) {
             goalie.shutouts = 0;
         }
         return goalie;
