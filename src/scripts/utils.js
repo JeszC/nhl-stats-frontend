@@ -81,16 +81,16 @@ export function compareNumeric(a, b) {
 }
 
 export function compareTextual(a, b) {
-    if (a === null || typeof a === "undefined") {
-        if (b === null || typeof b === "undefined") {
-            return 0;
-        }
-        return -"".localeCompare(b);
+    if (typeof a === "string" && typeof b === "string") {
+        return a.localeCompare(b);
     }
-    if (b === null || typeof b === "undefined") {
-        return "".localeCompare(a);
+    if (typeof a === "string" && typeof b !== "string") {
+        return -1;
     }
-    return a.localeCompare(b);
+    if (typeof a !== "string" && typeof b === "string") {
+        return 1;
+    }
+    return 0;
 }
 
 export function sortObjects(objects, path, numericCompare = false, secondaryComparisonFunction = undefined) {
