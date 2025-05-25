@@ -9,5 +9,10 @@ export default defineConfig({
     ],
     build: {
         sourcemap: false
+    },
+    test: {
+        coverage: {
+            provider: "v8"
+        }
     }
 });
