@@ -3,7 +3,7 @@ import {compareNumeric, compareTextual} from "../../src/scripts/utils.js";
 
 describe("compareNumeric", () => {
     describe("given two (not NaN) numbers", () => {
-        it("it should return the difference between the two arguments", () => {
+        it("should return the difference between the two arguments", () => {
             expect(compareNumeric(5, 3)).toBe(2);
             expect(compareNumeric(-5, 3)).toBe(-8);
             expect(compareNumeric(5, -3)).toBe(8);
@@ -37,7 +37,7 @@ describe("compareNumeric", () => {
 
 describe("compareTextual", () => {
     describe("given two strings", () => {
-        it("it should return the difference between the two arguments", () => {
+        it("should return the difference between the two arguments", () => {
             expect(compareTextual("test", "test")).toBe(0);
             expect(compareTextual("test", "test ")).toBeLessThan(0);
             expect(compareTextual("bca", "abc")).toBeGreaterThan(0);
