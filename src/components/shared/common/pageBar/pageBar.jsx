@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
     const [hideBottomBorder, setHideBottomBorder] = useState(false);
     const firstPage = 0;
-    const lastPage = Math.floor(items.length / numberOfItemsToShowPerPage);
+    const lastPage = Math.max(0, Math.floor((items.length - 1) / Math.max(1, numberOfItemsToShowPerPage)));
 
     function goToFirstPage() {
         setPage(firstPage);
@@ -27,7 +27,7 @@ function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
 
     function getPageInformation() {
         let currentPage = (page + 1).toLocaleString();
-        let pages = (Math.max(Math.ceil(items.length / numberOfItemsToShowPerPage), 1)).toLocaleString();
+        let pages = (Math.max(Math.ceil(items.length / Math.max(1, numberOfItemsToShowPerPage)), 1)).toLocaleString();
         return `${currentPage} / ${pages}`;
     }
 
