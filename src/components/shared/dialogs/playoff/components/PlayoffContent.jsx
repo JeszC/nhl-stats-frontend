@@ -9,15 +9,15 @@ function PlayoffContent({setGame, selectedSeries, fetchState, setFetchState, clo
                           closeDialog={closeDialog}
                           headerData={<Header series={selectedSeries}></Header>}
                           bodyData={
-                        <>
-                            <SeriesInformation series={selectedSeries}></SeriesInformation>
-                            <Games series={selectedSeries}
-                                   setGame={setGame}
-                                   setFetchState={setFetchState}
-                                   setActiveView={setActiveView}>
-                            </Games>
-                        </>
-                    }>
+                              <>
+                                  <SeriesInformation series={selectedSeries}></SeriesInformation>
+                                  <Games series={selectedSeries}
+                                         setGame={setGame}
+                                         setFetchState={setFetchState}
+                                         setActiveView={setActiveView}>
+                                  </Games>
+                              </>
+                          }>
     </DialogContent>;
 }
 

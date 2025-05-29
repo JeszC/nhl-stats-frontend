@@ -1,20 +1,20 @@
-import "./stylesheets/App.css";
-import "./stylesheets/dark.css";
-import "./stylesheets/light.css";
+import "../stylesheets/App.css";
+import "../stylesheets/dark.css";
+import "../stylesheets/light.css";
 import {useState} from "react";
-import Navbar from "./components/navbar/Navbar";
-import Draft from "./components/pages/draft/Draft";
-import Home from "./components/pages/home/Home";
-import Players from "./components/pages/players/Players";
-import Results from "./components/pages/results/Results";
-import Schedule from "./components/pages/schedule/Schedule";
-import Standings from "./components/pages/standings/Standings";
-import teamSchedulesIcon from "./components/shared/images/Calendar.svg";
-import draftResultsIcon from "./components/shared/images/DraftResults.svg";
-import gameResultsIcon from "./components/shared/images/GameResults.svg";
-import homeIcon from "./components/shared/images/Home.svg";
-import playerStandingsIcon from "./components/shared/images/PlayerStandings.svg";
-import teamStandingsIcon from "./components/shared/images/TeamStandings.svg";
+import Navbar from "./navbar/Navbar.jsx";
+import Draft from "./pages/draft/Draft.jsx";
+import Home from "./pages/home/Home.jsx";
+import Players from "./pages/players/Players.jsx";
+import Results from "./pages/results/Results.jsx";
+import Schedule from "./pages/schedule/Schedule.jsx";
+import Standings from "./pages/standings/Standings.jsx";
+import teamSchedulesIcon from "./shared/images/Calendar.svg";
+import draftResultsIcon from "./shared/images/DraftResults.svg";
+import gameResultsIcon from "./shared/images/GameResults.svg";
+import homeIcon from "./shared/images/Home.svg";
+import playerStandingsIcon from "./shared/images/PlayerStandings.svg";
+import teamStandingsIcon from "./shared/images/TeamStandings.svg";
 
 function App() {
     const [showOptions, setShowOptions] = useState(false);

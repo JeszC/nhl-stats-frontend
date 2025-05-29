@@ -65,53 +65,53 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
                        closeDialog={closeDialog}
                        headerData={<Header team={selectedTeam}></Header>}
                        bodyData={
-                     <>
-                         {
-                             selectedTeam && Object.keys(selectedTeam).length > 0
-                             ? <>
-                                 <TeamInformation selectedTeam={selectedTeam}
-                                                  recordFormat={getRecordFormat(selectedTeam.schedule[0].season)}
-                                                  lastTenFormat={getLastTenFormat(selectedTeam.schedule[0].season)}>
-                                 </TeamInformation>
-                                 <div className={"pastAndUpcomingGames"}>
-                                     <Games games={upcomingGames.length > 0
-                                                   ? pastGames.slice(-(maxGames / 2))
-                                                   : pastGames}
-                                            setGame={setGame}
-                                            setFetchState={setFetchState}
-                                            setActiveView={setActiveView}
-                                            headerText={"Past games"}>
-                                     </Games>
-                                     <Games games={pastGames.length > 0
-                                                   ? upcomingGames.slice(0, maxGames / 2)
-                                                   : upcomingGames}
-                                            setGame={setGame}
-                                            setFetchState={setFetchState}
-                                            setActiveView={setActiveView}
-                                            headerText={"Upcoming games"}>
-                                     </Games>
-                                 </div>
-                                 {
-                                     injuries && injuries.length > 0
-                                     ? <Injuries injuries={injuries}
-                                                 teamLogo={selectedTeam?.teamStats?.teamLogo}
-                                                 setPlayer={setPlayer}
-                                                 setFetchState={setFetchState}
-                                                 setActiveView={setActiveView}>
-                                     </Injuries>
-                                     : null
-                                 }
-                                 <TeamRoster selectedTeam={selectedTeam}
-                                             setPlayer={setPlayer}
-                                             setFetchState={setFetchState}
-                                             setActiveView={setActiveView}>
-                                 </TeamRoster>
-                                 <TeamStatistics team={selectedTeam}/>
-                             </>
-                             : null
-                         }
-                     </>
-                 }>
+                           <>
+                               {
+                                   selectedTeam && Object.keys(selectedTeam).length > 0
+                                   ? <>
+                                       <TeamInformation selectedTeam={selectedTeam}
+                                                        recordFormat={getRecordFormat(selectedTeam.schedule[0].season)}
+                                                        lastTenFormat={getLastTenFormat(selectedTeam.schedule[0].season)}>
+                                       </TeamInformation>
+                                       <div className={"pastAndUpcomingGames"}>
+                                           <Games games={upcomingGames.length > 0
+                                                         ? pastGames.slice(-(maxGames / 2))
+                                                         : pastGames}
+                                                  setGame={setGame}
+                                                  setFetchState={setFetchState}
+                                                  setActiveView={setActiveView}
+                                                  headerText={"Past games"}>
+                                           </Games>
+                                           <Games games={pastGames.length > 0
+                                                         ? upcomingGames.slice(0, maxGames / 2)
+                                                         : upcomingGames}
+                                                  setGame={setGame}
+                                                  setFetchState={setFetchState}
+                                                  setActiveView={setActiveView}
+                                                  headerText={"Upcoming games"}>
+                                           </Games>
+                                       </div>
+                                       {
+                                           injuries && injuries.length > 0
+                                           ? <Injuries injuries={injuries}
+                                                       teamLogo={selectedTeam?.teamStats?.teamLogo}
+                                                       setPlayer={setPlayer}
+                                                       setFetchState={setFetchState}
+                                                       setActiveView={setActiveView}>
+                                           </Injuries>
+                                           : null
+                                       }
+                                       <TeamRoster selectedTeam={selectedTeam}
+                                                   setPlayer={setPlayer}
+                                                   setFetchState={setFetchState}
+                                                   setActiveView={setActiveView}>
+                                       </TeamRoster>
+                                       <TeamStatistics team={selectedTeam}/>
+                                   </>
+                                   : null
+                               }
+                           </>
+                       }>
         </DialogContent>
     </>;
 }

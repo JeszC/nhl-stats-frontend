@@ -22,33 +22,33 @@ function GameContent({
                        onBack={onBack}
                        headerData={<Header game={selectedGame}></Header>}
                        bodyData={
-                     <>
-                         {
-                             selectedGame && Object.keys(selectedGame).length > 0
-                             ? <>
-                                 <GameInformation game={selectedGame}></GameInformation>
-                                 {
-                                     isGameUpcoming(selectedGame.gameState)
-                                     ? <UpcomingGames game={selectedGame}
-                                                      setPlayer={setPlayer}
-                                                      setActiveView={setActiveView}
-                                                      setPreviousView={setPreviousView}
-                                                      setFetchState={setFetchState}>
-                                     </UpcomingGames>
-                                     : <>
-                                         <PlayedGames game={selectedGame}
-                                                      setPlayer={setPlayer}
-                                                      setActiveView={setActiveView}
-                                                      setPreviousView={setPreviousView}
-                                                      setFetchState={setFetchState}>
-                                         </PlayedGames>
-                                     </>
-                                 }
-                             </>
-                             : null
-                         }
-                     </>
-                 }>
+                           <>
+                               {
+                                   selectedGame && Object.keys(selectedGame).length > 0
+                                   ? <>
+                                       <GameInformation game={selectedGame}></GameInformation>
+                                       {
+                                           isGameUpcoming(selectedGame.gameState)
+                                           ? <UpcomingGames game={selectedGame}
+                                                            setPlayer={setPlayer}
+                                                            setActiveView={setActiveView}
+                                                            setPreviousView={setPreviousView}
+                                                            setFetchState={setFetchState}>
+                                           </UpcomingGames>
+                                           : <>
+                                               <PlayedGames game={selectedGame}
+                                                            setPlayer={setPlayer}
+                                                            setActiveView={setActiveView}
+                                                            setPreviousView={setPreviousView}
+                                                            setFetchState={setFetchState}>
+                                               </PlayedGames>
+                                           </>
+                                       }
+                                   </>
+                                   : null
+                               }
+                           </>
+                       }>
         </DialogContent>
     </>;
 }
