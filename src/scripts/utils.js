@@ -30,10 +30,10 @@ export async function getPlayer(playerID, setPlayer, setFetchState, setActiveVie
     if (playerID) {
         setFetchState(constants.fetchState.loading);
         if (setPreviousView) {
-            setPreviousView("game");
+            setPreviousView(constants.dialogViews.game);
         }
         if (setActiveView) {
-            setActiveView("player");
+            setActiveView(constants.dialogViews.player);
         }
         try {
             let response = await fetch(`${constants.baseURL}/players/getPlayer/${playerID}`);
@@ -52,7 +52,7 @@ export async function getPlayer(playerID, setPlayer, setFetchState, setActiveVie
 export async function getGame(gameID, setGame, setFetchState, setActiveView) {
     if (gameID) {
         setFetchState(constants.fetchState.loading);
-        setActiveView("game");
+        setActiveView(constants.dialogViews.game);
         try {
             let response = await fetch(`${constants.baseURL}/schedule/getGame/${gameID}`);
             if (response.ok) {

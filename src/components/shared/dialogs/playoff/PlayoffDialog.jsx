@@ -5,8 +5,8 @@ import PlayerContent from "../player/components/PlayerContent.jsx";
 import PlayoffContent from "./components/PlayoffContent";
 
 function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchState}) {
-    const [activeView, setActiveView] = useState("series");
-    const [previousView, setPreviousView] = useState("series");
+    const [activeView, setActiveView] = useState(constants.dialogViews.playoff);
+    const [previousView, setPreviousView] = useState(constants.dialogViews.playoff);
     const [game, setGame] = useState({});
     const [player, setPlayer] = useState({});
 
@@ -18,16 +18,16 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
     }
 
     function backToDefaultView() {
-        setPreviousView("series");
-        setActiveView("series");
+        setPreviousView(constants.dialogViews.playoff);
+        setActiveView(constants.dialogViews.playoff);
         setFetchState(constants.fetchState.finished);
     }
 
     function backToPreviousView() {
-        if (previousView === "game") {
-            setActiveView("game");
+        if (previousView === constants.dialogViews.game) {
+            setActiveView(constants.dialogViews.game);
         } else {
-            setActiveView("series");
+            setActiveView(constants.dialogViews.playoff);
         }
         setFetchState(constants.fetchState.finished);
     }
@@ -35,7 +35,7 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
     function closeDialog() {
         setGame({});
         setPlayer({});
-        setActiveView("series");
+        setActiveView(constants.dialogViews.playoff);
         dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
         dialogReference.current.close();
     }
@@ -53,7 +53,7 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
                    tabIndex={-1}
                    onKeyDown={resetDialogOnEscape}>
         {
-            activeView === "series"
+            activeView === constants.dialogViews.playoff
             ? renderContent(
                 <PlayoffContent setGame={setGame}
                                 selectedSeries={playoffSeries}
@@ -63,7 +63,7 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
                                 setActiveView={setActiveView}>
                 </PlayoffContent>
             )
-            : activeView === "game"
+            : activeView === constants.dialogViews.game
               ? renderContent(
                     <GameContent selectedGame={game}
                                  setPlayer={setPlayer}
@@ -75,7 +75,7 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
                                  onBack={backToDefaultView}>
                     </GameContent>
                 )
-              : activeView === "player"
+              : activeView === constants.dialogViews.player
                 ? renderContent(
                         <PlayerContent selectedPlayer={player}
                                        fetchState={fetchState}

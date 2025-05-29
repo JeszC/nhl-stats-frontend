@@ -36,6 +36,12 @@
     "finished": "finished",
     "error": "error"
   },
+  "dialogViews": {
+    "team": "team",
+    "playoff": "playoff",
+    "game": "game",
+    "player": "player"
+  },
   "localStorageKeys": {
     "schedule": {
       "season": "scheduleSeason",

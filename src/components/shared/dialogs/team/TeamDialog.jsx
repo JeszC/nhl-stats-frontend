@@ -6,8 +6,8 @@ import TeamContent from "./components/TeamContent.jsx";
 import "./Teams.css";
 
 function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) {
-    const [activeView, setActiveView] = useState("team");
-    const [previousView, setPreviousView] = useState("team");
+    const [activeView, setActiveView] = useState(constants.dialogViews.team);
+    const [previousView, setPreviousView] = useState(constants.dialogViews.team);
     const [game, setGame] = useState({});
     const [player, setPlayer] = useState({});
 
@@ -19,16 +19,16 @@ function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) 
     }
 
     function backToDefaultView() {
-        setPreviousView("team");
-        setActiveView("team");
+        setPreviousView(constants.dialogViews.team);
+        setActiveView(constants.dialogViews.team);
         setFetchState(constants.fetchState.finished);
     }
 
     function backToPreviousView() {
-        if (previousView === "game") {
-            setActiveView("game");
+        if (previousView === constants.dialogViews.game) {
+            setActiveView(constants.dialogViews.game);
         } else {
-            setActiveView("team");
+            setActiveView(constants.dialogViews.team);
         }
         setFetchState(constants.fetchState.finished);
     }
@@ -36,7 +36,7 @@ function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) 
     function closeDialog() {
         setGame({});
         setPlayer({});
-        setActiveView("team");
+        setActiveView(constants.dialogViews.team);
         dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
         dialogReference.current.close();
     }
@@ -50,7 +50,7 @@ function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) 
 
     return <dialog ref={dialogReference} aria-label={"Team information"} tabIndex={-1} onKeyDown={resetDialogOnEscape}>
         {
-            activeView === "team"
+            activeView === constants.dialogViews.team
             ? renderContent(
                 <TeamContent setGame={setGame}
                              setPlayer={setPlayer}
@@ -61,7 +61,7 @@ function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) 
                              setFetchState={setFetchState}>
                 </TeamContent>
             )
-            : activeView === "game"
+            : activeView === constants.dialogViews.game
               ? renderContent(
                     <GameContent selectedGame={game}
                                  setPlayer={setPlayer}
@@ -73,7 +73,7 @@ function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) 
                                  onBack={backToDefaultView}>
                     </GameContent>
                 )
-              : activeView === "player"
+              : activeView === constants.dialogViews.player
                 ? renderContent(
                         <PlayerContent selectedPlayer={player}
                                        fetchState={fetchState}

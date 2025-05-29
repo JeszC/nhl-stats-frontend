@@ -5,11 +5,11 @@ import GameContent from "./components/GameContent.jsx";
 import "./Games.css";
 
 function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) {
-    const [activeView, setActiveView] = useState("game");
+    const [activeView, setActiveView] = useState(constants.dialogViews.game);
     const [player, setPlayer] = useState({});
 
     function backToDefaultView() {
-        setActiveView("game");
+        setActiveView(constants.dialogViews.game);
         setFetchState(constants.fetchState.finished);
     }
 
@@ -21,7 +21,7 @@ function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) 
 
     function closeDialog() {
         setPlayer({});
-        setActiveView("game");
+        setActiveView(constants.dialogViews.game);
         dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
         dialogReference.current.close();
     }
@@ -36,7 +36,7 @@ function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) 
     return <>
         <dialog ref={dialogReference} aria-label={"Game information"} tabIndex={-1} onKeyDown={resetDialogOnEscape}>
             {
-                activeView === "game"
+                activeView === constants.dialogViews.game
                 ? renderContent(
                     <GameContent selectedGame={selectedGame}
                                  setPlayer={setPlayer}
@@ -46,7 +46,7 @@ function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) 
                                  closeDialog={closeDialog}>
                     </GameContent>
                 )
-                : activeView === "player"
+                : activeView === constants.dialogViews.player
                   ? renderContent(
                         <PlayerContent selectedPlayer={player}
                                        fetchState={fetchState}
