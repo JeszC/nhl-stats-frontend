@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
@@ -11,6 +11,7 @@ import Legend from "./components/Legend";
 import TableOfContents from "./components/TableOfContents.jsx";
 import TopPlayers from "./components/TopPlayers";
 import TopTeams from "./components/TopTeams";
+import Trades from "./components/Trades.jsx";
 import UpcomingGames from "./components/UpcomingGames";
 import "./Home.css";
 
@@ -21,7 +22,11 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
+    const [trades, setTrades] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [tradePage, setTradePage] = useState(0);
+    const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
+    const tradeOffset = tradePage * 10;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -90,6 +95,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
         throw new Error("HTTP error when fetching injuries.");
     }
 
+    const getTrades = useCallback(async () => {
+        let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${tradeOffset}`);
+        if (tradesResponse.ok) {
+            return await tradesResponse.json();
+        }
+        throw new Error("HTTP error when fetching trades.");
+    }, [tradeOffset]);
+
     async function getData() {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -118,6 +131,18 @@ function Home({showOptions, setShowOptions, showHelp}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
+    useEffect(() => {
+        setTradeFetchState(constants.fetchState.loading);
+        getTrades()
+            .then(fetchedTrades => {
+                setTrades(previousTrades => previousTrades.concat(fetchedTrades));
+                setTradeFetchState(constants.fetchState.finished);
+            })
+            .catch(ignored => {
+                setTradeFetchState(constants.fetchState.error);
+            });
+    }, [getTrades]);
+
     return <>
         <SidebarOptions showSidebar={showOptions}
                         title={"Options"}
@@ -130,7 +155,9 @@ function Home({showOptions, setShowOptions, showHelp}) {
                              <div className={"homeHeader"}>
                                  <span>Home</span>
                              </div>
-                             {fetchState === constants.fetchState.loading ? <Atom></Atom> : null}
+                             {
+                                 fetchState === constants.fetchState.loading ? <Atom></Atom> : null
+                             }
                              {
                                  fetchState === constants.fetchState.error
                                  ? <ErrorDialogRetry
@@ -154,7 +181,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </TopPlayers>
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
-                                     <Injuries injuries={injuries} teams={teams}></Injuries>
+                                     <div className={"horizontalFlex"}>
+                                         <Injuries injuries={injuries} teams={teams}></Injuries>
+                                         <Trades trades={trades}
+                                                 fetchState={tradeFetchState}
+                                                 tradePage={tradePage}
+                                                 setTradePage={setTradePage}>
+                                         </Trades>
+                                     </div>
                                  </>
                                  : null
                              }
