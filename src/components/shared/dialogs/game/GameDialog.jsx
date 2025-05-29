@@ -1,7 +1,7 @@
 import {useState} from "react";
 import constants from "../../../../data/constants.json";
-import PlayerContent from "../player/components/content/PlayerContent";
-import GameContent from "./components/content/GameContent";
+import PlayerContent from "../player/components/PlayerContent.jsx";
+import GameContent from "./components/GameContent.jsx";
 import "./Games.css";
 
 function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) {

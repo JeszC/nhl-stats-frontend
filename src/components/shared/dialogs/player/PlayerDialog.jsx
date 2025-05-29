@@ -1,4 +1,4 @@
-import PlayerContent from "./components/content/PlayerContent";
+import PlayerContent from "./components/PlayerContent.jsx";
 
 function PlayerDialog({dialogReference, selectedPlayer, fetchState}) {
 

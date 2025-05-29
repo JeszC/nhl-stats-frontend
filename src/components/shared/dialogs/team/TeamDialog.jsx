@@ -1,8 +1,8 @@
 import {useState} from "react";
 import constants from "../../../../data/constants.json";
-import GameContent from "../game/components/content/GameContent";
-import PlayerContent from "../player/components/content/PlayerContent";
-import TeamContent from "./components/content/TeamContent";
+import GameContent from "../game/components/GameContent.jsx";
+import PlayerContent from "../player/components/PlayerContent.jsx";
+import TeamContent from "./components/TeamContent.jsx";
 import "./Teams.css";
 
 function TeamDialog({dialogReference, selectedTeam, fetchState, setFetchState}) {

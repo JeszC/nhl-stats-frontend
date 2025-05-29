@@ -1,7 +1,7 @@
 import {useState} from "react";
 import constants from "../../../../data/constants.json";
-import GameContent from "../game/components/content/GameContent";
-import PlayerContent from "../player/components/content/PlayerContent";
+import GameContent from "../game/components/GameContent.jsx";
+import PlayerContent from "../player/components/PlayerContent.jsx";
 import PlayoffContent from "./components/PlayoffContent";
 
 function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchState}) {
