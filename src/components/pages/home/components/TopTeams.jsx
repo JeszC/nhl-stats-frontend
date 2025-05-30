@@ -76,7 +76,7 @@ function TopTeams({teams}) {
     useEffect(setUpOnLoad, []);
 
     return <div>
-        <h2 id={"topTeams"}>Top teams</h2>
+        <h2>Top teams</h2>
         <div className={"verticalFlex tableAndTabs"}>
             <div className={"horizontalFlex tabs homeTabs teamTabs"}>
                 <SingleSelectionButtons buttonData={getFilterCategories()}

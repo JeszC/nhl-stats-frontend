@@ -170,7 +170,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                  fetchState === constants.fetchState.finished
                                  ? <>
                                      <UpcomingGames games={games}></UpcomingGames>
-                                     <div className={"homePageTables"}>
+                                     <div id={"leaders"} className={"homePageTables"}>
                                          <TopTeams teams={teams}></TopTeams>
                                          <TopPlayers players={skaters}
                                                      headerText={"Top skaters"}>
@@ -181,7 +181,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </TopPlayers>
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
-                                     <div className={"horizontalFlex injuriesAndTrades"}>
+                                     <div id={"injuriesTrades"} className={"horizontalFlex injuriesAndTrades"}>
                                          <Injuries injuries={injuries} teams={teams}></Injuries>
                                          <Trades trades={trades}
                                                  fetchState={tradeFetchState}
