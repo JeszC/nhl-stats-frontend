@@ -35,14 +35,14 @@ function Injuries({injuries, teams}) {
                <h2>Injuries</h2>
                <ul className={"injuriesDates"}>
                    {
-                       splitArrayByKey(injuries, "date").map((item, index) =>
+                       splitArrayByKey(injuries, "date").map((day, index) =>
                            <li key={index} className={"injuryDate"}>
                                <span className={"injuryDateHeader"}>
-                                   {formatterDate.format(new Date(item[0].date))}
+                                   {formatterDate.format(new Date(day[0].date))}
                                </span>
                                <ul className={"injuries"}>
                                    {
-                                       item.map(injury =>
+                                       day.map(injury =>
                                            <li key={injury.competitorId.toString() + injury.player.id.toString()}
                                                className={"injury"}>
                                                <div className={"injuryTeamAndPlayerInformation horizontalFlex"}>

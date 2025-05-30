@@ -1,8 +1,51 @@
 import constants from "../../../../data/constants.json";
 import TradeTeam from "./TradeTeam.jsx";
 
-function Trades({trades, fetchState, tradePage, setTradePage}) {
+function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
     const isLoading = fetchState === constants.fetchState.loading;
+    const formatterDate = new Intl.DateTimeFormat(undefined, {
+        weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
+    });
+
+    function splitArrayByKey(array, key) {
+        let slicedArray = [];
+        let index = 0;
+        for (let i = 1; i < array.length; i++) {
+            if (array[i][key] !== array[i - 1][key]) {
+                slicedArray.push(array.slice(index, i));
+                index = i;
+            }
+        }
+        slicedArray.push(array.slice(index, array.length));
+        return slicedArray;
+    }
+
+    function getTeamLogo(teamAbbrev) {
+        if (teams && teams.length > 0) {
+            for (let team of teams) {
+                if (team?.teamAbbrev?.default === teamAbbrev) {
+                    return team?.teamLogo;
+                }
+            }
+        }
+        return null;
+    }
+
+    function fixWrongAbbreviation(team) {
+        let teamAbbrev = team.team.team_shortname;
+        switch (teamAbbrev) {
+            case "LA":
+                return "LAK";
+            case "NJ":
+                return "NJD";
+            case "SJ":
+                return "SJS";
+            case "TB":
+                return "TBL";
+            default:
+                return teamAbbrev;
+        }
+    }
 
     return <>
         {
@@ -13,11 +56,18 @@ function Trades({trades, fetchState, tradePage, setTradePage}) {
               : <div id={"trades"} className={"injuriesOrTrades"}>
                   <h2>Trades</h2>
                   <ul className={"trades"}>
+                      {/*{console.log(splitArrayByKey(trades, ["trade_date"]))}*/}
                       {
                           trades.map((trade, index) =>
                               <li key={trade.post_id + index.toString()} className={"verticalFlex trade"}>
-                                  <TradeTeam team={trade.details[0]}></TradeTeam>
-                                  <TradeTeam team={trade.details[1]}></TradeTeam>
+                                  <TradeTeam team={trade.details[0]}
+                                             teamLogo={getTeamLogo(fixWrongAbbreviation(trade.details[0]))}
+                                             teamAbbrev={fixWrongAbbreviation(trade.details[0])}>
+                                  </TradeTeam>
+                                  <TradeTeam team={trade.details[1]}
+                                             teamLogo={getTeamLogo(fixWrongAbbreviation(trade.details[1]))}
+                                             teamAbbrev={fixWrongAbbreviation(trade.details[1])}>
+                                  </TradeTeam>
                               </li>
                           )
                       }

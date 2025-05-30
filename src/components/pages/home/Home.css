@@ -167,6 +167,8 @@
 
 .tradeTeamLogo {
     --size: 7em;
+    min-width: var(--size);
+    min-height: var(--size);
     width: var(--size);
     height: var(--size);
 }

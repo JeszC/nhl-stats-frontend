@@ -184,6 +184,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      <div id={"injuriesTrades"} className={"horizontalFlex injuriesAndTrades"}>
                                          <Injuries injuries={injuries} teams={teams}></Injuries>
                                          <Trades trades={trades}
+                                                 teams={teams}
                                                  fetchState={tradeFetchState}
                                                  tradePage={tradePage}
                                                  setTradePage={setTradePage}>
