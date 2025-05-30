@@ -31,7 +31,7 @@ function Injuries({injuries, teams}) {
 
     return injuries.length === 0
            ? null
-           : <div id={"injuries"} className={"injuriesPage injuriesHome"}>
+           : <div id={"injuries"} className={"injuriesOrTrades injuriesHome"}>
                <h2>Injuries</h2>
                <ul className={"injuriesDates"}>
                    {

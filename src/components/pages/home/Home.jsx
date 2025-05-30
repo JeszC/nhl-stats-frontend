@@ -181,7 +181,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </TopPlayers>
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
-                                     <div className={"horizontalFlex"}>
+                                     <div className={"horizontalFlex injuriesAndTrades"}>
                                          <Injuries injuries={injuries} teams={teams}></Injuries>
                                          <Trades trades={trades}
                                                  fetchState={tradeFetchState}
