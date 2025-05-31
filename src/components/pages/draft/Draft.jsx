@@ -12,7 +12,7 @@ import draftColumns from "./../../../data/draft.json";
 import DraftTable from "./components/DraftTable";
 import Filters from "./components/Filters";
 import Legend from "./components/Legend";
-import "./draft.css";
+import "./Draft.css";
 
 function defaultCompare(player1, player2) {
     let key = draftColumns.columns.overallPick.nhlKey;

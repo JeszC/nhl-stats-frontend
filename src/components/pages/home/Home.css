@@ -66,20 +66,26 @@
     min-height: 3em;
 }
 
-.injuriesPage {
-    margin: 0 1em;
+.injuriesAndTrades {
+    margin-bottom: 0.5em;
 }
 
-.injuriesDates {
+.injuriesOrTrades {
+    margin: 0 1em;
+    width: 100%;
+}
+
+.injuriesOrTradesByDate {
+    margin: 0;
     padding-left: 0;
     list-style-type: none;
 }
 
-.injuryDate {
+.individualDay:not(:last-of-type) {
     margin-bottom: 2em;
 }
 
-.injuryDateHeader {
+.injuryOrTradeHeader {
     font-size: 1.25em;
     font-weight: bold;
 }
@@ -88,7 +94,7 @@
     padding: 0.5em 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(21em, 1fr));
-    gap: 0.5em;
+    gap: 1em;
 }
 
 .injury {
@@ -133,6 +139,69 @@
     gap: 1em;
 }
 
+.trades {
+    margin: 0;
+    padding: 0.5em 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
+    gap: 1em;
+}
+
+.trade {
+    align-items: flex-start;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+
+.tradeTeam {
+    width: 100%;
+}
+
+.tradeTeamName {
+    font-weight: bold;
+}
+
+.tradeTeamLogo {
+    --size: 7em;
+    min-width: var(--size);
+    min-height: var(--size);
+    width: var(--size);
+    height: var(--size);
+}
+
+.tradeTeam:first-of-type .tradeTeamLogo {
+    border-top-left-radius: 4px;
+}
+
+.tradeTeam:last-of-type .tradeTeamLogo {
+    border-bottom-left-radius: 4px;
+}
+
+.tradeItems {
+    padding: 0 0.5em;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.tradeTeam:first-of-type .tradeItems {
+    border-top-right-radius: 4px;
+}
+
+.tradeTeam:last-of-type .tradeItems {
+    border-bottom-right-radius: 4px;
+}
+
+.tradeItemList {
+    padding-left: 1em;
+    list-style-type: disc;
+    line-height: 1em;
+}
+
+.loadMoreButton {
+    margin: 0.5em 0;
+}
+
 .homePageTables {
     margin: 0 1em;
     display: grid;
@@ -169,7 +238,7 @@
 }
 
 .upcomingGames h2,
-.injuriesPage h2,
+.injuriesOrTrades h2,
 .homePageTables h2,
 .playoffTree h2 {
     text-align: center;
@@ -444,6 +513,12 @@
 @media (max-width: calc(82em - 1px)) {
     .homePageTables {
         grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 639px) {
+    .injuriesAndTrades {
+        flex-wrap: wrap;
     }
 }
 

@@ -18,6 +18,10 @@
     margin-bottom: calc(2em / 3);
 }
 
+.teamsContent.injuriesOrTrades {
+    width: revert;
+}
+
 .teamsContent .injuries {
     padding: 0;
     margin: 0;

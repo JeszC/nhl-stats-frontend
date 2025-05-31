@@ -123,3 +123,27 @@ export function getValue(path, object, interpretAsMultipleKeys = false, fallback
     }
     return fallback;
 }
+
+export function splitArrayByKey(array, key) {
+    let slicedArray = [];
+    let index = 0;
+    for (let i = 1; i < array.length; i++) {
+        if (array[i][key] !== array[i - 1][key]) {
+            slicedArray.push(array.slice(index, i));
+            index = i;
+        }
+    }
+    slicedArray.push(array.slice(index, array.length));
+    return slicedArray;
+}
+
+export function getTeamLogo(teams, teamAbbrev) {
+    if (teams && teams.length > 0) {
+        for (let team of teams) {
+            if (team?.teamAbbrev?.default === teamAbbrev) {
+                return team?.teamLogo;
+            }
+        }
+    }
+    return null;
+}

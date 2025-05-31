@@ -1,54 +1,31 @@
 import {capitalize} from "../../../../scripts/parsing.js";
+import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 
-function Injuries({injuries, teams}) {
+function Injuries({injuries, teams, injuryPage, setInjuryPage}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
 
-    function splitArrayByKey(array, key) {
-        let slicedArray = [];
-        let index = 0;
-        for (let i = 1; i < array.length; i++) {
-            if (array[i][key] !== array[i - 1][key]) {
-                slicedArray.push(array.slice(index, i));
-                index = i;
-            }
-        }
-        slicedArray.push(array.slice(index, array.length));
-        return slicedArray;
-    }
-
-    function getTeamLogo(teamAbbrev) {
-        if (teams && teams.length > 0) {
-            for (let team of teams) {
-                if (team?.teamAbbrev?.default === teamAbbrev) {
-                    return team?.teamLogo;
-                }
-            }
-        }
-        return null;
-    }
-
     return injuries.length === 0
            ? null
-           : <div id={"injuries"} className={"injuriesPage injuriesHome"}>
+           : <div id={"injuries"} className={"injuriesOrTrades injuriesHome"}>
                <h2>Injuries</h2>
-               <ul className={"injuriesDates"}>
+               <ul className={"injuriesOrTradesByDate"}>
                    {
-                       splitArrayByKey(injuries, "date").map((item, index) =>
-                           <li key={index} className={"injuryDate"}>
-                               <span className={"injuryDateHeader"}>
-                                   {formatterDate.format(new Date(item[0].date))}
+                       splitArrayByKey(injuries, "date").map((day, index) =>
+                           <li key={index} className={"individualDay"}>
+                               <span className={"injuryOrTradeHeader"}>
+                                   {formatterDate.format(new Date(day[0].date))}
                                </span>
                                <ul className={"injuries"}>
                                    {
-                                       item.map(injury =>
+                                       day.map(injury =>
                                            <li key={injury.competitorId.toString() + injury.player.id.toString()}
                                                className={"injury"}>
                                                <div className={"injuryTeamAndPlayerInformation horizontalFlex"}>
                                                    <img className={`injuryHeadshot default
                                                    ${injury.teamAbbrev} gradient`}
-                                                        src={getTeamLogo(injury.teamAbbrev)}
+                                                        src={getTeamLogo(teams, injury.teamAbbrev)}
                                                         alt={`${injury.teamAbbrev}`}/>
                                                    <div className={"injuryPlayerInformation verticalFlex"}>
                                                        <span className={"injuryName"}>{injury.player.displayName}</span>
@@ -70,6 +47,12 @@ function Injuries({injuries, teams}) {
                        )
                    }
                </ul>
+               <button type={"button"}
+                       className={"loadMoreButton"}
+                       title={"Load more"}
+                       onClick={() => setInjuryPage(injuryPage + 1)}>
+                   Load more
+               </button>
            </div>;
 }
 

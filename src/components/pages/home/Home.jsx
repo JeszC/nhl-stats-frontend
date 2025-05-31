@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
@@ -11,6 +11,7 @@ import Legend from "./components/Legend";
 import TableOfContents from "./components/TableOfContents.jsx";
 import TopPlayers from "./components/TopPlayers";
 import TopTeams from "./components/TopTeams";
+import Trades from "./components/Trades.jsx";
 import UpcomingGames from "./components/UpcomingGames";
 import "./Home.css";
 
@@ -21,7 +22,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
+    const [visibleInjuries, setVisibleInjuries] = useState([]);
+    const [trades, setTrades] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [injuryPage, setInjuryPage] = useState(0);
+    const [tradePage, setTradePage] = useState(0);
+    const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
+    const numberOfItemsToFetch = 10;
+    const tradeOffset = tradePage * numberOfItemsToFetch;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -90,6 +98,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
         throw new Error("HTTP error when fetching injuries.");
     }
 
+    const getTrades = useCallback(async () => {
+        let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${tradeOffset}`);
+        if (tradesResponse.ok) {
+            return await tradesResponse.json();
+        }
+        throw new Error("HTTP error when fetching trades.");
+    }, [tradeOffset]);
+
     async function getData() {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -106,6 +122,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
         setGoalies(responses[3]);
         setPlayoffTree(responses[4]);
         setInjuries(responses[5]);
+        setVisibleInjuries(responses[5].slice(0, numberOfItemsToFetch));
         setFetchState(constants.fetchState.finished);
     }
 
@@ -117,6 +134,24 @@ function Home({showOptions, setShowOptions, showHelp}) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
+
+    useEffect(() => {
+        setTradeFetchState(constants.fetchState.loading);
+        getTrades()
+            .then(fetchedTrades => {
+                setTrades(previousTrades => previousTrades.concat(fetchedTrades));
+                setTradeFetchState(constants.fetchState.finished);
+            })
+            .catch(ignored => {
+                setTradeFetchState(constants.fetchState.error);
+            });
+    }, [getTrades]);
+
+    useEffect(() => {
+        if (visibleInjuries.length < injuries.length) {
+            setVisibleInjuries(injuries.slice(0, (injuryPage + 1) * numberOfItemsToFetch));
+        }
+    }, [injuries, visibleInjuries.length, injuryPage]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -130,7 +165,9 @@ function Home({showOptions, setShowOptions, showHelp}) {
                              <div className={"homeHeader"}>
                                  <span>Home</span>
                              </div>
-                             {fetchState === constants.fetchState.loading ? <Atom></Atom> : null}
+                             {
+                                 fetchState === constants.fetchState.loading ? <Atom></Atom> : null
+                             }
                              {
                                  fetchState === constants.fetchState.error
                                  ? <ErrorDialogRetry
@@ -143,7 +180,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                  fetchState === constants.fetchState.finished
                                  ? <>
                                      <UpcomingGames games={games}></UpcomingGames>
-                                     <div className={"homePageTables"}>
+                                     <div id={"leaders"} className={"homePageTables"}>
                                          <TopTeams teams={teams}></TopTeams>
                                          <TopPlayers players={skaters}
                                                      headerText={"Top skaters"}>
@@ -154,7 +191,19 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </TopPlayers>
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
-                                     <Injuries injuries={injuries} teams={teams}></Injuries>
+                                     <div id={"injuriesTrades"} className={"horizontalFlex injuriesAndTrades"}>
+                                         <Injuries injuries={visibleInjuries}
+                                                   teams={teams}
+                                                   injuryPage={injuryPage}
+                                                   setInjuryPage={setInjuryPage}>
+                                         </Injuries>
+                                         <Trades trades={trades}
+                                                 teams={teams}
+                                                 fetchState={tradeFetchState}
+                                                 tradePage={tradePage}
+                                                 setTradePage={setTradePage}>
+                                         </Trades>
+                                     </div>
                                  </>
                                  : null
                              }

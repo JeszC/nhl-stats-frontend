@@ -7,7 +7,7 @@ function Injuries({injuries, teamLogo, setPlayer, setFetchState, setActiveView})
     });
 
     return injuries && injuries.length > 0
-           ? <div className={"teamsContent injuriesPage"}>
+           ? <div className={"teamsContent injuriesOrTrades"}>
                <h2>Injuries</h2>
                <div className={"injuries"}>
                    {
