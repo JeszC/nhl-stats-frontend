@@ -28,6 +28,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [injuryPage, setInjuryPage] = useState(0);
     const [tradePage, setTradePage] = useState(0);
     const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
+    const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
     const numberOfItemsToFetch = 10;
     const tradeOffset = tradePage * numberOfItemsToFetch;
     const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
@@ -137,15 +138,20 @@ function Home({showOptions, setShowOptions, showHelp}) {
     useEffect(setUpOnLoad, []);
 
     useEffect(() => {
-        setTradeFetchState(constants.fetchState.loading);
-        getTrades()
-            .then(fetchedTrades => {
-                setTrades(previousTrades => previousTrades.concat(fetchedTrades));
-                setTradeFetchState(constants.fetchState.finished);
-            })
-            .catch(ignored => {
-                setTradeFetchState(constants.fetchState.error);
-            });
+        if (!areAllTradesFetched) {
+            setTradeFetchState(constants.fetchState.loading);
+            getTrades()
+                .then(fetchedTrades => {
+                    setTrades(previousTrades => previousTrades.concat(fetchedTrades));
+                    setTradeFetchState(constants.fetchState.finished);
+                    if (fetchedTrades.length < numberOfItemsToFetch) {
+                        setAreAllTradesFetched(true);
+                    }
+                })
+                .catch(ignored => {
+                    setTradeFetchState(constants.fetchState.error);
+                });
+        }
     }, [getTrades]);
 
     useEffect(() => {
@@ -201,6 +207,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </Injuries>
                                          <Trades trades={trades}
                                                  teams={teams}
+                                                 areAllTradesOnFetched={areAllTradesFetched}
                                                  fetchState={tradeFetchState}
                                                  tradePage={tradePage}
                                                  setTradePage={setTradePage}>
