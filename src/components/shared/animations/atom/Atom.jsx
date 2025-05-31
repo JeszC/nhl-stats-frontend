@@ -1,4 +1,4 @@
-import "./atom.css";
+import "./Atom.css";
 
 function Atom() {
     return <div className={"atom"}></div>;

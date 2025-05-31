@@ -1,4 +1,4 @@
-import "./bars.css";
+import "./Bars.css";
 
 function Bars() {
     return <div className="bars">
