@@ -2,7 +2,7 @@ import constants from "../../../../data/constants.json";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 import TradeTeam from "./TradeTeam.jsx";
 
-function Trades({trades, teams, areAllTradesFetched, fetchState, tradePage, setTradePage}) {
+function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) {
     const isLoading = fetchState === constants.fetchState.loading;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
@@ -65,7 +65,7 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, tradePage, setT
                                className={"loadMoreButton"}
                                title={isLoading ? "Loading..." : "Load more"}
                                disabled={isLoading}
-                               onClick={() => setTradePage(tradePage + 1)}>
+                               onClick={() => setTradePage(previousPage => previousPage + 1)}>
                          {isLoading ? "Loading..." : "Load more"}
                      </button>
                  }

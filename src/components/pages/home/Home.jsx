@@ -202,14 +202,12 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          <Injuries injuries={visibleInjuries}
                                                    teams={teams}
                                                    areAllInjuriesOnPage={areAllInjuriesOnPage}
-                                                   injuryPage={injuryPage}
                                                    setInjuryPage={setInjuryPage}>
                                          </Injuries>
                                          <Trades trades={trades}
                                                  teams={teams}
                                                  areAllTradesFetched={areAllTradesFetched}
                                                  fetchState={tradeFetchState}
-                                                 tradePage={tradePage}
                                                  setTradePage={setTradePage}>
                                          </Trades>
                                      </div>
