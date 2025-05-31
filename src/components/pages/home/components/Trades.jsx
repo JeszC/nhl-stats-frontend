@@ -1,6 +1,6 @@
 import constants from "../../../../data/constants.json";
-import TradeTeam from "./TradeTeam.jsx";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
+import TradeTeam from "./TradeTeam.jsx";
 
 function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
     const isLoading = fetchState === constants.fetchState.loading;
@@ -59,7 +59,7 @@ function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
                      }
                  </ul>
                  <button type={"button"}
-                         className={"tradesShowMoreButton"}
+                         className={"loadMoreButton"}
                          title={isLoading ? "Loading..." : "Load more"}
                          disabled={isLoading}
                          onClick={() => setTradePage(tradePage + 1)}>

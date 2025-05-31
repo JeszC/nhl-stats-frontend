@@ -22,11 +22,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
+    const [visibleInjuries, setVisibleInjuries] = useState([]);
     const [trades, setTrades] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [injuryPage, setInjuryPage] = useState(0);
     const [tradePage, setTradePage] = useState(0);
     const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
-    const tradeOffset = tradePage * 10;
+    const numberOfItemsToFetch = 10;
+    const tradeOffset = tradePage * numberOfItemsToFetch;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -119,6 +122,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
         setGoalies(responses[3]);
         setPlayoffTree(responses[4]);
         setInjuries(responses[5]);
+        setVisibleInjuries(responses[5].slice(0, numberOfItemsToFetch));
         setFetchState(constants.fetchState.finished);
     }
 
@@ -142,6 +146,12 @@ function Home({showOptions, setShowOptions, showHelp}) {
                 setTradeFetchState(constants.fetchState.error);
             });
     }, [getTrades]);
+
+    useEffect(() => {
+        if (visibleInjuries.length < injuries.length) {
+            setVisibleInjuries(injuries.slice(0, (injuryPage + 1) * numberOfItemsToFetch));
+        }
+    }, [injuries, visibleInjuries.length, injuryPage]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -182,7 +192,11 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
                                      <div id={"injuriesTrades"} className={"horizontalFlex injuriesAndTrades"}>
-                                         <Injuries injuries={injuries} teams={teams}></Injuries>
+                                         <Injuries injuries={visibleInjuries}
+                                                   teams={teams}
+                                                   injuryPage={injuryPage}
+                                                   setInjuryPage={setInjuryPage}>
+                                         </Injuries>
                                          <Trades trades={trades}
                                                  teams={teams}
                                                  fetchState={tradeFetchState}
