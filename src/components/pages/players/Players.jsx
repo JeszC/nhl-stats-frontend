@@ -5,7 +5,7 @@ import skaterStandings from "../../../data/skaterStandings.json";
 import {getPlayerFirstName, getPlayerLastName} from "../../../scripts/parsing.js";
 import {compareTextual, getValue, sortObjects} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
-import PageBar from "../../shared/common/pageBar/pageBar";
+import PageBar from "../../shared/common/pageBar/PageBar.jsx";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
 import ErrorDialog from "../../shared/errors/ErrorDialog";
 import ErrorDialogLockout from "../../shared/errors/ErrorDialogLockout";
@@ -310,7 +310,6 @@ function Players({showOptions, setShowOptions, showHelp}) {
                                                    setSelectedSeasons={setSelectedSeason}
                                                    fetchState={fetchState}
                                                    setFetchState={setFetchState}
-                                                   fetchTrigger={fetchTrigger}
                                                    setFetchTrigger={setFetchTrigger}>
                                      </SeasonSelect>,
                                      <TeamSelect season={selectedSeason}

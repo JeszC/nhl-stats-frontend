@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
 
-function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetchState, fetchTrigger, setFetchTrigger}) {
+function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetchState, setFetchTrigger}) {
     const [seasons, setSeasons] = useState([]);
     const seasonSelect = useRef(null);
     const earliestSeason = 2000;
@@ -34,7 +34,7 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
         } else {
             localStorage.removeItem(localStorageKey);
         }
-        setFetchTrigger(fetchTrigger + 1);
+        setFetchTrigger(previousFetchTrigger => previousFetchTrigger + 1);
     }
 
     async function getLatestSeason() {

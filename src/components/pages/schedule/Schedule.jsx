@@ -134,7 +134,6 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
                                                    setSelectedSeasons={setSelectedSeason}
                                                    fetchState={fetchState}
                                                    setFetchState={setFetchState}
-                                                   fetchTrigger={fetchTrigger}
                                                    setFetchTrigger={setFetchTrigger}>
                                      </SeasonSelect>,
                                      <TeamSelect season={selectedSeason}

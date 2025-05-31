@@ -201,7 +201,6 @@ function Draft({showOptions, setShowOptions, showHelp}) {
                                           setSelectedSeasons={setSeason}
                                           fetchState={fetchState}
                                           setFetchState={setFetchState}
-                                          fetchTrigger={fetchTrigger}
                                           setFetchTrigger={setFetchTrigger}>
                             </SeasonSelect>,
                             <Filters draft={draft}

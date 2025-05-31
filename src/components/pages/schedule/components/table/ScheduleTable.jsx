@@ -3,7 +3,7 @@ import constants from "../../../../../data/constants.json";
 import scheduleColumns from "../../../../../data/schedule.json";
 import {getValue, isGameFinished, sortObjects} from "../../../../../scripts/utils.js";
 import Bars from "../../../../shared/animations/bars/Bars";
-import PageBar from "../../../../shared/common/pageBar/pageBar";
+import PageBar from "../../../../shared/common/pageBar/PageBar.jsx";
 import GameDialog from "../../../../shared/dialogs/game/GameDialog";
 import ErrorDialog from "../../../../shared/errors/ErrorDialog";
 import ErrorDialogLockout from "../../../../shared/errors/ErrorDialogLockout";
