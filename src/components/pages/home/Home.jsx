@@ -152,7 +152,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                     setTradeFetchState(constants.fetchState.error);
                 });
         }
-    }, [getTrades]);
+    }, [areAllTradesFetched, getTrades]);
 
     useEffect(() => {
         if (!areAllInjuriesOnPage) {
@@ -207,7 +207,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                          </Injuries>
                                          <Trades trades={trades}
                                                  teams={teams}
-                                                 areAllTradesOnFetched={areAllTradesFetched}
+                                                 areAllTradesFetched={areAllTradesFetched}
                                                  fetchState={tradeFetchState}
                                                  tradePage={tradePage}
                                                  setTradePage={setTradePage}>
