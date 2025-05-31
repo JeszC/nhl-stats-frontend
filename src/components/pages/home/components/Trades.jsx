@@ -34,9 +34,9 @@ function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
                      {
                          splitArrayByKey(trades, "trade_date").map((day, index) =>
                              <li key={index} className={"individualDay"}>
-                                  <span className={"injuryOrTradeHeader"}>
-                                      {formatterDate.format(new Date(day[0].post_date))}
-                                  </span>
+                                 <span className={"injuryOrTradeHeader"}>
+                                     {formatterDate.format(new Date(day[0].post_date))}
+                                 </span>
                                  <ul className={"trades"}>
                                      {
                                          day.map((trade, index) =>
