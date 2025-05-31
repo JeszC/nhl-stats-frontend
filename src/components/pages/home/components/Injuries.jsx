@@ -33,11 +33,11 @@ function Injuries({injuries, teams}) {
            ? null
            : <div id={"injuries"} className={"injuriesOrTrades injuriesHome"}>
                <h2>Injuries</h2>
-               <ul className={"injuriesDates"}>
+               <ul className={"injuriesOrTradesByDate"}>
                    {
                        splitArrayByKey(injuries, "date").map((day, index) =>
-                           <li key={index} className={"injuryDate"}>
-                               <span className={"injuryDateHeader"}>
+                           <li key={index} className={"individualDay"}>
+                               <span className={"injuryOrTradeHeader"}>
                                    {formatterDate.format(new Date(day[0].date))}
                                </span>
                                <ul className={"injuries"}>

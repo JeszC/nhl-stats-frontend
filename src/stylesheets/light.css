@@ -187,6 +187,11 @@
         color: black;
     }
 
+    .tradeItems {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
     .individualGame {
         background-color: var(--lightest-grey);
         color: black;

@@ -75,17 +75,17 @@
     width: 100%;
 }
 
-.injuriesDates {
+.injuriesOrTradesByDate {
     margin: 0;
     padding-left: 0;
     list-style-type: none;
 }
 
-.injuryDate:not(:last-of-type) {
+.individualDay:not(:last-of-type) {
     margin-bottom: 2em;
 }
 
-.injuryDateHeader {
+.injuryOrTradeHeader {
     font-size: 1.25em;
     font-weight: bold;
 }
@@ -94,7 +94,7 @@
     padding: 0.5em 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(21em, 1fr));
-    gap: 0.5em;
+    gap: 1em;
 }
 
 .injury {
@@ -144,7 +144,7 @@
     padding: 0.5em 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
-    gap: 0.5em;
+    gap: 1em;
 }
 
 .trade {
@@ -155,10 +155,6 @@
 
 .tradeTeam {
     width: 100%;
-}
-
-.tradeTeam:first-of-type {
-    border-bottom: 1px solid var(--grey);
 }
 
 .tradeTeamName {
@@ -186,8 +182,6 @@
     width: 100%;
     justify-content: center;
     align-items: flex-start;
-    background-color: var(--darkest-grey);
-    color: white;
 }
 
 .tradeTeam:first-of-type .tradeItems {

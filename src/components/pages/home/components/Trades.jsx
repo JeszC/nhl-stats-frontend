@@ -31,8 +31,8 @@ function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
         return null;
     }
 
-    function fixWrongAbbreviation(team) {
-        let teamAbbrev = team.team.team_shortname;
+    function fixAbbreviation(team) {
+        let teamAbbrev = team?.team?.team_shortname;
         switch (teamAbbrev) {
             case "LA":
                 return "LAK";
@@ -55,19 +55,30 @@ function Trades({trades, teams, fetchState, tradePage, setTradePage}) {
               ? <span>Error fetching trades</span>
               : <div id={"trades"} className={"injuriesOrTrades"}>
                   <h2>Trades</h2>
-                  <ul className={"trades"}>
-                      {/*{console.log(splitArrayByKey(trades, ["trade_date"]))}*/}
+                  <ul className={"injuriesOrTradesByDate"}>
                       {
-                          trades.map((trade, index) =>
-                              <li key={trade.post_id + index.toString()} className={"verticalFlex trade"}>
-                                  <TradeTeam team={trade.details[0]}
-                                             teamLogo={getTeamLogo(fixWrongAbbreviation(trade.details[0]))}
-                                             teamAbbrev={fixWrongAbbreviation(trade.details[0])}>
-                                  </TradeTeam>
-                                  <TradeTeam team={trade.details[1]}
-                                             teamLogo={getTeamLogo(fixWrongAbbreviation(trade.details[1]))}
-                                             teamAbbrev={fixWrongAbbreviation(trade.details[1])}>
-                                  </TradeTeam>
+                          splitArrayByKey(trades, "trade_date").map((day, index) =>
+                              <li key={index} className={"individualDay"}>
+                                  <span className={"injuryOrTradeHeader"}>
+                                      {formatterDate.format(new Date(day[0].post_date))}
+                                  </span>
+                                  <ul className={"trades"}>
+                                      {
+                                          day.map((trade, index) =>
+                                              <li key={trade.post_id + index.toString()}
+                                                  className={"verticalFlex trade"}>
+                                                  <TradeTeam team={trade.details[0]}
+                                                             teamLogo={getTeamLogo(fixAbbreviation(trade.details[0]))}
+                                                             teamAbbrev={fixAbbreviation(trade.details[0])}>
+                                                  </TradeTeam>
+                                                  <TradeTeam team={trade.details[1]}
+                                                             teamLogo={getTeamLogo(fixAbbreviation(trade.details[1]))}
+                                                             teamAbbrev={fixAbbreviation(trade.details[1])}>
+                                                  </TradeTeam>
+                                              </li>
+                                          )
+                                      }
+                                  </ul>
                               </li>
                           )
                       }
