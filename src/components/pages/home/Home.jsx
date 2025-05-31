@@ -30,6 +30,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
     const numberOfItemsToFetch = 10;
     const tradeOffset = tradePage * numberOfItemsToFetch;
+    const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -148,10 +149,10 @@ function Home({showOptions, setShowOptions, showHelp}) {
     }, [getTrades]);
 
     useEffect(() => {
-        if (visibleInjuries.length < injuries.length) {
+        if (!areAllInjuriesOnPage) {
             setVisibleInjuries(injuries.slice(0, (injuryPage + 1) * numberOfItemsToFetch));
         }
-    }, [injuries, visibleInjuries.length, injuryPage]);
+    }, [injuries, injuryPage, areAllInjuriesOnPage]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -194,6 +195,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      <div id={"injuriesTrades"} className={"horizontalFlex injuriesAndTrades"}>
                                          <Injuries injuries={visibleInjuries}
                                                    teams={teams}
+                                                   areAllInjuriesOnPage={areAllInjuriesOnPage}
                                                    injuryPage={injuryPage}
                                                    setInjuryPage={setInjuryPage}>
                                          </Injuries>

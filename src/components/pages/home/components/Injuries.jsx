@@ -1,7 +1,7 @@
 import {capitalize} from "../../../../scripts/parsing.js";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 
-function Injuries({injuries, teams, injuryPage, setInjuryPage}) {
+function Injuries({injuries, teams, areAllInjuriesOnPage, injuryPage, setInjuryPage}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
@@ -47,12 +47,16 @@ function Injuries({injuries, teams, injuryPage, setInjuryPage}) {
                        )
                    }
                </ul>
-               <button type={"button"}
-                       className={"loadMoreButton"}
-                       title={"Load more"}
-                       onClick={() => setInjuryPage(injuryPage + 1)}>
-                   Load more
-               </button>
+               {
+                   areAllInjuriesOnPage
+                   ? null
+                   : <button type={"button"}
+                             className={"loadMoreButton"}
+                             title={"Load more"}
+                             onClick={() => setInjuryPage(injuryPage + 1)}>
+                       Load more
+                   </button>
+               }
            </div>;
 }
 
