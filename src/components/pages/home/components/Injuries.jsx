@@ -1,33 +1,10 @@
 import {capitalize} from "../../../../scripts/parsing.js";
+import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 
 function Injuries({injuries, teams}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
-
-    function splitArrayByKey(array, key) {
-        let slicedArray = [];
-        let index = 0;
-        for (let i = 1; i < array.length; i++) {
-            if (array[i][key] !== array[i - 1][key]) {
-                slicedArray.push(array.slice(index, i));
-                index = i;
-            }
-        }
-        slicedArray.push(array.slice(index, array.length));
-        return slicedArray;
-    }
-
-    function getTeamLogo(teamAbbrev) {
-        if (teams && teams.length > 0) {
-            for (let team of teams) {
-                if (team?.teamAbbrev?.default === teamAbbrev) {
-                    return team?.teamLogo;
-                }
-            }
-        }
-        return null;
-    }
 
     return injuries.length === 0
            ? null
@@ -48,7 +25,7 @@ function Injuries({injuries, teams}) {
                                                <div className={"injuryTeamAndPlayerInformation horizontalFlex"}>
                                                    <img className={`injuryHeadshot default
                                                    ${injury.teamAbbrev} gradient`}
-                                                        src={getTeamLogo(injury.teamAbbrev)}
+                                                        src={getTeamLogo(teams, injury.teamAbbrev)}
                                                         alt={`${injury.teamAbbrev}`}/>
                                                    <div className={"injuryPlayerInformation verticalFlex"}>
                                                        <span className={"injuryName"}>{injury.player.displayName}</span>
