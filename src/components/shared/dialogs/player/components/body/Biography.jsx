@@ -4,6 +4,7 @@ function Biography({player}) {
     const [showMoreButtonVisible, setShowMoreButtonVisible] = useState(false);
     const splitStringsNotes = ["*", "-"];
     const splitParagraphsCharacter = "\n";
+    const quoteContextCharacter = "\\[";
     const linkSplitCharacter = "[";
 
     function getTextParagraphs() {
@@ -12,11 +13,14 @@ function Biography({player}) {
         for (let i = 0; i < paragraphs.length; i++) {
             let paragraph = paragraphs[i];
             let key = paragraph.slice(0, 20) + i.toString();
-            if (paragraph.includes(linkSplitCharacter)) {
-                let linkParagraph = createLinkParagraph(paragraph, key);
-                textParagraphs.push(linkParagraph);
+            if (paragraph.includes(quoteContextCharacter)) {
+                paragraph = paragraph.replace(quoteContextCharacter, "[");
+                paragraph = paragraph.replace("\\]", "]");
+                textParagraphs.push(createTextParagraph(paragraph, key));
+            } else if (paragraph.includes(linkSplitCharacter)) {
+                textParagraphs.push(createLinkParagraph(paragraph, key));
             } else if (!startsWithSplitString(paragraph) && paragraph.trim().length > 0) {
-                textParagraphs.push(<p key={key}>{paragraph}</p>);
+                textParagraphs.push(createTextParagraph(paragraph, key));
             }
         }
         return textParagraphs;
@@ -45,17 +49,12 @@ function Biography({player}) {
         return noteParagraphs;
     }
 
-    function startsWithSplitString(paragraph) {
-        for (let splitString of splitStringsNotes) {
-            if (paragraph.startsWith(splitString)) {
-                return true;
-            }
-        }
-        return false;
+    function createTextParagraph(paragraph, key) {
+        return <p key={key}>{paragraph}</p>;
     }
 
     function createLinkParagraph(paragraph, key) {
-        let paragraphParts = paragraph.split("[");
+        let paragraphParts = paragraph.split(linkSplitCharacter);
         let linkParts = paragraphParts[1].split("]");
         let paragraphStart = paragraphParts[0];
         let linkText = linkParts[0];
@@ -64,6 +63,15 @@ function Biography({player}) {
             {paragraphStart}
             <a target={"_blank"} rel={"noopener noreferrer"} href={linkURL} title={"Full article"}>{linkText}</a>
         </p>;
+    }
+
+    function startsWithSplitString(paragraph) {
+        for (let splitString of splitStringsNotes) {
+            if (paragraph.startsWith(splitString)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function handleKeyboard(event) {
