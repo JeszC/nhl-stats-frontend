@@ -3,6 +3,7 @@ import "../stylesheets/dark.css";
 import "../stylesheets/light.css";
 import {useState} from "react";
 import Navbar from "./navbar/Navbar.jsx";
+import SeasonAwards from "./pages/awards/SeasonAwards.jsx";
 import Draft from "./pages/draft/Draft.jsx";
 import Home from "./pages/home/Home.jsx";
 import Players from "./pages/players/Players.jsx";
@@ -20,6 +21,15 @@ function App() {
     const [showOptions, setShowOptions] = useState(false);
     const [showHelp, setShowHelp] = useState(false);
     const components = [
+        {
+            component: <SeasonAwards showOptions={showOptions}
+                                     setShowOptions={setShowOptions}
+                                     showHelp={showHelp}>
+            </SeasonAwards>,
+            linkText: "Season Awards",
+            linkURL: "/awards",
+            icon: draftResultsIcon
+        },
         {
             component: <Schedule showOptions={showOptions}
                                  setShowOptions={setShowOptions}
