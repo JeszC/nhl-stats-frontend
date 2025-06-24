@@ -420,6 +420,11 @@
         filter: invert(100%);
     }
 
+    .trophy {
+        background-color: var(--lightest-grey);
+        color: black;
+    }
+
     .default {
         --color: var(--lightest-grey);
         accent-color: var(--color);

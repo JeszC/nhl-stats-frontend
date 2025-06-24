@@ -5,6 +5,8 @@ import ErrorDialog from "../../shared/errors/ErrorDialog.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SidebarHelp from "../../shared/sidebar/SidebarHelp.jsx";
 import SidebarOptions from "../../shared/sidebar/SidebarOptions.jsx";
+// import HTMLParser from "html-react-parser";
+import "./Awards.css";
 
 function SeasonAwards({showOptions, setShowOptions, showHelp}) {
     const [trophies, setTrophies] = useState([]);
@@ -20,7 +22,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
 
     function setUpOnLoad() {
         document.title = "Season Awards";
-        setShowOptions(true);
+        setShowOptions(false);
         getTrophies()
             .then(result => {
                 setTrophies(result);
@@ -36,19 +38,31 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
         <SidebarOptions showSidebar={showOptions} title={"Options"}></SidebarOptions>
         <MainContent showOptions={showOptions} showHelp={showHelp} content={
             <>
-                <h1>Season Awards</h1>
+                <div className={"homeHeader"}>
+                    <span>Season Awards</span>
+                </div>
                 {
                     fetchState === constants.fetchState.error
                     ? <ErrorDialog errorMessage={"Failed to fetch award information."}></ErrorDialog>
                     : fetchState === constants.fetchState.loading
                       ? <Atom></Atom>
-                      : trophies.map(trophy =>
-                            <div key={trophy.id}>
-                                <h3>{trophy.name} - {trophy.briefDescription}</h3>
-                                <span>{trophy.description}</span>
-                                <img src={trophy.imageUrl} alt={trophy.name}/>
-                            </div>
-                        )
+                      : <div className={"trophies"}>
+                          {
+                              trophies.map(trophy =>
+                                  <button key={trophy.id}
+                                          type={"button"}
+                                          className={"horizontalFlex trophy"}
+                                          title={"Show trophy details"}>
+                                      <img className={"trophyImage"} src={trophy.imageUrl} alt={trophy.name}/>
+                                      <div className={"verticalFlex trophyInformation"}>
+                                          <span className={"trophyName"}>{trophy.name}</span>
+                                          <span>{trophy.briefDescription}</span>
+                                          {/*<span>{HTMLParser(trophy.description)}</span>*/}
+                                      </div>
+                                  </button>
+                              )
+                          }
+                      </div>
                 }
             </>
         }>

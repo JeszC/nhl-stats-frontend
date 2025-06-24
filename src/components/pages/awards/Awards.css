@@ -1,0 +1,37 @@
+.trophies {
+    margin: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    gap: 1em;
+}
+
+.trophy {
+    padding: 1em;
+    height: 100%;
+    overflow: scroll;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    border-radius: 5px;
+}
+
+.trophyImage {
+    height: 8em;
+    min-width: 5.25em;
+    width: auto;
+    position: sticky;
+    top: 4em;
+}
+
+.trophyInformation {
+    align-items: flex-start;
+    gap: 0.5em;
+}
+
+.trophyInformation span {
+    text-align: left;
+}
+
+.trophyName {
+    font-weight: bold;
+}

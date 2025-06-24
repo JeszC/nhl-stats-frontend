@@ -391,6 +391,11 @@
         filter: invert(100%);
     }
 
+    .trophy {
+        background-color: var(--darkest-grey);
+        color: white;
+    }
+
     .default {
         --color: var(--dark-grey);
         accent-color: var(--color);
