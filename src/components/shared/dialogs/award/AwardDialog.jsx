@@ -63,7 +63,7 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
                                                            setActiveView)}>
                                                    {parseSeason(winner.seasonId)},
                                                    {winner.fullName},
-                                                   {winner.team.fullName},
+                                                   {`${winner.team.placeName} ${winner.team.commonName}`},
                                                    {winner.status}
                                                </button>
                                            )
