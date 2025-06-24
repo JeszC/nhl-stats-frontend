@@ -2,12 +2,13 @@ import HTMLParser from "html-react-parser";
 import {useState} from "react";
 import constants from "../../../../data/constants.json";
 import {parseSeason} from "../../../../scripts/parsing.js";
+import {getPlayer} from "../../../../scripts/utils.js";
+import PlayerContent from "../player/components/PlayerContent.jsx";
 import DialogContent from "../shared/DialogContent.jsx";
-import Header from "./components/Header.jsx";
+import Header from "./components/header/Header.jsx";
 
 function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFetchState}) {
     const [activeView, setActiveView] = useState(constants.dialogViews.award);
-    const [previousView, setPreviousView] = useState(constants.dialogViews.award);
     const [player, setPlayer] = useState({});
 
     function resetDialogOnEscape(event) {
@@ -18,17 +19,7 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
     }
 
     function backToDefaultView() {
-        setPreviousView(constants.dialogViews.team);
-        setActiveView(constants.dialogViews.team);
-        setFetchState(constants.fetchState.finished);
-    }
-
-    function backToPreviousView() {
-        if (previousView === constants.dialogViews.game) {
-            setActiveView(constants.dialogViews.game);
-        } else {
-            setActiveView(constants.dialogViews.team);
-        }
+        setActiveView(constants.dialogViews.award);
         setFetchState(constants.fetchState.finished);
     }
 
@@ -63,12 +54,18 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
                                        }
                                        {
                                            trophyWinners?.map(winner =>
-                                               <p key={winner.id}>
+                                               <button key={winner.id}
+                                                       type={"button"}
+                                                       title={"Show player"}
+                                                       onClick={() => getPlayer(winner.playerId,
+                                                           setPlayer,
+                                                           setFetchState,
+                                                           setActiveView)}>
                                                    {parseSeason(winner.seasonId)},
                                                    {winner.fullName},
                                                    {winner.team.fullName},
                                                    {winner.status}
-                                               </p>
+                                               </button>
                                            )
                                        }
                                    </>
@@ -77,11 +74,11 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
             )
             : activeView === constants.dialogViews.player
               ? renderContent(
-                    <DialogContent fetchState={fetchState}
+                    <PlayerContent selectedPlayer={player}
+                                   fetchState={fetchState}
                                    closeDialog={closeDialog}
-                                   headerData={<span>Player here</span>}
-                                   bodyData={<h1>Player here</h1>}>
-                    </DialogContent>
+                                   onBack={backToDefaultView}>
+                    </PlayerContent>
                 )
               : null
         }
