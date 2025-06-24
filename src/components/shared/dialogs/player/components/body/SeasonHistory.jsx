@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import constants from "../../../../../../data/constants.json";
+import {parseSeason} from "../../../../../../scripts/parsing.js";
 import SingleSelectionButtons from "../../../../common/singleSelectionButtons/SingleSelectionButtons.jsx";
 import SeasonStatistics from "./SeasonStatistics.jsx";
 
@@ -38,10 +39,6 @@ function SeasonHistory({player}) {
             title: "Playoffs"
         };
         return [season, playoffs];
-    }
-
-    function parseSeason(season) {
-        return `${season.toString().slice(0, 4)}-${season.toString().slice(4)}`;
     }
 
     function getValidStats(seasons) {

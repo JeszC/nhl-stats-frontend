@@ -123,6 +123,10 @@ export function parseDecimals(percentage, multiplier = 100, decimals = defaultDe
     });
 }
 
+export function parseSeason(season) {
+    return `${season.toString().slice(0, 4)}-${season.toString().slice(4)}`;
+}
+
 export function formatAndParseRecord(values) {
     let recordString = values.join(constants.apiRecordSeparator);
     return parseRecord(recordString);
