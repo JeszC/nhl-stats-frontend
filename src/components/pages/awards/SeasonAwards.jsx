@@ -1,16 +1,35 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import Atom from "../../shared/animations/atom/Atom.jsx";
+import AwardDialog from "../../shared/dialogs/award/AwardDialog.jsx";
 import ErrorDialog from "../../shared/errors/ErrorDialog.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SidebarHelp from "../../shared/sidebar/SidebarHelp.jsx";
 import SidebarOptions from "../../shared/sidebar/SidebarOptions.jsx";
-// import HTMLParser from "html-react-parser";
 import "./Awards.css";
 
 function SeasonAwards({showOptions, setShowOptions, showHelp}) {
     const [trophies, setTrophies] = useState([]);
+    const [selectedTrophy, setSelectedTrophy] = useState({});
+    const [trophyWinners, setTrophyWinners] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [trophyWinnerFetchState, setTrophyWinnerFetchState] = useState(constants.fetchState.finished);
+    const dialog = useRef(null);
+
+    async function openDialog(trophy) {
+        setTrophyWinners([]);
+        setSelectedTrophy(trophy);
+        if (trophy) {
+            setTrophyWinnerFetchState(constants.fetchState.loading);
+            dialog.current.showModal();
+            try {
+                setTrophyWinners(await getTrophyWinners(trophy.categoryId, trophy.id));
+                setTrophyWinnerFetchState(constants.fetchState.finished);
+            } catch (ignored) {
+                setTrophyWinnerFetchState(constants.fetchState.error);
+            }
+        }
+    }
 
     async function getTrophies() {
         let response = await fetch(`${constants.baseURL}/awards/getTrophies`);
@@ -18,6 +37,14 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
             return await response.json();
         }
         throw new Error("HTTP error when fetching trophies");
+    }
+
+    async function getTrophyWinners(categoryID, trophyID) {
+        let response = await fetch(`${constants.baseURL}/awards/getTrophyWinners/${categoryID}/${trophyID}`);
+        if (response.ok) {
+            return await response.json();
+        }
+        throw new Error("HTTP error when fetching trophy winners");
     }
 
     function setUpOnLoad() {
@@ -52,18 +79,24 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                                   <button key={trophy.id}
                                           type={"button"}
                                           className={"horizontalFlex trophy"}
-                                          title={"Show trophy details"}>
+                                          title={"Show trophy details"}
+                                          onClick={() => openDialog(trophy)}>
                                       <img className={"trophyImage"} src={trophy.imageUrl} alt={trophy.name}/>
                                       <div className={"verticalFlex trophyInformation"}>
                                           <span className={"trophyName"}>{trophy.name}</span>
                                           <span>{trophy.briefDescription}</span>
-                                          {/*<span>{HTMLParser(trophy.description)}</span>*/}
                                       </div>
                                   </button>
                               )
                           }
                       </div>
                 }
+                <AwardDialog dialogReference={dialog}
+                             trophy={selectedTrophy}
+                             trophyWinners={trophyWinners}
+                             fetchState={trophyWinnerFetchState}
+                             setFetchState={setTrophyWinnerFetchState}>
+                </AwardDialog>
             </>
         }>
         </MainContent>

@@ -40,7 +40,8 @@
     "team": "team",
     "playoff": "playoff",
     "game": "game",
-    "player": "player"
+    "player": "player",
+    "award": "award"
   },
   "localStorageKeys": {
     "schedule": {
