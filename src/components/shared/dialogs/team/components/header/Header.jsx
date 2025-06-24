@@ -16,9 +16,7 @@ function Header({team}) {
                     : null
                 }
                 <div className={"verticalFlex"}>
-                            <span>
-                                {getValue(["teamName"], team.franchiseInfo.at(-1), false, "Unknown team")}
-                            </span>
+                    <span>{getValue(["teamName"], team.franchiseInfo.at(-1), false, "Unknown team")}</span>
                     <span>{getSeasonWithSeparator(team.schedule[0].season.toString())}</span>
                 </div>
             </>
