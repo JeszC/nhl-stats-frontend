@@ -50,7 +50,7 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
                                bodyData={
                                    <>
                                        {
-                                           trophy.description ? <span>{HTMLParser(trophy.description)}</span> : null
+                                           trophy.description ? <div>{HTMLParser(trophy.description)}</div> : null
                                        }
                                        {
                                            trophyWinners?.map(winner =>
@@ -63,7 +63,7 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
                                                            setActiveView)}>
                                                    {parseSeason(winner.seasonId)},
                                                    {winner.fullName},
-                                                   {`${winner.team.placeName} ${winner.team.commonName}`},
+                                                   {`${winner.team?.placeName} ${winner.team?.commonName}`},
                                                    {winner.status}
                                                </button>
                                            )
