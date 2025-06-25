@@ -8,6 +8,17 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
         return capitalize(category.replace("_", "-").toLowerCase());
     }
 
+    function getSeasonLogo(nominee) {
+        if (nominee?.team) {
+            for (let logo of nominee.team.logos) {
+                if (nominee.seasonId >= logo.startSeason && nominee.seasonId <= logo.endSeason) {
+                    return logo.secureUrl;
+                }
+            }
+        }
+        return awardIcon;
+    }
+
     return <div className={"verticalFlex trophySingleStatus"}>
         {
             nomineeCategory[0]
@@ -24,7 +35,7 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
                     <img className={nominee.team?.logos[0]?.secureUrl
                                     ? `defaultImage default zoom ${nominee.team?.triCode} gradient trophyNomineeImage`
                                     : `defaultImage default zoom gradient trophyNomineeImage missingImage`}
-                         src={nominee.team?.logos[0]?.secureUrl ? nominee.team?.logos[0]?.secureUrl : awardIcon}
+                         src={getSeasonLogo(nominee)}
                          alt={`${nominee.team?.triCode} logo`}/>
                     <div className={"verticalFlex trophyStatusInformation"}>
                         <span className={"trophyStatusName"}>{nominee.fullName}</span>
