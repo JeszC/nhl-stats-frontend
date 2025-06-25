@@ -1,11 +1,11 @@
 import HTMLParser from "html-react-parser";
 import {useState} from "react";
 import constants from "../../../../data/constants.json";
-import {parseSeason} from "../../../../scripts/parsing.js";
-import {getPlayer} from "../../../../scripts/utils.js";
+import {splitArrayByKey} from "../../../../scripts/utils.js";
 import PlayerContent from "../player/components/PlayerContent.jsx";
 import DialogContent from "../shared/DialogContent.jsx";
 import Header from "./components/header/Header.jsx";
+import TrophyYear from "../../../pages/awards/components/TrophyYear.jsx";
 
 function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFetchState}) {
     const [activeView, setActiveView] = useState(constants.dialogViews.award);
@@ -49,25 +49,27 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, setFet
                                headerData={<Header trophy={trophy}></Header>}
                                bodyData={
                                    <>
-                                       {
-                                           trophy.description ? <div>{HTMLParser(trophy.description)}</div> : null
-                                       }
-                                       {
-                                           trophyWinners?.map(winner =>
-                                               <button key={winner.id}
-                                                       type={"button"}
-                                                       title={"Show player"}
-                                                       onClick={() => getPlayer(winner.playerId,
-                                                           setPlayer,
-                                                           setFetchState,
-                                                           setActiveView)}>
-                                                   {parseSeason(winner.seasonId)},
-                                                   {winner.fullName},
-                                                   {`${winner.team?.placeName} ${winner.team?.commonName}`},
-                                                   {winner.status}
-                                               </button>
-                                           )
-                                       }
+                                       <div className={"horizontalFlex trophyImageAndDescription"}>
+                                           <img className={"trophyImage"} src={trophy.imageUrl} alt={trophy.name}/>
+                                           <div className={"verticalFlex trophyDescription"}>
+                                               {
+                                                   trophy.description
+                                                   ? <div>{HTMLParser(trophy.description)}</div>
+                                                   : null
+                                               }
+                                               <div className={"verticalFlex trophyWinners"}>
+                                                   {
+                                                       splitArrayByKey(trophyWinners, "seasonId")?.map(season =>
+                                                           <TrophyYear season={season}
+                                                                       setPlayer={setPlayer}
+                                                                       setFetchState={setFetchState}
+                                                                       setActiveView={setActiveView}>
+                                                           </TrophyYear>
+                                                       )
+                                                   }
+                                               </div>
+                                           </div>
+                                       </div>
                                    </>
                                }>
                 </DialogContent>

@@ -15,7 +15,7 @@
     border-radius: 5px;
 }
 
-.trophyImage {
+.trophyImageButton {
     height: 8em;
     min-width: 5.25em;
     width: auto;
@@ -31,5 +31,82 @@
 }
 
 .trophyName {
+    font-weight: bold;
+}
+
+.trophyImageAndDescription {
+    margin: 1em;
+    gap: 1em;
+}
+
+.trophyImage {
+    height: 90vh;
+    width: auto;
+    position: sticky;
+    top: 4em;
+}
+
+.trophyDescription {
+    width: 100%;
+}
+
+.trophyWinners {
+    width: 100%;
+    gap: 1em;
+}
+
+.trophySeasonAndWinners {
+    padding-bottom: 1em;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    border-bottom: 1px solid var(--grey);
+}
+
+.trophySeason {
+    margin-top: 1.5em;
+    min-width: 5em;
+    font-weight: bold;
+}
+
+.trophyStatus {
+    width: 100%;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.trophySingleStatus {
+    width: 100%;
+    gap: 0.25em;
+}
+
+.trophyCategory {
+    font-weight: bold;
+}
+
+.trophyNomineeButton {
+    padding: 0.5em;
+    height: revert;
+    justify-content: flex-start;
+    gap: 0.5em;
+}
+
+.trophyNomineeButton:hover .zoom {
+    transform: scale(1.25);
+}
+
+.trophyNomineeImage {
+    --size: 3em;
+    height: var(--size);
+    width: var(--size);
+}
+
+.trophyStatusInformation {
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.trophyStatusName {
     font-weight: bold;
 }

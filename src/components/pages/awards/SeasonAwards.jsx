@@ -81,7 +81,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                                           className={"horizontalFlex trophy"}
                                           title={"Show trophy details"}
                                           onClick={() => openDialog(trophy)}>
-                                      <img className={"trophyImage"} src={trophy.imageUrl} alt={trophy.name}/>
+                                      <img className={"trophyImageButton"} src={trophy.imageUrl} alt={trophy.name}/>
                                       <div className={"verticalFlex trophyInformation"}>
                                           <span className={"trophyName"}>{trophy.name}</span>
                                           <span>{trophy.briefDescription}</span>
