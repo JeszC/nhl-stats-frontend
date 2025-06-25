@@ -1,6 +1,6 @@
-import {getPlayer} from "../../../../scripts/utils.js";
-import {capitalize, getPositionTitle} from "../../../../scripts/parsing.js";
-import awardIcon from "../../../shared/images/Person.svg";
+import {capitalize, getPositionTitle} from "../../../../../../scripts/parsing.js";
+import {getPlayer} from "../../../../../../scripts/utils.js";
+import awardIcon from "../../../../images/Person.svg";
 
 function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setActiveView}) {
 

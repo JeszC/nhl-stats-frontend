@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
-import Atom from "../../shared/animations/atom/Atom.jsx";
+import Bars from "../../shared/animations/bars/Bars.jsx";
 import AwardDialog from "../../shared/dialogs/award/AwardDialog.jsx";
 import ErrorDialog from "../../shared/errors/ErrorDialog.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
@@ -72,7 +72,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                     fetchState === constants.fetchState.error
                     ? <ErrorDialog errorMessage={"Failed to fetch award information."}></ErrorDialog>
                     : fetchState === constants.fetchState.loading
-                      ? <Atom></Atom>
+                      ? <Bars></Bars>
                       : <div className={"trophies"}>
                           {
                               trophies.map(trophy =>

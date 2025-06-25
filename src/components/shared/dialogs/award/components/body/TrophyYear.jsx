@@ -1,5 +1,5 @@
-import {parseSeason} from "../../../../scripts/parsing.js";
-import {splitArrayByKey} from "../../../../scripts/utils.js";
+import {parseSeason} from "../../../../../../scripts/parsing.js";
+import {splitArrayByKey} from "../../../../../../scripts/utils.js";
 import TrophyNomineeCategory from "./TrophyNomineeCategory.jsx";
 
 function TrophyYear({season, setPlayer, setFetchState, setActiveView}) {
@@ -12,8 +12,9 @@ function TrophyYear({season, setPlayer, setFetchState, setActiveView}) {
         }
         <div className={"horizontalFlex trophyStatus"}>
             {
-                splitArrayByKey(season, "status")?.map(category =>
-                    <TrophyNomineeCategory nomineeCategory={category}
+                splitArrayByKey(season, "status").map((category, index) =>
+                    <TrophyNomineeCategory key={category.toString() + index.toString()}
+                                           nomineeCategory={category}
                                            setPlayer={setPlayer}
                                            setFetchState={setFetchState}
                                            setActiveView={setActiveView}>
