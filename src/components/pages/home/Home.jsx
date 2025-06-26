@@ -8,6 +8,7 @@ import SidebarHelp from "../../shared/sidebar/SidebarHelp";
 import SidebarOptions from "../../shared/sidebar/SidebarOptions";
 import Injuries from "./components/Injuries.jsx";
 import Legend from "./components/Legend";
+import Signings from "./components/Signings.jsx";
 import TableOfContents from "./components/TableOfContents.jsx";
 import TopPlayers from "./components/TopPlayers";
 import TopTeams from "./components/TopTeams";
@@ -24,13 +25,18 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [injuries, setInjuries] = useState([]);
     const [visibleInjuries, setVisibleInjuries] = useState([]);
     const [trades, setTrades] = useState([]);
+    const [signings, setSignings] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [injuryPage, setInjuryPage] = useState(0);
     const [tradePage, setTradePage] = useState(0);
+    const [signingsPage, setSigningsPage] = useState(0);
     const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
+    const [signingsFetchState, setSigningsFetchState] = useState(constants.fetchState.loading);
     const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
+    const [areAllSigningsFetched, setAreAllSigningsFetched] = useState(false);
     const numberOfItemsToFetch = 10;
     const tradeOffset = tradePage * numberOfItemsToFetch;
+    const signingOffset = signingsPage * numberOfItemsToFetch;
     const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
 
     function getLocalDateString(dateString) {
@@ -108,6 +114,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
         throw new Error("HTTP error when fetching trades.");
     }, [tradeOffset]);
 
+    const getSignings = useCallback(async () => {
+        let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${signingOffset}`);
+        if (signingsResponse.ok) {
+            return await signingsResponse.json();
+        }
+        throw new Error("HTTP error when fetching signings.");
+    }, [signingOffset]);
+
     async function getData() {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -148,11 +162,24 @@ function Home({showOptions, setShowOptions, showHelp}) {
                         setAreAllTradesFetched(true);
                     }
                 })
-                .catch(ignored => {
-                    setTradeFetchState(constants.fetchState.error);
-                });
+                .catch(ignored => setTradeFetchState(constants.fetchState.error));
         }
     }, [areAllTradesFetched, getTrades]);
+
+    useEffect(() => {
+        if (!areAllSigningsFetched) {
+            setSigningsFetchState(constants.fetchState.loading);
+            getSignings()
+                .then(fetchedSignings => {
+                    setSignings(previousSignings => previousSignings.concat(fetchedSignings));
+                    setSigningsFetchState(constants.fetchState.finished);
+                    if (fetchedSignings.length < numberOfItemsToFetch) {
+                        setAreAllSigningsFetched(true);
+                    }
+                })
+                .catch(ignored => setSigningsFetchState(constants.fetchState.error));
+        }
+    }, [areAllSigningsFetched, getSignings]);
 
     useEffect(() => {
         if (!areAllInjuriesOnPage) {
@@ -210,6 +237,11 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                                  fetchState={tradeFetchState}
                                                  setTradePage={setTradePage}>
                                          </Trades>
+                                         <Signings signings={signings}
+                                                   areAllSigningsFetched={areAllSigningsFetched}
+                                                   fetchState={signingsFetchState}
+                                                   setSigningsPage={setSigningsPage}>
+                                         </Signings>
                                      </div>
                                  </>
                                  : null
