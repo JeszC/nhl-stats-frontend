@@ -89,6 +89,7 @@
     padding: 0.5em;
     height: revert;
     justify-content: flex-start;
+    align-items: center;
     gap: 0.5em;
 }
 
@@ -105,6 +106,7 @@
 .trophyStatusInformation {
     justify-content: center;
     align-items: flex-start;
+    text-align: left;
 }
 
 .trophyStatusName {

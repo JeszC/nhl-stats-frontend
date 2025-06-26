@@ -43,7 +43,7 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
                             nominee.fullName === `${nominee.team?.placeName} ${nominee.team?.commonName}`
                             ? null
                             : nominee.team?.placeName && nominee.team?.commonName
-                              ? `${nominee.team?.placeName} ${nominee.team?.commonName}`
+                              ? <span>{`${nominee.team?.placeName} ${nominee.team?.commonName}`}</span>
                               : null
                         }
                         {
