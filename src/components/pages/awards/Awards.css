@@ -104,9 +104,10 @@
 }
 
 .trophyStatusInformation {
+    text-align: left;
     justify-content: center;
     align-items: flex-start;
-    text-align: left;
+    gap: 0.25em;
 }
 
 .trophyStatusName {
