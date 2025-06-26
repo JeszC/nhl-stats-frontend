@@ -10,10 +10,18 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
 
     function getSeasonLogo(nominee) {
         if (nominee?.team) {
+            let placeHolder;
             for (let logo of nominee.team.logos) {
                 if (nominee.seasonId >= logo.startSeason && nominee.seasonId <= logo.endSeason) {
-                    return logo.secureUrl;
+                    if (logo.background === "light") {
+                        return logo.secureUrl;
+                    } else if (logo.background === "dark") {
+                        placeHolder = logo.secureUrl;
+                    }
                 }
+            }
+            if (placeHolder) {
+                return placeHolder;
             }
         }
         return awardIcon;

@@ -4,7 +4,7 @@ import TrophyNomineeCategory from "./TrophyNomineeCategory.jsx";
 
 function TrophyYear({season, setPlayer, setFetchState, setActiveView}) {
 
-    return <div key={season.id} className={"horizontalFlex trophySeasonAndWinners"}>
+    return <div key={season.id} className={"verticalFlex trophySeasonAndWinners"}>
         {
             season[0]
             ? <span className={"trophySeason"}>{parseSeason(season[0].seasonId)}</span>

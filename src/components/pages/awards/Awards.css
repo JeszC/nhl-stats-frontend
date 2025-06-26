@@ -40,8 +40,10 @@
 }
 
 .trophyImage {
-    height: 90vh;
     width: auto;
+    height: auto;
+    max-width: 75vw;
+    max-height: 90vh;
     position: sticky;
     top: 4em;
 }
@@ -61,12 +63,15 @@
     justify-content: flex-start;
     align-items: center;
     gap: 0.5em;
-    border-bottom: 1px solid var(--grey);
+}
+
+.trophySeasonAndWinners:not(:last-of-type) {
+    border-bottom: 2px dotted var(--grey);
 }
 
 .trophySeason {
-    margin-top: 1.5em;
     min-width: 5em;
+    font-size: 1.25em;
     font-weight: bold;
 }
 
@@ -99,6 +104,8 @@
 
 .trophyNomineeImage {
     --size: 3em;
+    min-width: var(--size);
+    min-height: var(--size);
     height: var(--size);
     width: var(--size);
 }
@@ -116,4 +123,28 @@
 
 .trophyStatusTeam {
     font-style: italic;
+}
+
+@media (orientation: portrait) or (max-width: 1599px) {
+    .trophyImageAndDescription {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .trophyImage {
+        max-width: 60vw;
+        max-height: 72vh;
+        position: revert;
+        top: 0;
+    }
+}
+
+@media (max-width: 639px) {
+    .trophySeasonAndWinners {
+        flex-direction: column;
+    }
+
+    .trophyStatus {
+        flex-direction: column;
+    }
 }
