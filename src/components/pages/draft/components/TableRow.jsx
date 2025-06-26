@@ -38,7 +38,7 @@ function TableRow({player, index, sortedColumn, dialog, setSelectedPlayer, setPl
                 }
                 return "";
             default:
-                return value === undefined ? "N/A" : column.numeric ? value.toLocaleString() : value;
+                return value === undefined || value === null ? "N/A" : column.numeric ? value.toLocaleString() : value;
         }
     }
 
