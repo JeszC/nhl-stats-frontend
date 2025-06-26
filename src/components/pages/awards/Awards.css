@@ -112,3 +112,7 @@
 .trophyStatusName {
     font-weight: bold;
 }
+
+.trophyStatusTeam {
+    font-style: italic;
+}
