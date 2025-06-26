@@ -38,7 +38,7 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
                 <button key={nominee.id}
                         className={"horizontalFlex trophyNomineeButton"}
                         type={"button"}
-                        title={"Show player details"}
+                        title={"Show details"}
                         onClick={() => getPlayer(nominee.playerId, setPlayer, setFetchState, setActiveView)}>
                     <img className={nominee.team?.logos[0]?.secureUrl
                                     ? `defaultImage default zoom ${nominee.team?.triCode} gradient trophyNomineeImage`
