@@ -23,11 +23,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
-    const [visibleInjuries, setVisibleInjuries] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
-    const [injuryPage, setInjuryPage] = useState(0);
-    const numberOfItemsToFetch = 10;
-    const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -112,7 +108,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
         setGoalies(responses[3]);
         setPlayoffTree(responses[4]);
         setInjuries(responses[5]);
-        setVisibleInjuries(responses[5].slice(0, numberOfItemsToFetch));
         setFetchState(constants.fetchState.finished);
     }
 
@@ -124,12 +119,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
-
-    useEffect(() => {
-        if (!areAllInjuriesOnPage) {
-            setVisibleInjuries(injuries.slice(0, (injuryPage + 1) * numberOfItemsToFetch));
-        }
-    }, [injuries, injuryPage, areAllInjuriesOnPage]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -170,11 +159,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
                                      <div className={"horizontalFlex injuriesAndTrades"}>
-                                         <Injuries injuries={visibleInjuries}
-                                                   teams={teams}
-                                                   areAllInjuriesOnPage={areAllInjuriesOnPage}
-                                                   setInjuryPage={setInjuryPage}>
-                                         </Injuries>
+                                         <Injuries injuries={injuries} teams={teams}></Injuries>
                                          <Trades teams={teams}></Trades>
                                          <Signings teams={teams}></Signings>
                                      </div>

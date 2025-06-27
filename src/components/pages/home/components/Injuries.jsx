@@ -1,7 +1,11 @@
+import {useState} from "react";
 import {capitalize, getPositionTitle} from "../../../../scripts/parsing.js";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 
-function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
+function Injuries({injuries, teams}) {
+    const [injuryPage, setInjuryPage] = useState(0);
+    const numberOfItemsToFetch = 10;
+    const totalInjuriesOnPage = (injuryPage + 1) * numberOfItemsToFetch;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
@@ -12,7 +16,7 @@ function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
                <h2>Injuries</h2>
                <ul className={"injuriesOrTradesByDate"}>
                    {
-                       splitArrayByKey(injuries, "date").map((day, index) =>
+                       splitArrayByKey(injuries.slice(0, totalInjuriesOnPage), "date").map((day, index) =>
                            <li key={index} className={"individualDay"}>
                                <span className={"injuryOrTradeHeader"}>
                                    {formatterDate.format(new Date(day[0].date))}
@@ -56,14 +60,14 @@ function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
                    }
                </ul>
                {
-                   areAllInjuriesOnPage
-                   ? null
-                   : <button type={"button"}
+                   totalInjuriesOnPage < injuries.length
+                   ? <button type={"button"}
                              className={"loadMoreButton"}
                              title={"Load more"}
                              onClick={() => setInjuryPage(previousPage => previousPage + 1)}>
                        Load more
                    </button>
+                   : null
                }
            </div>;
 }
