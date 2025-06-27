@@ -4,11 +4,11 @@ import {getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/uti
 
 function Signings({teams}) {
     const [signings, setSignings] = useState([]);
-    const [areAllSigningsFetched, setAreAllSigningsFetched] = useState(false);
+    const [page, setPage] = useState(0);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
-    const [signingsPage, setSigningsPage] = useState(0);
+    const [areAllSigningsFetched, setAreAllSigningsFetched] = useState(false);
     const numberOfItemsToFetch = 10;
-    const signingOffset = signingsPage * numberOfItemsToFetch;
+    const fetchOffset = page * numberOfItemsToFetch;
     const isLoading = fetchState === constants.fetchState.loading;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
@@ -31,12 +31,12 @@ function Signings({teams}) {
     }
 
     const getSignings = useCallback(async () => {
-        let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${signingOffset}`);
+        let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${fetchOffset}`);
         if (signingsResponse.ok) {
             return await signingsResponse.json();
         }
         throw new Error("HTTP error when fetching signings.");
-    }, [signingOffset]);
+    }, [fetchOffset]);
 
     useEffect(() => {
         if (!areAllSigningsFetched) {
@@ -111,7 +111,7 @@ function Signings({teams}) {
                                className={"loadMoreButton"}
                                title={isLoading ? "Loading..." : "Load more"}
                                disabled={isLoading}
-                               onClick={() => setSigningsPage(previousPage => previousPage + 1)}>
+                               onClick={() => setPage(previousPage => previousPage + 1)}>
                          {isLoading ? "Loading..." : "Load more"}
                      </button>
                  }

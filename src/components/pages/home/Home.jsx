@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
@@ -23,16 +23,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
-    const [visibleInjuries, setVisibleInjuries] = useState([]);
-    const [trades, setTrades] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
-    const [injuryPage, setInjuryPage] = useState(0);
-    const [tradePage, setTradePage] = useState(0);
-    const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
-    const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
-    const numberOfItemsToFetch = 10;
-    const tradeOffset = tradePage * numberOfItemsToFetch;
-    const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -101,14 +92,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
         throw new Error("HTTP error when fetching injuries.");
     }
 
-    const getTrades = useCallback(async () => {
-        let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${tradeOffset}`);
-        if (tradesResponse.ok) {
-            return await tradesResponse.json();
-        }
-        throw new Error("HTTP error when fetching trades.");
-    }, [tradeOffset]);
-
     async function getData() {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -125,7 +108,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
         setGoalies(responses[3]);
         setPlayoffTree(responses[4]);
         setInjuries(responses[5]);
-        setVisibleInjuries(responses[5].slice(0, numberOfItemsToFetch));
         setFetchState(constants.fetchState.finished);
     }
 
@@ -137,27 +119,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
-
-    useEffect(() => {
-        if (!areAllTradesFetched) {
-            setTradeFetchState(constants.fetchState.loading);
-            getTrades()
-                .then(fetchedTrades => {
-                    setTrades(previousTrades => previousTrades.concat(fetchedTrades));
-                    setTradeFetchState(constants.fetchState.finished);
-                    if (fetchedTrades.length < numberOfItemsToFetch) {
-                        setAreAllTradesFetched(true);
-                    }
-                })
-                .catch(ignored => setTradeFetchState(constants.fetchState.error));
-        }
-    }, [areAllTradesFetched, getTrades]);
-
-    useEffect(() => {
-        if (!areAllInjuriesOnPage) {
-            setVisibleInjuries(injuries.slice(0, (injuryPage + 1) * numberOfItemsToFetch));
-        }
-    }, [injuries, injuryPage, areAllInjuriesOnPage]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -198,17 +159,8 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
                                      <div className={"horizontalFlex teamRosterEvents"}>
-                                         <Injuries injuries={visibleInjuries}
-                                                   teams={teams}
-                                                   areAllInjuriesOnPage={areAllInjuriesOnPage}
-                                                   setInjuryPage={setInjuryPage}>
-                                         </Injuries>
-                                         <Trades trades={trades}
-                                                 teams={teams}
-                                                 areAllTradesFetched={areAllTradesFetched}
-                                                 fetchState={tradeFetchState}
-                                                 setTradePage={setTradePage}>
-                                         </Trades>
+                                         <Injuries injuries={injuries} teams={teams}></Injuries>
+                                         <Trades teams={teams}></Trades>
                                          <Signings teams={teams}></Signings>
                                      </div>
                                  </>
