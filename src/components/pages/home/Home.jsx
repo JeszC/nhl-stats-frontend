@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
@@ -24,14 +24,9 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
     const [visibleInjuries, setVisibleInjuries] = useState([]);
-    const [trades, setTrades] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [injuryPage, setInjuryPage] = useState(0);
-    const [tradePage, setTradePage] = useState(0);
-    const [tradeFetchState, setTradeFetchState] = useState(constants.fetchState.loading);
-    const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
     const numberOfItemsToFetch = 10;
-    const tradeOffset = tradePage * numberOfItemsToFetch;
     const areAllInjuriesOnPage = visibleInjuries.length === injuries.length;
 
     function getLocalDateString(dateString) {
@@ -101,14 +96,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
         throw new Error("HTTP error when fetching injuries.");
     }
 
-    const getTrades = useCallback(async () => {
-        let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${tradeOffset}`);
-        if (tradesResponse.ok) {
-            return await tradesResponse.json();
-        }
-        throw new Error("HTTP error when fetching trades.");
-    }, [tradeOffset]);
-
     async function getData() {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -137,21 +124,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
-
-    useEffect(() => {
-        if (!areAllTradesFetched) {
-            setTradeFetchState(constants.fetchState.loading);
-            getTrades()
-                .then(fetchedTrades => {
-                    setTrades(previousTrades => previousTrades.concat(fetchedTrades));
-                    setTradeFetchState(constants.fetchState.finished);
-                    if (fetchedTrades.length < numberOfItemsToFetch) {
-                        setAreAllTradesFetched(true);
-                    }
-                })
-                .catch(ignored => setTradeFetchState(constants.fetchState.error));
-        }
-    }, [areAllTradesFetched, getTrades]);
 
     useEffect(() => {
         if (!areAllInjuriesOnPage) {
@@ -203,12 +175,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                                    areAllInjuriesOnPage={areAllInjuriesOnPage}
                                                    setInjuryPage={setInjuryPage}>
                                          </Injuries>
-                                         <Trades trades={trades}
-                                                 teams={teams}
-                                                 areAllTradesFetched={areAllTradesFetched}
-                                                 fetchState={tradeFetchState}
-                                                 setTradePage={setTradePage}>
-                                         </Trades>
+                                         <Trades teams={teams}></Trades>
                                          <Signings teams={teams}></Signings>
                                      </div>
                                  </>

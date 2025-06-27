@@ -1,8 +1,15 @@
+import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 import TradeTeam from "./TradeTeam.jsx";
 
-function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) {
+function Trades({teams}) {
+    const [trades, setTrades] = useState([]);
+    const [page, setPage] = useState(0);
+    const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
+    const numberOfItemsToFetch = 10;
+    const fetchOffset = page * numberOfItemsToFetch;
     const isLoading = fetchState === constants.fetchState.loading;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
@@ -23,6 +30,29 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) 
                 return teamAbbrev;
         }
     }
+
+    const getTrades = useCallback(async () => {
+        let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${fetchOffset}`);
+        if (tradesResponse.ok) {
+            return await tradesResponse.json();
+        }
+        throw new Error("HTTP error when fetching trades.");
+    }, [fetchOffset]);
+
+    useEffect(() => {
+        if (!areAllTradesFetched) {
+            setFetchState(constants.fetchState.loading);
+            getTrades()
+                .then(fetchedTrades => {
+                    setTrades(previousTrades => previousTrades.concat(fetchedTrades));
+                    setFetchState(constants.fetchState.finished);
+                    if (fetchedTrades.length < numberOfItemsToFetch) {
+                        setAreAllTradesFetched(true);
+                    }
+                })
+                .catch(ignored => setFetchState(constants.fetchState.error));
+        }
+    }, [areAllTradesFetched, getTrades]);
 
     return trades.length === 0
            ? null
@@ -64,7 +94,7 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) 
                                className={"loadMoreButton"}
                                title={isLoading ? "Loading..." : "Load more"}
                                disabled={isLoading}
-                               onClick={() => setTradePage(previousPage => previousPage + 1)}>
+                               onClick={() => setPage(previousPage => previousPage + 1)}>
                          {isLoading ? "Loading..." : "Load more"}
                      </button>
                  }
