@@ -167,6 +167,11 @@
         color: white;
     }
 
+    .signingImageAndInformation {
+        background-color: var(--darkest-grey);
+        color: white;
+    }
+
     .individualGame {
         background-color: var(--darkest-grey);
         color: white;
