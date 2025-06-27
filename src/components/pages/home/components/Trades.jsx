@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
+import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 import TradeTeam from "./TradeTeam.jsx";
 
 function Trades({teams}) {
@@ -10,7 +11,6 @@ function Trades({teams}) {
     const [areAllTradesFetched, setAreAllTradesFetched] = useState(false);
     const numberOfItemsToFetch = 10;
     const fetchOffset = page * numberOfItemsToFetch;
-    const isLoading = fetchState === constants.fetchState.loading;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
@@ -87,17 +87,10 @@ function Trades({teams}) {
                          )
                      }
                  </ul>
-                 {
-                     areAllTradesFetched
-                     ? null
-                     : <button type={"button"}
-                               className={"loadMoreButton"}
-                               title={isLoading ? "Loading..." : "Load more"}
-                               disabled={isLoading}
-                               onClick={() => setPage(previousPage => previousPage + 1)}>
-                         {isLoading ? "Loading..." : "Load more"}
-                     </button>
-                 }
+                 <LoadMoreButton areAllFetched={areAllTradesFetched}
+                                 fetchState={fetchState}
+                                 setPage={setPage}>
+                 </LoadMoreButton>
              </div>;
 }
 

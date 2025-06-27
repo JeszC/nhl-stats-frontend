@@ -1,11 +1,12 @@
 import {useState} from "react";
 import {capitalize, getPositionTitle} from "../../../../scripts/parsing.js";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
+import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 
 function Injuries({injuries, teams}) {
-    const [injuryPage, setInjuryPage] = useState(0);
+    const [page, setPage] = useState(0);
     const numberOfItemsToFetch = 10;
-    const totalInjuriesOnPage = (injuryPage + 1) * numberOfItemsToFetch;
+    const totalInjuriesOnPage = (page + 1) * numberOfItemsToFetch;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
@@ -59,16 +60,9 @@ function Injuries({injuries, teams}) {
                        )
                    }
                </ul>
-               {
-                   totalInjuriesOnPage < injuries.length
-                   ? <button type={"button"}
-                             className={"loadMoreButton"}
-                             title={"Load more"}
-                             onClick={() => setInjuryPage(previousPage => previousPage + 1)}>
-                       Load more
-                   </button>
-                   : null
-               }
+               <LoadMoreButton areAllFetched={totalInjuriesOnPage >= injuries.length}
+                               setPage={setPage}>
+               </LoadMoreButton>
            </div>;
 }
 
