@@ -62,7 +62,7 @@ function Signings({teams}) {
                  <ul className={"injuriesTradesSigningsByDate"}>
                      {
                          splitArrayByKey(signings, "signing_date").map((day, index) =>
-                             <li key={index} className={"individualDay"}>
+                             <li key={index.toString()} className={"individualDay"}>
                                  <span className={"injuryTradeSigningHeader"}>
                                      {formatterDate.format(new Date(day[0].signing_date))}
                                  </span>
