@@ -61,6 +61,16 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
                             ? <span>{getPositionTitle(nominee.player.position)}</span>
                             : null
                         }
+                        {
+                            nominee.coach && nominee.trophyCategoryId !== 3 && nominee.trophyId !== 2
+                            ? <>
+                                <span className={"trophyStatusTeam"}>
+                                    {`${nominee.coach.firstName} ${nominee.coach.lastName}`}
+                                </span>
+                                <span>Coach</span>
+                            </>
+                            : null
+                        }
                     </div>
                 </button>
             )
