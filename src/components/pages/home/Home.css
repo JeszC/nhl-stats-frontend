@@ -584,13 +584,11 @@
     }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 1279px) {
     .injuriesAndTrades {
         flex-wrap: wrap;
     }
-}
 
-@media (max-width: 1279px) {
     .playoffRounds {
         gap: 0.5em;
     }
