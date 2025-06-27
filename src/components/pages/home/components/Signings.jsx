@@ -1,7 +1,14 @@
+import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
 
-function Signings({signings, teams, areAllSigningsFetched, fetchState, setSigningsPage}) {
+function Signings({teams}) {
+    const [signings, setSignings] = useState([]);
+    const [areAllSigningsFetched, setAreAllSigningsFetched] = useState(false);
+    const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [signingsPage, setSigningsPage] = useState(0);
+    const numberOfItemsToFetch = 10;
+    const signingOffset = signingsPage * numberOfItemsToFetch;
     const isLoading = fetchState === constants.fetchState.loading;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
@@ -22,6 +29,29 @@ function Signings({signings, teams, areAllSigningsFetched, fetchState, setSignin
                 return teamAbbrev;
         }
     }
+
+    const getSignings = useCallback(async () => {
+        let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${signingOffset}`);
+        if (signingsResponse.ok) {
+            return await signingsResponse.json();
+        }
+        throw new Error("HTTP error when fetching signings.");
+    }, [signingOffset]);
+
+    useEffect(() => {
+        if (!areAllSigningsFetched) {
+            setFetchState(constants.fetchState.loading);
+            getSignings()
+                .then(fetchedSignings => {
+                    setSignings(previousSignings => previousSignings.concat(fetchedSignings));
+                    setFetchState(constants.fetchState.finished);
+                    if (fetchedSignings.length < numberOfItemsToFetch) {
+                        setAreAllSigningsFetched(true);
+                    }
+                })
+                .catch(ignored => setFetchState(constants.fetchState.error));
+        }
+    }, [areAllSigningsFetched, getSignings]);
 
     return signings.length === 0
            ? null
