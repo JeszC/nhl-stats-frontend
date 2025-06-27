@@ -8,13 +8,13 @@ function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
 
     return injuries.length === 0
            ? null
-           : <div id={"injuries"} className={"injuriesOrTrades injuriesHome"}>
+           : <div id={"injuries"} className={"injuriesTradesSignings injuriesHome"}>
                <h2>Injuries</h2>
-               <ul className={"injuriesOrTradesByDate"}>
+               <ul className={"injuriesTradesSigningsByDate"}>
                    {
                        splitArrayByKey(injuries, "date").map((day, index) =>
                            <li key={index} className={"individualDay"}>
-                               <span className={"injuryOrTradeHeader"}>
+                               <span className={"injuryTradeSigningHeader"}>
                                    {formatterDate.format(new Date(day[0].date))}
                                </span>
                                <ul className={"injuries"}>

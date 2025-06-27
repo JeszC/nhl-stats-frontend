@@ -28,13 +28,13 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) 
            ? null
            : fetchState === constants.fetchState.error
              ? <span>Error fetching trades</span>
-             : <div id={"trades"} className={"injuriesOrTrades"}>
+             : <div id={"trades"} className={"injuriesTradesSignings"}>
                  <h2>Trades</h2>
-                 <ul className={"injuriesOrTradesByDate"}>
+                 <ul className={"injuriesTradesSigningsByDate"}>
                      {
                          splitArrayByKey(trades, "trade_date").map((day, index) =>
                              <li key={index} className={"individualDay"}>
-                                 <span className={"injuryOrTradeHeader"}>
+                                 <span className={"injuryTradeSigningHeader"}>
                                      {formatterDate.format(new Date(day[0].post_date))}
                                  </span>
                                  <ul className={"trades"}>

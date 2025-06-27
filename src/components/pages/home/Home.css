@@ -66,16 +66,16 @@
     min-height: 3em;
 }
 
-.injuriesAndTrades {
+.teamRosterEvents {
     margin-bottom: 0.5em;
 }
 
-.injuriesOrTrades {
+.injuriesTradesSignings {
     margin: 0 1em;
     width: 100%;
 }
 
-.injuriesOrTradesByDate {
+.injuriesTradesSigningsByDate {
     margin: 0;
     padding-left: 0;
     list-style-type: none;
@@ -85,7 +85,7 @@
     margin-bottom: 2em;
 }
 
-.injuryOrTradeHeader {
+.injuryTradeSigningHeader {
     font-size: 1.25em;
     font-weight: bold;
 }
@@ -306,7 +306,7 @@
 }
 
 .upcomingGames h2,
-.injuriesOrTrades h2,
+.injuriesTradesSignings h2,
 .homePageTables h2,
 .playoffTree h2 {
     text-align: center;
@@ -585,7 +585,7 @@
 }
 
 @media (max-width: 1279px) {
-    .injuriesAndTrades {
+    .teamRosterEvents {
         flex-wrap: wrap;
     }
 

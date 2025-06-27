@@ -57,13 +57,13 @@ function Signings({teams}) {
            ? null
            : fetchState === constants.fetchState.error
              ? <span>Error fetching signings</span>
-             : <div id={"signings"} className={"injuriesOrTrades"}>
+             : <div id={"signings"} className={"injuriesTradesSignings"}>
                  <h2>Signings</h2>
-                 <ul className={"injuriesOrTradesByDate"}>
+                 <ul className={"injuriesTradesSigningsByDate"}>
                      {
                          splitArrayByKey(signings, "signing_date").map((day, index) =>
                              <li key={index} className={"individualDay"}>
-                                 <span className={"injuryOrTradeHeader"}>
+                                 <span className={"injuryTradeSigningHeader"}>
                                      {formatterDate.format(new Date(day[0].signing_date))}
                                  </span>
                                  <ul className={"signings"}>
