@@ -238,6 +238,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                                  setTradePage={setTradePage}>
                                          </Trades>
                                          <Signings signings={signings}
+                                                   teams={teams}
                                                    areAllSigningsFetched={areAllSigningsFetched}
                                                    fetchState={signingsFetchState}
                                                    setSigningsPage={setSigningsPage}>

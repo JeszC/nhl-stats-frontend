@@ -1,4 +1,4 @@
-import {capitalize} from "../../../../scripts/parsing.js";
+import {capitalize, getPositionTitle} from "../../../../scripts/parsing.js";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 
 function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
@@ -22,21 +22,29 @@ function Injuries({injuries, teams, areAllInjuriesOnPage, setInjuryPage}) {
                                        day.map(injury =>
                                            <li key={injury.competitorId.toString() + injury.player.id.toString()}
                                                className={"injury"}>
-                                               <div className={"injuryTeamAndPlayerInformation horizontalFlex"}>
+                                               <div className={"horizontalFlex injuryTeamAndPlayerInformation"}>
                                                    <img className={`injuryHeadshot default
                                                    ${injury.teamAbbrev} gradient`}
                                                         src={getTeamLogo(teams, injury.teamAbbrev)}
                                                         alt={`${injury.teamAbbrev}`}/>
-                                                   <div className={"injuryPlayerInformation verticalFlex"}>
-                                                       <span className={"injuryName"}>{injury.player.displayName}</span>
-                                                       <div className={"injuryPlayerRoleInformation horizontalFlex"}>
-                                                           <span>#{injury.player.number}</span>
-                                                           <span>{injury.player.positionShort}</span>
-                                                           <span>{injury.player.age} y/o</span>
+                                                   <div className={"verticalFlex injuryInformation"}>
+                                                       <div className={"verticalFlex injuryDetails"}>
+                                                           <span className={"injuryName"}>
+                                                               {injury.player.displayName}
+                                                           </span>
+                                                           <div className={"horizontalFlex injuryPlayerDetails"}>
+                                                               <span>#{injury.player.number.toLocaleString()}</span>
+                                                               <span>
+                                                                   {getPositionTitle(injury.player.positionShort)}
+                                                               </span>
+                                                               <span>{injury.player.age.toLocaleString()} y/o</span>
+                                                           </div>
+                                                           <span>{injury.teamName}</span>
                                                        </div>
-                                                       <span>{injury.teamName}</span>
-                                                       <span>{capitalize(injury.description)}</span>
-                                                       <span>{injury.status}</span>
+                                                       <div className={"verticalFlex injuryDetails"}>
+                                                           <span>{capitalize(injury.description)}</span>
+                                                           <span>{injury.status}</span>
+                                                       </div>
                                                    </div>
                                                </div>
                                            </li>

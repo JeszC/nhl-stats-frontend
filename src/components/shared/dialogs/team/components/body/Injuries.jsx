@@ -1,5 +1,5 @@
 import {getPlayer} from "../../../../../../scripts/utils.js";
-import {capitalize} from "../../../../../../scripts/parsing.js";
+import {capitalize, getPositionTitle} from "../../../../../../scripts/parsing.js";
 
 function Injuries({injuries, teamLogo, setPlayer, setFetchState, setActiveView}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {
@@ -20,16 +20,20 @@ function Injuries({injuries, teamLogo, setPlayer, setFetchState, setActiveView})
                                <img className={`defaultImage injuryHeadshot zoom default ${injury.teamAbbrev} gradient`}
                                     src={injury.player.headshot ? injury.player.headshot : teamLogo}
                                     alt={`${injury.teamAbbrev}`}/>
-                               <div className={"injuryPlayerInformation verticalFlex"}>
-                                   <h3>{injury.player.displayName}</h3>
-                                   <div className={"injuryPlayerRoleInformation horizontalFlex"}>
-                                       <span>#{injury.player.number}</span>
-                                       <span>{injury.player.positionShort}</span>
-                                       <span>{injury.player.age} y/o</span>
+                               <div className={"injuryInformation verticalFlex"}>
+                                   <div className={"verticalFlex injuryDetails"}>
+                                       <h3>{injury.player.displayName}</h3>
+                                       <div className={"injuryPlayerDetails horizontalFlex"}>
+                                           <span>#{injury.player.number.toLocaleString()}</span>
+                                           <span>{getPositionTitle(injury.player.positionShort)}</span>
+                                           <span>{injury.player.age.toLocaleString()} y/o</span>
+                                       </div>
                                    </div>
-                                   <span>{formatterDate.format(new Date(injury.date))}</span>
-                                   <span>{capitalize(injury.description)}</span>
-                                   <span>{injury.status}</span>
+                                   <div className={"verticalFlex injuryDetails"}>
+                                       <span>{formatterDate.format(new Date(injury.date))}</span>
+                                       <span>{capitalize(injury.description)}</span>
+                                       <span>{injury.status}</span>
+                                   </div>
                                </div>
                            </button>
                        )

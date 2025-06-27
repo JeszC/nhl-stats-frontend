@@ -157,7 +157,7 @@
         color: black;
     }
 
-    .injuriesHome .injuryPlayerInformation {
+    .injuriesHome .injuryInformation {
         background-color: var(--darkest-grey);
         color: white;
     }

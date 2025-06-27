@@ -181,7 +181,7 @@
         color: black;
     }
 
-    .injuriesHome .injuryPlayerInformation,
+    .injuriesHome .injuryInformation,
     .teamsContent .injuryTeamAndPlayerInformation:not(:hover, :active) {
         background-color: var(--lightest-grey);
         color: black;

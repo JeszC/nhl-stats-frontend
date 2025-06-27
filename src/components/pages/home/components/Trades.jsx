@@ -9,7 +9,7 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) 
     });
 
     function fixAbbrev(team) {
-        let teamAbbrev = team?.team?.team_shortname;
+        let teamAbbrev = team?.team?.team_shortname.toUpperCase();
         switch (teamAbbrev) {
             case "LA":
                 return "LAK";
@@ -39,9 +39,8 @@ function Trades({trades, teams, areAllTradesFetched, fetchState, setTradePage}) 
                                  </span>
                                  <ul className={"trades"}>
                                      {
-                                         day.map((trade, index) =>
-                                             <li key={trade.post_id + index.toString()}
-                                                 className={"verticalFlex trade"}>
+                                         day.map(trade =>
+                                             <li key={trade.post_id} className={"verticalFlex trade"}>
                                                  <TradeTeam team={trade.details[0]}
                                                             teamLogo={getTeamLogo(teams, fixAbbrev(trade.details[0]))}
                                                             teamAbbrev={fixAbbrev(trade.details[0])}>

@@ -147,3 +147,14 @@ export function getTeamLogo(teams, teamAbbrev) {
     }
     return null;
 }
+
+export function getTeamName(teams, teamAbbrev) {
+    if (teams && teams.length > 0) {
+        for (let team of teams) {
+            if (team?.teamAbbrev?.default === teamAbbrev) {
+                return team?.teamName.default;
+            }
+        }
+    }
+    return null;
+}
