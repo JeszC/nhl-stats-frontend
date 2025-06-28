@@ -2,7 +2,7 @@ import GoalieComparison from "./components/GoalieComparison.jsx";
 import LastFiveLeaders from "./components/LastFiveLeaders.jsx";
 import StatisticsUpcoming from "./components/StatisticsUpcoming.jsx";
 
-function UpcomingGames({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
+function UpcomingGame({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
 
     return <>
         <StatisticsUpcoming game={game}></StatisticsUpcoming>
@@ -21,4 +21,4 @@ function UpcomingGames({game, setPlayer, setActiveView, setPreviousView, setFetc
     </>;
 }
 
-export default UpcomingGames;
+export default UpcomingGame;
