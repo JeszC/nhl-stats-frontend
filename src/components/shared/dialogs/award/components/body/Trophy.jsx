@@ -2,7 +2,7 @@ import HTMLParser from "html-react-parser";
 import {splitArrayByKey} from "../../../../../../scripts/utils.js";
 import TrophyYear from "./TrophyYear.jsx";
 
-function Trophy({trophy, trophyWinners, setPlayer, setFetchState, setActiveView}) {
+function Trophy({trophy, trophyWinners}) {
 
     return <div className={"horizontalFlex trophyImageAndDescription"}>
         <img className={"trophyImage"} src={trophy?.imageUrl} alt={trophy?.name}/>
@@ -16,12 +16,7 @@ function Trophy({trophy, trophyWinners, setPlayer, setFetchState, setActiveView}
                 {
                     trophy
                     ? splitArrayByKey(trophyWinners, "seasonId").map((season, index) =>
-                        <TrophyYear key={season.length.toString() + index.toString()}
-                                    season={season}
-                                    setPlayer={setPlayer}
-                                    setFetchState={setFetchState}
-                                    setActiveView={setActiveView}>
-                        </TrophyYear>
+                        <TrophyYear key={season.length.toString() + index.toString()} season={season}></TrophyYear>
                     )
                     : null
                 }

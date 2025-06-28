@@ -1,8 +1,7 @@
 import {capitalize, getPositionTitle} from "../../../../../../scripts/parsing.js";
-import {getPlayer} from "../../../../../../scripts/utils.js";
 import awardIcon from "../../../../images/Person.svg";
 
-function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setActiveView}) {
+function TrophyNomineeCategory({nomineeCategory}) {
 
     function parseCategoryTitle(category) {
         return capitalize(category.replace("_", "-").toLowerCase());
@@ -35,14 +34,10 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
         }
         {
             nomineeCategory.map(nominee =>
-                <button key={nominee.id}
-                        className={"horizontalFlex trophyNomineeButton"}
-                        type={"button"}
-                        title={"Show details"}
-                        onClick={() => getPlayer(nominee.playerId, setPlayer, setFetchState, setActiveView)}>
+                <div key={nominee.id} className={"horizontalFlex trophyNominee"}>
                     <img className={nominee.team?.logos[0]?.secureUrl
-                                    ? `defaultImage default zoom ${nominee.team?.triCode} gradient trophyNomineeImage`
-                                    : `defaultImage default zoom gradient trophyNomineeImage missingImage`}
+                                    ? `defaultImage default ${nominee.team?.triCode} gradient trophyNomineeImage`
+                                    : `defaultImage default gradient trophyNomineeImage missingImage`}
                          src={getSeasonLogo(nominee)}
                          alt={`${nominee.team?.triCode} logo`}/>
                     <div className={"verticalFlex trophyStatusInformation"}>
@@ -72,7 +67,7 @@ function TrophyNomineeCategory({nomineeCategory, setPlayer, setFetchState, setAc
                             : null
                         }
                     </div>
-                </button>
+                </div>
             )
         }
     </div>;

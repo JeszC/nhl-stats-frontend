@@ -90,16 +90,16 @@
     font-weight: bold;
 }
 
-.trophyNomineeButton {
+.trophyNominee {
     padding: 0.5em;
+    width: 100%;
     height: revert;
     justify-content: flex-start;
     align-items: center;
     gap: 0.5em;
-}
-
-.trophyNomineeButton:hover .zoom {
-    transform: scale(1.25);
+    box-sizing: border-box;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
 }
 
 .trophyNomineeImage {

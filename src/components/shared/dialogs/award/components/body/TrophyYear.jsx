@@ -2,7 +2,7 @@ import {parseSeason} from "../../../../../../scripts/parsing.js";
 import {splitArrayByKey} from "../../../../../../scripts/utils.js";
 import TrophyNomineeCategory from "./TrophyNomineeCategory.jsx";
 
-function TrophyYear({season, setPlayer, setFetchState, setActiveView}) {
+function TrophyYear({season}) {
 
     return <div key={season.id} className={"verticalFlex trophySeasonAndWinners"}>
         {
@@ -14,10 +14,7 @@ function TrophyYear({season, setPlayer, setFetchState, setActiveView}) {
             {
                 splitArrayByKey(season, "status").map((category, index) =>
                     <TrophyNomineeCategory key={category.toString() + index.toString()}
-                                           nomineeCategory={category}
-                                           setPlayer={setPlayer}
-                                           setFetchState={setFetchState}
-                                           setActiveView={setActiveView}>
+                                           nomineeCategory={category}>
                     </TrophyNomineeCategory>
                 )
             }
