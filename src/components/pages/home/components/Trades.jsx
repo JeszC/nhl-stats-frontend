@@ -3,6 +3,7 @@ import constants from "../../../../data/constants.json";
 import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 import TradeTeam from "./TradeTeam.jsx";
+import {fixAbbreviation} from "../../../../scripts/parsing.js";
 
 function Trades({teams}) {
     const [trades, setTrades] = useState([]);
@@ -16,19 +17,7 @@ function Trades({teams}) {
     });
 
     function fixAbbrev(team) {
-        let teamAbbrev = team?.team?.team_shortname.toUpperCase();
-        switch (teamAbbrev) {
-            case "LA":
-                return "LAK";
-            case "NJ":
-                return "NJD";
-            case "SJ":
-                return "SJS";
-            case "TB":
-                return "TBL";
-            default:
-                return teamAbbrev;
-        }
+        return fixAbbreviation(team?.team?.team_shortname);
     }
 
     const getTrades = useCallback(async () => {

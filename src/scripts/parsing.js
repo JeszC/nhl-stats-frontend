@@ -201,6 +201,22 @@ export function parseGoalieIceTime(iceTime, gamesPlayed, digits = defaultDigits,
     return defaultMissingValue;
 }
 
+export function fixAbbreviation(teamAbbreviation) {
+    let capitalizedAbbreviation = teamAbbreviation.toUpperCase();
+    switch (capitalizedAbbreviation) {
+        case "LA":
+            return "LAK";
+        case "NJ":
+            return "NJD";
+        case "SJ":
+            return "SJS";
+        case "TB":
+            return "TBL";
+        default:
+            return capitalizedAbbreviation;
+    }
+}
+
 export function parseTeamAbbreviation(teamName) {
     switch (teamName.trim().toLowerCase()) {
         case "anaheim ducks":

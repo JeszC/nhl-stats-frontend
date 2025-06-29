@@ -2,6 +2,7 @@ import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
+import {fixAbbreviation} from "../../../../scripts/parsing.js";
 
 function Signings({teams}) {
     const [signings, setSignings] = useState([]);
@@ -15,19 +16,7 @@ function Signings({teams}) {
     });
 
     function fixAbbrev(team) {
-        let teamAbbrev = team?.team_shortname.toUpperCase();
-        switch (teamAbbrev) {
-            case "LA":
-                return "LAK";
-            case "NJ":
-                return "NJD";
-            case "SJ":
-                return "SJS";
-            case "TB":
-                return "TBL";
-            default:
-                return teamAbbrev;
-        }
+        return fixAbbreviation(team?.team_shortname);
     }
 
     function fixPositionTitle(positionTitle) {

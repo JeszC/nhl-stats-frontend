@@ -124,6 +124,25 @@ export function getValue(path, object, interpretAsMultipleKeys = false, fallback
     return fallback;
 }
 
+export function getTeamLogo(teams, teamAbbrev) {
+    return getTeamValue(teams, teamAbbrev, "teamLogo");
+}
+
+export function getTeamName(teams, teamAbbrev) {
+    return getTeamValue(teams, teamAbbrev, "teamName", "default");
+}
+
+export function getTeamValue(teams, teamAbbrev, ...values) {
+    if (teams && teams.length > 0) {
+        for (let team of teams) {
+            if (team?.teamAbbrev?.default === teamAbbrev) {
+                return getValue(values, team, false, undefined);
+            }
+        }
+    }
+    return null;
+}
+
 export function splitArrayByKey(array, key) {
     let slicedArray = [];
     let index = 0;
@@ -135,26 +154,4 @@ export function splitArrayByKey(array, key) {
     }
     slicedArray.push(array.slice(index, array.length));
     return slicedArray;
-}
-
-export function getTeamLogo(teams, teamAbbrev) {
-    if (teams && teams.length > 0) {
-        for (let team of teams) {
-            if (team?.teamAbbrev?.default === teamAbbrev) {
-                return team?.teamLogo;
-            }
-        }
-    }
-    return null;
-}
-
-export function getTeamName(teams, teamAbbrev) {
-    if (teams && teams.length > 0) {
-        for (let team of teams) {
-            if (team?.teamAbbrev?.default === teamAbbrev) {
-                return team?.teamName.default;
-            }
-        }
-    }
-    return null;
 }
