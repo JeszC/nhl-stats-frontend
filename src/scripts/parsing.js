@@ -204,6 +204,8 @@ export function parseGoalieIceTime(iceTime, gamesPlayed, digits = defaultDigits,
 export function fixAbbreviation(teamAbbreviation) {
     let capitalizedAbbreviation = teamAbbreviation.toUpperCase();
     switch (capitalizedAbbreviation) {
+        case "CLB":
+            return "CBJ";
         case "LA":
             return "LAK";
         case "NJ":
