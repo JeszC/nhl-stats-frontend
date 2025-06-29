@@ -8,7 +8,7 @@ import Staff from "./components/Staff.jsx";
 import StatisticsFinal from "./components/StatisticsFinal.jsx";
 import ThreeStars from "./components/ThreeStars.jsx";
 
-function PlayedGames({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
+function PlayedGame({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
 
     return <>
         <ThreeStars game={game}
@@ -48,4 +48,4 @@ function PlayedGames({game, setPlayer, setActiveView, setPreviousView, setFetchS
     </>;
 }
 
-export default PlayedGames;
+export default PlayedGame;
