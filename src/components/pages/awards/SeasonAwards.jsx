@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
+import {getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars.jsx";
 import AwardDialog from "../../shared/dialogs/award/AwardDialog.jsx";
 import ErrorDialog from "../../shared/errors/ErrorDialog.jsx";
@@ -33,18 +34,12 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
 
     async function getTrophies() {
         let response = await fetch(`${constants.baseURL}/awards/getTrophies`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching trophies");
+        return await getResponseData(response, "Error fetching trophies.");
     }
 
     async function getTrophyWinners(categoryID, trophyID) {
         let response = await fetch(`${constants.baseURL}/awards/getTrophyWinners/${categoryID}/${trophyID}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching trophy winners");
+        return await getResponseData(response, "Error fetching trophy winners.");
     }
 
     function setUpOnLoad() {

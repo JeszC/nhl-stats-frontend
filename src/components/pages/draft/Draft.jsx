@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
-import {compareNumeric, compareTextual, getValue, sortObjects} from "../../../scripts/utils.js";
+import {compareNumeric, compareTextual, getResponseData, getValue, sortObjects} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -107,10 +107,7 @@ function Draft({showOptions, setShowOptions, showHelp}) {
 
     async function getDraftResults(season) {
         let response = await fetch(`${constants.baseURL}/draft/getDraftResults/${season}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching draft results.");
+        return await getResponseData(response, "Error fetching draft results.");
     }
 
     async function retryGetDraftResults(season) {

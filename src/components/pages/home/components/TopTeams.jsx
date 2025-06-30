@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
 import homeCategories from "../../../../data/home.json";
 import {getOrdinalNumber} from "../../../../scripts/parsing.js";
+import {getResponseData} from "../../../../scripts/utils.js";
 import SingleSelectionButtons from "../../../shared/common/singleSelectionButtons/SingleSelectionButtons";
 import TeamDialog from "../../../shared/dialogs/team/TeamDialog";
 
@@ -27,10 +28,7 @@ function TopTeams({teams}) {
 
     async function getLatestSeason() {
         let latestSeasonResponse = await fetch(`${constants.baseURL}/home/getLatestSeason`);
-        if (latestSeasonResponse.ok) {
-            return await latestSeasonResponse.json();
-        }
-        throw new Error("HTTP error when fetching latest season.");
+        return await getResponseData(latestSeasonResponse, "Error fetching latest season.");
     }
 
     async function openDialogKeyboard(event, team) {

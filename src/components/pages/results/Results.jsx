@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
+import {getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars";
 import GameDialog from "../../shared/dialogs/game/GameDialog";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -37,10 +38,7 @@ function Results({showOptions, setShowOptions, showHelp}) {
 
     async function getResults(date) {
         let response = await fetch(`${constants.baseURL}/results/getResults/${date}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching results.");
+        return await getResponseData(response, "Error fetching results.");
     }
 
     function getLocalDateString(dateString) {

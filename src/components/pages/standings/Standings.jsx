@@ -2,7 +2,7 @@ import {Fragment, useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import recordColumns from "../../../data/recordFormats.json";
 import teamStandingsColumns from "../../../data/teamStandings.json";
-import {compareNumeric, compareTextual, getValue, sortObjects} from "../../../scripts/utils.js";
+import {compareNumeric, compareTextual, getResponsesData, getValue, sortObjects} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
 import TeamDialog from "../../shared/dialogs/team/TeamDialog";
@@ -119,15 +119,12 @@ function Standings({showOptions, setShowOptions, showHelp}) {
             fetch(`${constants.baseURL}/standings/getStandings/${season}`),
             fetch(`${constants.baseURL}/playoffs/getPlayoffTree/${season}`)
         ]);
-        for (let response of responses) {
-            if (!response.ok) {
-                throw new Error("HTTP error when fetching standings/playoff tree.");
-            }
-        }
-        let standings = await responses[0].json();
+        let standings;
         let playoffTree;
         try {
-            playoffTree = await responses[1].json();
+            let data = await getResponsesData(responses, "Error when fetching standings/playoff tree.");
+            standings = data[0];
+            playoffTree = data[1];
         } catch (ignored) {
             playoffTree = {};
         }

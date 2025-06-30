@@ -1,5 +1,6 @@
 import {Fragment, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
+import {getResponseData} from "../../../scripts/utils.js";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -37,59 +38,38 @@ function Home({showOptions, setShowOptions, showHelp}) {
         let todayLosAngeles = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
         let todayDateString = getLocalDateString(todayLosAngeles);
         let upcomingGamesResponse = await fetch(`${constants.baseURL}/home/getUpcomingGames/${todayDateString}`);
-        if (upcomingGamesResponse.ok) {
-            return await upcomingGamesResponse.json();
-        }
-        throw new Error("HTTP error when fetching today's games.");
+        return await getResponseData(upcomingGamesResponse, "Error fetching upcoming games.");
     }
 
     async function getTopTeams() {
         let teamResponse = await fetch(`${constants.baseURL}/home/getTopTen/teams`);
-        if (teamResponse.ok) {
-            return await teamResponse.json();
-        }
-        throw new Error("HTTP error when fetching top ten teams.");
+        return await getResponseData(teamResponse, "Error fetching top teams.");
     }
 
     async function getTopSkaters() {
         let skaterResponse = await fetch(`${constants.baseURL}/home/getTopTen/skaters`);
-        if (skaterResponse.ok) {
-            return await skaterResponse.json();
-        }
-        throw new Error("HTTP error when fetching top ten skaters.");
+        return await getResponseData(skaterResponse, "Error fetching top skaters.");
     }
 
     async function getTopGoalies() {
         let goalieResponse = await fetch(`${constants.baseURL}/home/getTopTen/goalies`);
-        if (goalieResponse.ok) {
-            return await goalieResponse.json();
-        }
-        throw new Error("HTTP error when fetching top ten goalies.");
+        return await getResponseData(goalieResponse, "Error fetching top goalies.");
     }
 
     async function getPlayoffTree() {
         let latestSeasonResponse = await fetch(`${constants.baseURL}/home/getLatestSeason`);
-        if (latestSeasonResponse.ok) {
-            let latestSeason = await latestSeasonResponse.json();
-            let playoffResponse = await fetch(`${constants.baseURL}/playoffs/getPlayoffTree/${latestSeason}`);
-            if (playoffResponse.ok) {
-                try {
-                    return await playoffResponse.json();
-                } catch (ignored) {
-                    return {};
-                }
-            }
-            throw new Error("HTTP error when fetching playoff tree.");
+        let latestSeason = await getResponseData(latestSeasonResponse, "Error fetching latest season.");
+        let playoffResponse = await fetch(`${constants.baseURL}/playoffs/getPlayoffTree/${latestSeason}`);
+        try {
+            return await getResponseData(playoffResponse, "Error fetching playoff tree.");
+        } catch (ignored) {
+            return {};
         }
-        throw new Error("HTTP error when fetching latest season.");
     }
 
     async function getInjuries() {
         let injuryResponse = await fetch(`${constants.baseURL}/injuries/getInjuries`);
-        if (injuryResponse.ok) {
-            return await injuryResponse.json();
-        }
-        throw new Error("HTTP error when fetching injuries.");
+        return await getResponseData(injuryResponse, "Error fetching injuries.");
     }
 
     async function getData() {

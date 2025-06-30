@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
+import {getResponseData} from "../../../../scripts/utils.js";
 
 function TeamSelect({season, localStorageKey, setSelectedTeams, fetchState, setFetchState, fetchTrigger}) {
     const [teams, setTeams] = useState([]);
@@ -33,10 +34,7 @@ function TeamSelect({season, localStorageKey, setSelectedTeams, fetchState, setF
 
     async function getTeams(season) {
         let response = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching teams.");
+        return await getResponseData(response, "Error fetching teams.");
     }
 
     function selectOptions() {

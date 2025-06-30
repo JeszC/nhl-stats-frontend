@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
-import {getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
+import {getResponseData, getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 import {fixAbbreviation} from "../../../../scripts/parsing.js";
 
@@ -34,10 +34,7 @@ function Signings({teams}) {
 
     const getSignings = useCallback(async () => {
         let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${fetchOffset}`);
-        if (signingsResponse.ok) {
-            return await signingsResponse.json();
-        }
-        throw new Error("HTTP error when fetching signings.");
+        return await getResponseData(signingsResponse, "Error fetching signings.");
     }, [fetchOffset]);
 
     useEffect(() => {

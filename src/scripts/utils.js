@@ -1,5 +1,42 @@
 import constants from "../data/constants.json";
 
+/**
+ * Checks if the HTTP response was OK and if so, returns the data from the response in JSON format. If the response
+ * is not OK, then an error is thrown.
+ *
+ * @param response HTTP response.
+ * @param errorMessage Error message to add to the thrown exception in case of an error.
+ *
+ * @returns {Promise<any>} A promise containing the data in a JSON object.
+ *
+ * @throws Error HTTP error if the response is not OK.
+ */
+export async function getResponseData(response, errorMessage) {
+    if (response.ok) {
+        return await response.json();
+    }
+    throw new Error(errorMessage);
+}
+
+/**
+ * Checks if all the HTTP responses were OK and if so, returns the data from the responses in JSON format. If even
+ * one of the responses is not OK, then an error is thrown.
+ *
+ * @param responses An array containing the HTTP responses.
+ * @param errorMessage Error message to add to the thrown exception in case of an error.
+ *
+ * @returns {Promise<[]>} A promise containing the data in an array.
+ *
+ * @throws Error HTTP error if one of the responses is not OK.
+ */
+export async function getResponsesData(responses, errorMessage) {
+    let data = [];
+    for (let response of responses) {
+        data.push(await getResponseData(response, errorMessage));
+    }
+    return data;
+}
+
 export function isGameUpcoming(gameState) {
     return gameState === constants.gameState.pre || gameState === constants.gameState.upcoming;
 }

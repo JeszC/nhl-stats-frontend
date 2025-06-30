@@ -1,5 +1,6 @@
 import {Fragment, useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
+import {getResponseData, getResponsesData} from "../../../scripts/utils.js";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SeasonSelect from "../../shared/sidebar/components/SeasonSelect";
 import TeamSelect from "../../shared/sidebar/components/TeamSelect";
@@ -36,10 +37,7 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
 
     const getSeasonDates = useCallback(async season => {
         let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error");
+        return await getResponseData(response, "Error fetching season dates.");
     }, []);
 
     const filterDuplicateGames = useCallback(schedules => {
@@ -67,15 +65,10 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
             promises.push(fetch(`${constants.baseURL}/schedule/getSchedule/${season}/${team.teamAbbrev}`));
         }
         const responses = await Promise.all(promises);
-        for (let response of responses) {
-            if (!response.ok) {
-                throw new Error("HTTP error");
-            }
-        }
+        let data = await getResponsesData(responses, "Error fetching games.");
         let games = [];
-        for (let response of responses) {
-            let schedule = await response.json();
-            games.push(schedule.games);
+        for (let team of data) {
+            games.push(team.games);
         }
         return filterDuplicateGames(games);
     }, [filterDuplicateGames]);

@@ -3,7 +3,7 @@ import constants from "../../../data/constants.json";
 import goalieStandings from "../../../data/goalieStandings.json";
 import skaterStandings from "../../../data/skaterStandings.json";
 import {getPlayerFirstName, getPlayerLastName} from "../../../scripts/parsing.js";
-import {compareTextual, getValue, sortObjects} from "../../../scripts/utils.js";
+import {compareTextual, getResponseData, getValue, sortObjects} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PageBar from "../../shared/common/pageBar/PageBar.jsx";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
@@ -139,27 +139,20 @@ function Players({showOptions, setShowOptions, showHelp}) {
 
     async function getPlayerStats(team, season) {
         let response = await fetch(`${constants.baseURL}/players/getPlayers/${team}/${season}`);
-        if (response.ok) {
-            return await response.json();
-        }
-        throw new Error("HTTP error when fetching players.");
+        return await getResponseData(response, "Error fetching players.");
     }
 
     async function getListOfTeamsThatExistInTheSelectedSeason(selectedTeams, season) {
         let teamsThatExistInSeason = [];
         let teamListResponse = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
-        if (teamListResponse.ok) {
-            let seasonsTeams = await teamListResponse.json();
-            for (let selectedTeam of selectedTeams) {
-                for (let seasonsTeam of seasonsTeams) {
-                    if (seasonsTeam.abbrev === selectedTeam.teamAbbrev) {
-                        teamsThatExistInSeason.push(selectedTeam);
-                        break;
-                    }
+        let seasonsTeams = await getResponseData(teamListResponse, "Error fetching season teams.");
+        for (let selectedTeam of selectedTeams) {
+            for (let seasonsTeam of seasonsTeams) {
+                if (seasonsTeam.abbrev === selectedTeam.teamAbbrev) {
+                    teamsThatExistInSeason.push(selectedTeam);
+                    break;
                 }
             }
-        } else {
-            throw new Error("HTTP error");
         }
         return teamsThatExistInSeason;
     }

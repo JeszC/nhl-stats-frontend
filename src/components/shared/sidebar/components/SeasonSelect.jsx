@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
+import {getResponseData} from "../../../../scripts/utils.js";
 
 function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetchState, setFetchTrigger}) {
     const [seasons, setSeasons] = useState([]);
@@ -39,10 +40,7 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
 
     async function getLatestSeason() {
         let latestSeasonResponse = await fetch(`${constants.baseURL}/home/getLatestUpcomingSeason`);
-        if (latestSeasonResponse.ok) {
-            return await latestSeasonResponse.json();
-        }
-        throw new Error("HTTP error when fetching latest season.");
+        return await getResponseData(latestSeasonResponse, "Error fetching latest season.");
     }
 
     async function getSeasons() {

@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
-import {getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
+import {getResponseData, getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 import TradeTeam from "./TradeTeam.jsx";
 import {fixAbbreviation} from "../../../../scripts/parsing.js";
@@ -22,10 +22,7 @@ function Trades({teams}) {
 
     const getTrades = useCallback(async () => {
         let tradesResponse = await fetch(`${constants.baseURL}/trades/getTrades/${fetchOffset}`);
-        if (tradesResponse.ok) {
-            return await tradesResponse.json();
-        }
-        throw new Error("HTTP error when fetching trades.");
+        return await getResponseData(tradesResponse, "Error fetching trades.");
     }, [fetchOffset]);
 
     useEffect(() => {
