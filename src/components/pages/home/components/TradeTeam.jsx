@@ -1,9 +1,7 @@
 function TradeTeam({team, teamLogo, teamAbbrev}) {
 
     return <div className={"horizontalFlex tradeTeam"}>
-        <img className={`tradeTeamLogo default ${teamAbbrev} gradient`}
-             src={teamLogo}
-             alt={`${teamAbbrev} logo`}/>
+        <img className={`tradeTeamLogo default ${teamAbbrev} gradient`} src={teamLogo} alt={`${teamAbbrev} logo`}/>
         <div className={"verticalFlex tradeItems"}>
             <span className={"tradeTeamName"}>{team?.team?.name ? team.team.name : "undefined"} acquire</span>
             <ul className={"tradeItemList"}>
