@@ -9,7 +9,7 @@ function Signings({teams}) {
     const [page, setPage] = useState(0);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [areAllSigningsFetched, setAreAllSigningsFetched] = useState(false);
-    const numberOfItemsToFetch = 20;
+    const numberOfItemsToFetch = 10;
     const fetchOffset = page * numberOfItemsToFetch;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
