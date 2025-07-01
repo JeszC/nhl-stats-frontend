@@ -5,7 +5,7 @@ import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton
 
 function Injuries({injuries, teams}) {
     const [page, setPage] = useState(0);
-    const numberOfItemsToFetch = 10;
+    const numberOfItemsToFetch = 20;
     const totalInjuriesOnPage = (page + 1) * numberOfItemsToFetch;
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
