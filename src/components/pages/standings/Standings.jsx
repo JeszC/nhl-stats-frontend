@@ -358,7 +358,9 @@ function Standings({showOptions, setShowOptions, showHelp}) {
                                        fetchState={fetchState}
                                        hasStickyTitle={true}>
                         </PlayoffTree>
-                      : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
+                      : fetchState === constants.fetchState.finished
+                        ? <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
+                        : null
                 }
                 <TeamDialog dialogReference={dialog}
                             selectedTeam={selectedTeam}
