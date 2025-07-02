@@ -2,12 +2,20 @@ import {Fragment, useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import recordColumns from "../../../data/recordFormats.json";
 import teamStandingsColumns from "../../../data/teamStandings.json";
-import {compareNumeric, compareTextual, getResponsesData, getValue, sortObjects} from "../../../scripts/utils.js";
+import {
+    compareNumeric,
+    compareTextual,
+    getResponsesData,
+    getValue,
+    hasSeasonStarted,
+    sortObjects
+} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
 import TeamDialog from "../../shared/dialogs/team/TeamDialog";
 import ErrorDialogLockout from "../../shared/errors/ErrorDialogLockout";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
+import ErrorDialogSeasonUnstarted from "../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SeasonSelect from "../../shared/sidebar/components/SeasonSelect";
 import SidebarHelp from "../../shared/sidebar/SidebarHelp";
@@ -97,6 +105,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const [sortedColumn, setSortedColumn] = useState(0);
     const [customizedTeamStandings, setCustomizedTeamStandings] = useState(teamStandingsColumns);
+    const [seasonStarted, setSeasonStarted] = useState(true);
     const defaultHeader = useRef(null);
     const dialog = useRef(null);
     const defaultSortedCategory = customizedTeamStandings.columns.pointPercentage;
@@ -115,6 +124,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
     }, [sorting.target]);
 
     async function getStandingsAndPlayoffTree(season) {
+        setSeasonStarted(await hasSeasonStarted(season));
         let responses = await Promise.all([
             fetch(`${constants.baseURL}/standings/getStandings/${season}`),
             fetch(`${constants.baseURL}/playoffs/getPlayoffTree/${season}`)
@@ -320,23 +330,25 @@ function Standings({showOptions, setShowOptions, showHelp}) {
                 {
                     season === constants.lockoutSeason
                     ? <ErrorDialogLockout></ErrorDialogLockout>
-                    : seasonType === constants.gameType.season.name
-                      ? <StandingsTable defaultHeader={defaultHeader}
-                                        defaultColumn={defaultSortedCategory}
-                                        applySorting={applySorting}
-                                        sortingDirection={sorting.ascending}
-                                        sortedColumn={sortedColumn}
-                                        columns={customizedTeamStandings}
-                                        standings={visibleStandings}
-                                        dialog={dialog}
-                                        hasPlayoffTeams={hasPlayoffTeams}
-                                        setSelectedTeam={setSelectedTeam}
-                                        setTeamFetchState={setTeamFetchState}>
-                      </StandingsTable>
-                      : <PlayoffTree playoffTree={playoffTree}
-                                     fetchState={fetchState}
-                                     hasStickyTitle={true}>
-                      </PlayoffTree>
+                    : seasonStarted
+                      ? seasonType === constants.gameType.season.name
+                        ? <StandingsTable defaultHeader={defaultHeader}
+                                          defaultColumn={defaultSortedCategory}
+                                          applySorting={applySorting}
+                                          sortingDirection={sorting.ascending}
+                                          sortedColumn={sortedColumn}
+                                          columns={customizedTeamStandings}
+                                          standings={visibleStandings}
+                                          dialog={dialog}
+                                          hasPlayoffTeams={hasPlayoffTeams}
+                                          setSelectedTeam={setSelectedTeam}
+                                          setTeamFetchState={setTeamFetchState}>
+                        </StandingsTable>
+                        : <PlayoffTree playoffTree={playoffTree}
+                                       fetchState={fetchState}
+                                       hasStickyTitle={true}>
+                        </PlayoffTree>
+                      : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
                 }
                 <TeamDialog dialogReference={dialog}
                             selectedTeam={selectedTeam}
