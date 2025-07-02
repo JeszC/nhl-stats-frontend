@@ -37,19 +37,6 @@ export async function getResponsesData(responses, errorMessage) {
     return data;
 }
 
-export async function hasSeasonStarted(season, seasonStart, seasonEnd) {
-    let start = season.substring(0, 4);
-    let end = season.substring(4);
-    if (seasonStart && seasonEnd) {
-        return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() < 1;
-    }
-    let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
-    let seasonDates = await getResponseData(response, "Error fetching season dates.");
-    let startDate = new Date(seasonDates.seasonStartDate);
-    let endDate = new Date(seasonDates.seasonEndDate);
-    return start - startDate.getFullYear() < 1 && end - endDate.getFullYear() < 1;
-}
-
 export function isGameUpcoming(gameState) {
     return gameState === constants.gameState.pre || gameState === constants.gameState.upcoming;
 }

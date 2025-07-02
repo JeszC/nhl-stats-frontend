@@ -5,9 +5,9 @@ import teamStandingsColumns from "../../../data/teamStandings.json";
 import {
     compareNumeric,
     compareTextual,
+    getResponseData,
     getResponsesData,
     getValue,
-    hasSeasonStarted,
     sortObjects
 } from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
@@ -123,7 +123,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
         setSorting({key, ascending, target});
     }, [sorting.target]);
 
-    async function getStandingsAndPlayoffTree(season) {
+    const getStandingsAndPlayoffTree = useCallback(async season => {
         setSeasonStarted(await hasSeasonStarted(season));
         let responses = await Promise.all([
             fetch(`${constants.baseURL}/standings/getStandings/${season}`),
@@ -142,7 +142,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
             standings,
             playoffTree
         };
-    }
+    }, []);
 
     function retryGetStandingsAndPlayoffTree(season) {
         setFetchState(constants.fetchState.loading);
@@ -156,6 +156,16 @@ function Standings({showOptions, setShowOptions, showHelp}) {
         setFullStandings(result.standings);
         setVisibleStandings(result.standings);
         setPlayoffTree(result.playoffTree);
+    }
+
+    async function hasSeasonStarted(season) {
+        let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
+        let seasonDates = await getResponseData(response, "Error fetching season dates.");
+        let start = season.substring(0, 4);
+        let end = season.substring(4);
+        let startDate = new Date(seasonDates.seasonStartDate);
+        let endDate = new Date(seasonDates.seasonEndDate);
+        return start - startDate.getFullYear() < 1 && end - endDate.getFullYear() < 1;
     }
 
     function hasAnyTeamMadePlayoffs(standings) {
@@ -289,7 +299,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
 
     useEffect(replaceYearSpecificColumns, [replaceYearSpecificColumns]);
 
-    useEffect(fetchSeasonData, [fetchTrigger, season]);
+    useEffect(fetchSeasonData, [fetchTrigger, season, getStandingsAndPlayoffTree]);
 
     useEffect(() => {
         applySorting(defaultSortedCategory, false, defaultHeader.current);

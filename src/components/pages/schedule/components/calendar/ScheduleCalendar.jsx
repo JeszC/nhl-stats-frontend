@@ -103,40 +103,38 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState,
     useEffect(updateSeasonDates, [startDate, endDate]);
 
     return <>
-        {fetchState === constants.fetchState.loading ? <Bars></Bars> : null}
         {
-            fetchState === constants.fetchState.error
-            ? <ErrorDialog errorMessage={"Failed to fetch team schedules. The server might be offline."}></ErrorDialog>
-            : null
-        }
-        {
-            season === constants.lockoutSeason
-            ? <ErrorDialogLockout></ErrorDialogLockout>
-            : hasSeasonStarted()
-              ? <>
-                  <CalendarHeader year={year}
-                                  month={month}
-                                  setYear={setYear}
-                                  setMonth={setMonth}
-                                  seasonStart={seasonStart}
-                                  seasonEnd={seasonEnd}>
-                  </CalendarHeader>
-                  <ul className={"days"}>
-                      {
-                          fetchState === constants.fetchState.finished
-                          ? getCalendarData().map((date, index) =>
-                              <CalendarSquare key={date.date.toLocaleDateString() + index.toString()}
-                                              date={date}
-                                              selectedTeams={selectedTeams}
-                                              showScores={showScores}
-                                              openDialog={openDialog}>
-                              </CalendarSquare>
-                          )
-                          : null
-                      }
-                  </ul>
-              </>
-              : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
+            fetchState === constants.fetchState.loading
+            ? <Bars></Bars>
+            : fetchState === constants.fetchState.error
+              ? <ErrorDialog errorMessage={"Failed to fetch schedules. The server might be offline."}></ErrorDialog>
+              : season === constants.lockoutSeason
+                ? <ErrorDialogLockout></ErrorDialogLockout>
+                : hasSeasonStarted()
+                  ? <>
+                      <CalendarHeader year={year}
+                                      month={month}
+                                      setYear={setYear}
+                                      setMonth={setMonth}
+                                      seasonStart={seasonStart}
+                                      seasonEnd={seasonEnd}>
+                      </CalendarHeader>
+                      <ul className={"days"}>
+                          {
+                              fetchState === constants.fetchState.finished
+                              ? getCalendarData().map((date, index) =>
+                                  <CalendarSquare key={date.date.toLocaleDateString() + index.toString()}
+                                                  date={date}
+                                                  selectedTeams={selectedTeams}
+                                                  showScores={showScores}
+                                                  openDialog={openDialog}>
+                                  </CalendarSquare>
+                              )
+                              : null
+                          }
+                      </ul>
+                  </>
+                  : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
         }
         <GameDialog dialogReference={dialog}
                     selectedGame={selectedGame}
