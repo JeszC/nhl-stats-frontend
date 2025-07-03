@@ -23,3 +23,11 @@ Builds the app for production to the `dist` folder.
 ### `npm run preview`
 
 Runs the production app on the local machine.
+
+### `npm run test`
+
+Runs the tests in the test folder.
+
+### `npm run coverage`
+
+Shows test coverage.
