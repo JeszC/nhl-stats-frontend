@@ -161,6 +161,16 @@ export function getValue(path, object, interpretAsMultipleKeys = false, fallback
     return fallback;
 }
 
+export function getSeasonID(selectedTeam) {
+    let values = [selectedTeam.players?.season?.season, selectedTeam.schedule[0]?.season];
+    for (let value of values) {
+        if (value) {
+            return value;
+        }
+    }
+    return undefined;
+}
+
 export function getTeamLogo(teams, teamAbbrev) {
     return getTeamValue(teams, teamAbbrev, "teamLogo");
 }

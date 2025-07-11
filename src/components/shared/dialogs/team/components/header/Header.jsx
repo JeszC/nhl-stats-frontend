@@ -1,5 +1,5 @@
 import {getSeasonWithSeparator} from "../../../../../../scripts/parsing.js";
-import {getValue} from "../../../../../../scripts/utils.js";
+import {getSeasonID, getValue} from "../../../../../../scripts/utils.js";
 
 function Header({team}) {
 
@@ -17,7 +17,7 @@ function Header({team}) {
                 }
                 <div className={"verticalFlex"}>
                     <span>{getValue(["teamName"], team.franchiseInfo.at(-1), false, "Unknown team")}</span>
-                    <span>{getSeasonWithSeparator(team.schedule[0].season.toString())}</span>
+                    <span>{getSeasonWithSeparator(getSeasonID(team).toString())}</span>
                 </div>
             </>
             : null

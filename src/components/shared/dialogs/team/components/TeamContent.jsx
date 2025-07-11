@@ -7,6 +7,7 @@ import TeamInformation from "./body/TeamInformation.jsx";
 import TeamRoster from "./body/TeamRoster.jsx";
 import TeamStatistics from "./body/TeamStatistics.jsx";
 import Header from "./header/Header.jsx";
+import {getSeasonID} from "../../../../../scripts/utils.js";
 
 function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog, setActiveView, setFetchState}) {
     const [pastGames, setPastGames] = useState([]);
@@ -69,8 +70,8 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
                                       selectedTeam && Object.keys(selectedTeam).length > 0
                                       ? <>
                                           <TeamInformation selectedTeam={selectedTeam}
-                                                           recordFormat={getRecordFormat(selectedTeam.schedule[0].season)}
-                                                           lastTenFormat={getLastTenFormat(selectedTeam.schedule[0].season)}>
+                                                           recordFormat={getRecordFormat(getSeasonID(selectedTeam))}
+                                                           lastTenFormat={getLastTenFormat(getSeasonID(selectedTeam))}>
                                           </TeamInformation>
                                           <div className={"pastAndUpcomingGames"}>
                                               <Games games={upcomingGames.length > 0
