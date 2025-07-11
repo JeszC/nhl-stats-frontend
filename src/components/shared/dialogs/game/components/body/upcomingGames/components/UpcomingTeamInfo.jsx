@@ -39,29 +39,29 @@ function UpcomingTeamInfo({game, team}) {
                 game.matchup.teamSeasonStats
                 ? <>
                     <span>
-                        {parseDecimals(game.matchup.teamSeasonStats[team].faceoffWinningPctg)}
+                        {parseDecimals(game.matchup.teamSeasonStats[team]?.faceoffWinningPctg)}
                         <br/>
-                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team].faceoffWinningPctgRank)})
+                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team]?.faceoffWinningPctgRank)})
                     </span>
                     <span>
-                        {parseDecimals(game.matchup.teamSeasonStats[team].ppPctg)}
+                        {parseDecimals(game.matchup.teamSeasonStats[team]?.ppPctg)}
                         <br/>
-                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team].ppPctgRank)})
+                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team]?.ppPctgRank)})
                     </span>
                     <span>
-                        {parseDecimals(game.matchup.teamSeasonStats[team].pkPctg)}
+                        {parseDecimals(game.matchup.teamSeasonStats[team]?.pkPctg)}
                         <br/>
-                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team].pkPctgRank)})
+                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team]?.pkPctgRank)})
                     </span>
                     <span>
-                        {parseDecimals(game.matchup.teamSeasonStats[team].goalsForPerGamePlayed, 1)}
+                        {parseDecimals(game.matchup.teamSeasonStats[team]?.goalsForPerGamePlayed, 1)}
                         <br/>
-                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team].goalsForPerGamePlayedRank)})
+                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team]?.goalsForPerGamePlayedRank)})
                     </span>
                     <span>
-                        {parseDecimals(game.matchup.teamSeasonStats[team].goalsAgainstPerGamePlayed, 1)}
+                        {parseDecimals(game.matchup.teamSeasonStats[team]?.goalsAgainstPerGamePlayed, 1)}
                         <br/>
-                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team].goalsAgainstPerGamePlayedRank)})
+                        ({getOrdinalNumber(game.matchup.teamSeasonStats[team]?.goalsAgainstPerGamePlayedRank)})
                     </span>
                 </>
                 : null
@@ -69,8 +69,8 @@ function UpcomingTeamInfo({game, team}) {
             {
                 game.matchup.goalieComparison
                 ? <>
-                    <span>{parseDecimals(game.matchup.goalieComparison[team].teamTotals.savePctg)}</span>
-                    <span>{game.matchup.goalieComparison[team].teamTotals.shutouts.toLocaleString()}</span>
+                    <span>{parseDecimals(game.matchup.goalieComparison[team]?.teamTotals?.savePctg)}</span>
+                    <span>{game.matchup.goalieComparison[team]?.teamTotals?.shutouts.toLocaleString()}</span>
                 </>
                 : null
             }
