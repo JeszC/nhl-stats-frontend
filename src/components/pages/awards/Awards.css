@@ -41,9 +41,7 @@
 
 .trophyImage {
     width: auto;
-    height: auto;
-    max-width: 75vw;
-    max-height: 90vh;
+    height: calc(100vh - 5em);
     position: sticky;
     top: 4em;
 }
@@ -132,6 +130,8 @@
     }
 
     .trophyImage {
+        width: auto;
+        height: auto;
         max-width: 60vw;
         max-height: 72vh;
         position: revert;
