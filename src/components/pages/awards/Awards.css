@@ -56,7 +56,6 @@
 }
 
 .trophySeasonAndWinners {
-    padding-bottom: 1em;
     width: 100%;
     justify-content: flex-start;
     align-items: center;
@@ -64,6 +63,7 @@
 }
 
 .trophySeasonAndWinners:not(:last-of-type) {
+    padding-bottom: 1em;
     border-bottom: 2px dotted var(--grey);
 }
 
