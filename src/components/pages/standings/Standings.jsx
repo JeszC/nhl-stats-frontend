@@ -165,7 +165,7 @@ function Standings({showOptions, setShowOptions, showHelp}) {
         let end = season.substring(4);
         let startDate = new Date(seasonDates.seasonStartDate);
         let endDate = new Date(seasonDates.seasonEndDate);
-        return start - startDate.getFullYear() < 1 && end - endDate.getFullYear() < 1;
+        return start - startDate.getFullYear() < 1 && end - endDate.getFullYear() <= 1;
     }
 
     function hasAnyTeamMadePlayoffs(standings) {

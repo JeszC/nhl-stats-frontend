@@ -97,7 +97,7 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState,
     function hasSeasonStarted() {
         let start = season.substring(0, 4);
         let end = season.substring(4);
-        return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() < 1;
+        return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() <= 1;
     }
 
     useEffect(updateSeasonDates, [startDate, endDate]);
