@@ -91,7 +91,11 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState,
         let start = new Date(startDate);
         let end = new Date(endDate);
         setSeasonStart(new Date(start.getFullYear(), getSeasonStartMonth(start, end), start.getDate()));
-        setSeasonEnd(new Date(end.getFullYear(), getSeasonEndMonth(end), end.getDate()));
+        if (end <= start && start >= new Date()) {
+            setSeasonEnd(new Date(end.getFullYear() + 1, getSeasonStartMonth(end), end.getDate()));
+        } else {
+            setSeasonEnd(new Date(end.getFullYear(), getSeasonEndMonth(end), end.getDate()));
+        }
     }
 
     function hasSeasonStarted() {
