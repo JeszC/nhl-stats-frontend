@@ -74,8 +74,12 @@ function TeamSelect({season, localStorageKey, setSelectedTeams, fetchState, setF
             <span>Team selection</span>
             <select ref={teamSelect} name={"team-select"} multiple={true} size={8}>
                 {
-                    teams.map(team =>
-                        <option key={team.name} title={team.name} value={team.abbrev}>{team.name}</option>
+                    teams.map((team, index) =>
+                        <option key={team.id + team.name + index.toString()}
+                                title={team.name}
+                                value={team.abbrev}>
+                            {team.name}
+                        </option>
                     )
                 }
             </select>
