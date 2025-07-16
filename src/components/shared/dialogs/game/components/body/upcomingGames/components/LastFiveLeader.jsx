@@ -36,9 +36,13 @@ function LastFiveLeader({game, isAway, setPlayer, setActiveView, setPreviousView
                             <span className={"singlePlayerText"}>{getPlayerFirstName(category[teamLeader])}</span>
                             <span className={"singlePlayerText"}>{getPlayerLastName(category[teamLeader])}</span>
                             <div className={"horizontalFlex singlePlayerNumberAndPosition"}>
-                                <span className={"singlePlayerText"}>
-                                    #{category[teamLeader].sweaterNumber.toLocaleString()}
-                                </span>
+                                {
+                                    category[teamLeader].sweaterNumber
+                                    ? <span className={"singlePlayerText"}>
+                                        #{category[teamLeader].sweaterNumber?.toLocaleString()}
+                                    </span>
+                                    : <span className={"singlePlayerText"}>N/A</span>
+                                }
                                 <span className={"singlePlayerText"}>{category[teamLeader].positionCode}</span>
                             </div>
                         </div>
