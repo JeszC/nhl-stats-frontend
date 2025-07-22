@@ -161,11 +161,8 @@ function Standings({showOptions, setShowOptions, showHelp}) {
     async function hasSeasonStarted(season) {
         let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
         let seasonDates = await getResponseData(response, "Error fetching season dates.");
-        let start = season.substring(0, 4);
-        let end = season.substring(4);
         let startDate = new Date(seasonDates.seasonStartDate);
-        let endDate = new Date(seasonDates.seasonEndDate);
-        return start - startDate.getFullYear() < 1 && end - endDate.getFullYear() <= 1;
+        return new Date() >= startDate;
     }
 
     function hasAnyTeamMadePlayoffs(standings) {
