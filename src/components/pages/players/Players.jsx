@@ -9,6 +9,7 @@ import PageBar from "../../shared/common/pageBar/PageBar.jsx";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
 import ErrorDialog from "../../shared/errors/ErrorDialog";
 import ErrorDialogLockout from "../../shared/errors/ErrorDialogLockout";
+import ErrorDialogSeasonUnstarted from "../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SeasonSelect from "../../shared/sidebar/components/SeasonSelect";
 import TeamSelect from "../../shared/sidebar/components/TeamSelect";
@@ -61,6 +62,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
     const [page, setPage] = useState(0);
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const [sortedColumn, setSortedColumn] = useState(0);
+    const [seasonStarted, setSeasonStarted] = useState(true);
     const defaultSkaterHeader = useRef(null);
     const defaultGoalieHeader = useRef(null);
     const dialog = useRef(null);
@@ -189,6 +191,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
 
     function getPlayerData() {
         async function getPlayers() {
+            setFetchState(constants.fetchState.loading);
             setData([]);
             setPlayers({skaters: [], goalies: []});
             setVisibleSkaters([]);
@@ -197,7 +200,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
             setCountries([]);
             setShowPlayoffs(false);
             if (selectedSeason) {
-                setFetchState(constants.fetchState.loading);
+                setSeasonStarted(await hasSeasonStarted(selectedSeason));
                 try {
                     let promises = await getTeamsPlayerStats(selectedTeams, selectedSeason);
                     let result = await Promise.all(promises);
@@ -221,6 +224,13 @@ function Players({showOptions, setShowOptions, showHelp}) {
         }
 
         getPlayers().then();
+    }
+
+    async function hasSeasonStarted(season) {
+        let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
+        let seasonDates = await getResponseData(response, "Error fetching season dates.");
+        let startDate = new Date(seasonDates.seasonStartDate);
+        return new Date() >= startDate;
     }
 
     function sortGoalies(key, goalies) {
@@ -325,11 +335,15 @@ function Players({showOptions, setShowOptions, showHelp}) {
                 {
                     selectedSeason === constants.lockoutSeason
                     ? <ErrorDialogLockout></ErrorDialogLockout>
-                    : selectedSeason && selectedTeams.length > 0 &&
-                      data.length === 0 && fetchState === constants.fetchState.finished
-                      ? <ErrorDialog errorMessage={"Selected team(s) did not play during the selected season."}>
-                      </ErrorDialog>
-                      : null
+                    : seasonStarted
+                      ? selectedSeason && selectedTeams.length > 0 &&
+                        data.length === 0 && fetchState === constants.fetchState.finished
+                        ? <ErrorDialog errorMessage={"Selected team(s) did not play during the selected season."}>
+                        </ErrorDialog>
+                        : null
+                      : fetchState === constants.fetchState.finished
+                        ? <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
+                        : null
                 }
                 {fetchState === constants.fetchState.loading ? <Spinner></Spinner> : null}
                 {
