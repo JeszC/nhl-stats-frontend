@@ -45,7 +45,7 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
         </label>
         {
             useAlarmChecked
-            ? <label className={"verticalFlex"}>
+            ? <label className={"verticalFlex rangeLabel"}>
                 <span>Alarm time (minutes)</span>
                 <input type={"range"}
                        name={"alarmTime"}

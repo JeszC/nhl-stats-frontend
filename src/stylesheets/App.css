@@ -348,6 +348,11 @@ aside > article .checkboxLabel {
     text-align: left;
 }
 
+aside > article .checkboxLabel input.default,
+aside > article .rangeLabel input.default {
+    accent-color: var(--grey);
+}
+
 aside > article .labelTitle {
     font-weight: bold;
 }
