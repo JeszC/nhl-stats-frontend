@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import {compareNumeric, compareTextual, getResponseData, getValue, sortObjects} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
@@ -106,7 +106,7 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         setSorting({key, ascending, target});
     }
 
-    async function getSeasonTeams() {
+    async function getSeasonTeams(season) {
         let teamResponse = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
         return await getResponseData(teamResponse, "Error fetching season teams.");
     }
@@ -166,29 +166,29 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         setVisibleDraft(sorting.ascending ? filteredDraft : filteredDraft.reverse());
     }
 
-    function fetchDraftData() {
+    const fetchDraftData = useCallback(async () => {
         setDraft([]);
         setVisibleDraft([]);
         setFetchState(constants.fetchState.loading);
         if (season) {
-            getDraftResults(season)
-                .then(result => {
-                    setDraft(result);
-                    setVisibleDraft(result);
-                    setFetchState(constants.fetchState.finished);
-                })
-                .catch(ignored => setFetchState(constants.fetchState.error));
-            setFetchState(constants.fetchState.loading);
-            getSeasonTeams()
-                .then(result => {
-                    setTeams(result);
-                    setFetchState(constants.fetchState.finished);
-                })
-                .catch(ignored => setFetchState(constants.fetchState.error));
-        } else {
-            setFetchState(constants.fetchState.finished);
+            let data;
+            try {
+                data = await Promise.all([
+                    getDraftResults(season),
+                    getSeasonTeams(season)
+                ]);
+            } catch (ignored) {
+                setFetchState(constants.fetchState.error);
+                return;
+            }
+            let draftResults = data[0];
+            let teams = data[1];
+            setDraft(draftResults);
+            setVisibleDraft(draftResults);
+            setTeams(teams);
         }
-    }
+        setFetchState(constants.fetchState.finished);
+    }, [season]);
 
     function setUpOnLoad() {
         document.title = "Draft Results";
@@ -198,7 +198,9 @@ function Draft({showOptions, setShowOptions, showHelp}) {
 
     useEffect(filterAndSortDraft, [draft, positions, countries, draftTeams, sorting.key, sorting.ascending]);
 
-    useEffect(fetchDraftData, [fetchTrigger, season]);
+    useEffect(() => {
+        fetchDraftData().then();
+    }, [fetchTrigger, fetchDraftData]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
