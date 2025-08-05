@@ -3,7 +3,7 @@ import draftColumns from "../../../../data/draft.json";
 import {getOrdinalNumber} from "../../../../scripts/parsing.js";
 import {getValue} from "../../../../scripts/utils.js";
 
-function TableRow({player, index, sortedColumn, dialog, setSelectedPlayer, setPlayerFetchState}) {
+function TableRow({player, index, sortedColumn, teams, dialog, setSelectedPlayer, setPlayerFetchState}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {day: "2-digit", month: "2-digit", year: "numeric"});
 
     function getContents(column) {
@@ -12,6 +12,11 @@ function TableRow({player, index, sortedColumn, dialog, setSelectedPlayer, setPl
         switch (column) {
             case columns.player:
                 return !value || value === "Void" ? "N/A" : value;
+            case columns.draftTeam:
+                return <div className={"horizontalFlex draftTeam"}>
+                    <img className={"draftImage"} src={getTeamLogo(value)} alt={`${value} logo`}/>
+                    <span>{value}</span>
+                </div>;
             case columns.countryCode:
                 if (player.countryFlag) {
                     return <div className={"horizontalFlex playersCountryOfBirth"}>
@@ -40,6 +45,15 @@ function TableRow({player, index, sortedColumn, dialog, setSelectedPlayer, setPl
             default:
                 return value === undefined || value === null ? "N/A" : column.numeric ? value.toLocaleString() : value;
         }
+    }
+
+    function getTeamLogo(draftTeamAbbreviation) {
+        for (let team of teams) {
+            if (team.abbrev === draftTeamAbbreviation) {
+                return team.logo;
+            }
+        }
+        return undefined;
     }
 
     async function openDialogKeyboard(event, playerID) {

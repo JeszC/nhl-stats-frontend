@@ -9,6 +9,7 @@ function DraftTable({
                         sortingDirection,
                         sortedColumn,
                         draftResults,
+                        teams,
                         dialog,
                         setSelectedPlayer,
                         setPlayerFetchState
@@ -34,6 +35,7 @@ function DraftTable({
                               player={player}
                               index={index}
                               sortedColumn={sortedColumn}
+                              teams={teams}
                               dialog={dialog}
                               setSelectedPlayer={setSelectedPlayer}
                               setPlayerFetchState={setPlayerFetchState}>

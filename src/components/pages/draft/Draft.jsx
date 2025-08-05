@@ -79,6 +79,7 @@ function Draft({showOptions, setShowOptions, showHelp}) {
     const [season, setSeason] = useState("");
     const [draft, setDraft] = useState([]);
     const [visibleDraft, setVisibleDraft] = useState([]);
+    const [teams, setTeams] = useState([]);
     const [positions, setPositions] = useState([]);
     const [countries, setCountries] = useState([]);
     const [draftTeams, setDraftTeams] = useState([]);
@@ -103,6 +104,11 @@ function Draft({showOptions, setShowOptions, showHelp}) {
             setSortedColumn(target.parentNode.cellIndex - 1);
         }
         setSorting({key, ascending, target});
+    }
+
+    async function getSeasonTeams() {
+        let teamResponse = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
+        return await getResponseData(teamResponse, "Error fetching season teams.");
     }
 
     async function getDraftResults(season) {
@@ -172,6 +178,13 @@ function Draft({showOptions, setShowOptions, showHelp}) {
                     setFetchState(constants.fetchState.finished);
                 })
                 .catch(ignored => setFetchState(constants.fetchState.error));
+            setFetchState(constants.fetchState.loading);
+            getSeasonTeams()
+                .then(result => {
+                    setTeams(result);
+                    setFetchState(constants.fetchState.finished);
+                })
+                .catch(ignored => setFetchState(constants.fetchState.error));
         } else {
             setFetchState(constants.fetchState.finished);
         }
@@ -223,6 +236,7 @@ function Draft({showOptions, setShowOptions, showHelp}) {
                             sortingDirection={sorting.ascending}
                             sortedColumn={sortedColumn}
                             draftResults={visibleDraft}
+                            teams={teams}
                             dialog={dialog}
                             setSelectedPlayer={setSelectedPlayer}
                             setPlayerFetchState={setPlayerFetchState}>
