@@ -12,9 +12,7 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
             case columns.team:
                 return <div className={"horizontalFlex"}>
                     {getClinchIndicator()}
-                    <img className={"standingsImage"}
-                         src={team.teamLogo}
-                         alt={`${team.teamAbbrev.default} logo`}/>
+                    <img className={"standingsImage"} src={team.teamLogo} alt={`${team.teamAbbrev.default} logo`}/>
                     <span>{value}</span>
                 </div>;
             case columns.pointPercentage:
