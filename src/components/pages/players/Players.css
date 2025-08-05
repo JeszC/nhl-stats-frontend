@@ -91,6 +91,23 @@
     gap: 1em;
 }
 
+.currentTeamInformation {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.currentTeamInformation img {
+    --size: 3em;
+    width: var(--size);
+    height: var(--size);
+}
+
+.currentTeamName {
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .draftInformation {
     align-items: flex-start;
 }

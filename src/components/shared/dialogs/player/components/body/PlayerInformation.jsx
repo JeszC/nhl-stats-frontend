@@ -48,11 +48,21 @@ function PlayerInformation({player}) {
                 </div>
                 <div>
                     <h4>Current team</h4>
-                    {
-                        player.fullTeamName && player.currentTeamAbbrev
-                        ? <span>{`${player.fullTeamName.default} (${player.currentTeamAbbrev})`}</span>
-                        : <span>N/A</span>
-                    }
+                    <div className={"horizontalFlex currentTeamInformation"}>
+                        {
+                            player.currentTeamAbbrev && player.teamLogo
+                            ? <img src={player.teamLogo} alt={`${player.currentTeamAbbrev} logo`}/>
+                            : null
+                        }
+                        {
+                            player.teamPlaceNameWithPreposition?.default && player.teamCommonName?.default
+                            ? <div className={"verticalFlex currentTeamName"}>
+                                <span>{player.teamPlaceNameWithPreposition.default}</span>
+                                <span>{player.teamCommonName.default}</span>
+                            </div>
+                            : <span>N/A</span>
+                        }
+                    </div>
                 </div>
                 <div>
                     <h4>Draft information</h4>
