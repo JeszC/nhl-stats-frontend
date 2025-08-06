@@ -410,6 +410,11 @@
         filter: invert(100%);
     }
 
+    .draftTable .draftImage.placeholder {
+        filter: invert(100%);
+        background-color: white;
+    }
+
     .default {
         --color: var(--dark-grey);
         accent-color: var(--color);

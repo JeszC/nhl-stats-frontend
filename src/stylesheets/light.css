@@ -440,6 +440,10 @@
         color: black;
     }
 
+    .draftTable .draftImage.placeholder {
+        background-color: white;
+    }
+
     .default {
         --color: var(--lightest-grey);
         accent-color: var(--color);

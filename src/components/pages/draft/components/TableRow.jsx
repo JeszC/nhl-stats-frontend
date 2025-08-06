@@ -2,6 +2,7 @@ import constants from "../../../../data/constants.json";
 import draftColumns from "../../../../data/draft.json";
 import {getOrdinalNumber} from "../../../../scripts/parsing.js";
 import {getValue} from "../../../../scripts/utils.js";
+import placeholderLogoIcon from "../../../shared/images/QuestionMark.svg";
 
 function TableRow({player, index, sortedColumn, teams, dialog, setSelectedPlayer, setPlayerFetchState}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {day: "2-digit", month: "2-digit", year: "numeric"});
@@ -14,7 +15,7 @@ function TableRow({player, index, sortedColumn, teams, dialog, setSelectedPlayer
                 return !value || value === "Void" ? "N/A" : value;
             case columns.draftTeam:
                 return <div className={"horizontalFlex draftTeam"}>
-                    <img className={"draftImage"} src={getTeamLogo(value)} alt={`${value} logo`}/>
+                    {getTeamLogo(value)}
                     <span>{value}</span>
                 </div>;
             case columns.countryCode:
@@ -50,10 +51,12 @@ function TableRow({player, index, sortedColumn, teams, dialog, setSelectedPlayer
     function getTeamLogo(draftTeamAbbreviation) {
         for (let team of teams) {
             if (team.abbrev === draftTeamAbbreviation) {
-                return team.logo;
+                return <img className={"draftImage"} src={team.logo} alt={`${draftTeamAbbreviation} logo`}/>;
             }
         }
-        return undefined;
+        return <img className={"draftImage placeholder"}
+                    src={placeholderLogoIcon}
+                    alt={`${draftTeamAbbreviation} logo`}/>;
     }
 
     async function openDialogKeyboard(event, playerID) {
