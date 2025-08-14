@@ -67,11 +67,11 @@
 }
 
 .teamRosterEvents {
-    margin-bottom: 0.5em;
+    margin: 0 1em;
+    gap: 1em;
 }
 
 .injuriesTradesSignings {
-    margin: 0 1em;
     width: 100%;
 }
 
@@ -280,7 +280,7 @@
 }
 
 .loadMoreButton {
-    margin: 0.5em 0;
+    margin: 1em 0;
 }
 
 .homePageTables {
@@ -628,7 +628,7 @@
 
 @media (min-width: 1280px) {
     .injuriesTradesSignings:not(:last-of-type) {
-        padding-right: 2em;
+        padding-right: 1em;
         border-right: 2px dotted var(--grey);
     }
 }
