@@ -1,3 +1,7 @@
+.draftTable th {
+    z-index: 1;
+}
+
 .draftTable tr {
     cursor: pointer;
 }
