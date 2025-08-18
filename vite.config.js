@@ -13,6 +13,9 @@ export default defineConfig({
                 manifest: {
                     name: "NHL Stats",
                     short_name: "NHL Stats",
+                    start_url: "/",
+                    display: "standalone",
+                    description: "An app for NHL information",
                     icons: [
                         {
                             src: "images/favicon.svg",
