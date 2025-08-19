@@ -11,11 +11,17 @@ export default defineConfig({
             {
                 registerType: "autoUpdate",
                 manifest: {
+                    lang: "en",
+                    dir: "ltr",
                     name: "NHL Stats",
                     short_name: "NHL Stats",
+                    description: "App for viewing NHL information",
                     start_url: "/",
+                    scope: "/",
                     display: "standalone",
-                    description: "An app for NHL information",
+                    orientation: "any",
+                    theme_color: "black",
+                    background_color: "white",
                     icons: [
                         {
                             src: "images/favicon.svg",
