@@ -43,14 +43,14 @@ function createEvent(uid, creationTime, startTime, status, summary, description,
         `DESCRIPTION:${description}`,
         `LOCATION:${location}`
     ].join(separator).concat(separator);
-    let alarmFields = [
-        "BEGIN:VALARM",
-        `TRIGGER:-PT${alarmTime}M`,
-        "ACTION:DISPLAY",
-        `DESCRIPTION:${description}`,
-        "END:VALARM"
-    ].join(separator).concat(separator);
     if (useAlarm) {
+        let alarmFields = [
+            "BEGIN:VALARM",
+            `TRIGGER:-PT${alarmTime}M`,
+            "ACTION:DISPLAY",
+            `DESCRIPTION:${description}`,
+            "END:VALARM"
+        ].join(separator).concat(separator);
         fields = fields.concat(alarmFields);
     }
     fields = fields.concat("END:VEVENT").concat(separator);
