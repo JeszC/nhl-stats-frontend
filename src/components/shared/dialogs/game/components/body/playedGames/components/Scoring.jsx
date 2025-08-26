@@ -180,19 +180,23 @@ function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState
                                             </div>
                                             <div className={"horizontalFlex stats"}>
                                                 <span>{goal.strength.toUpperCase()}</span>
-                                                <span>
-                                                    {getGoalSituation(goal.teamAbbrev.default, goal.situationCode)}
-                                                </span>
+                                                {
+                                                    goal.situationCode
+                                                    ? <span>
+                                                        {getGoalSituation(goal.teamAbbrev.default, goal.situationCode)}
+                                                    </span>
+                                                    : null
+                                                }
                                             </div>
                                             {
-                                                goal.goalModifier !== "penalty-shot"
-                                                && goal.situationCode.charAt(0) === "0"
+                                                goal.situationCode && goal.situationCode.charAt(0) === "0"
+                                                && goal.goalModifier !== "penalty-shot"
                                                 ? <span>{game.awayTeam.abbrev} goalie pulled</span>
                                                 : null
                                             }
                                             {
-                                                goal.goalModifier !== "penalty-shot"
-                                                && goal.situationCode.charAt(3) === "0"
+                                                goal.situationCode && goal.situationCode.charAt(3) === "0"
+                                                && goal.goalModifier !== "penalty-shot"
                                                 ? <span>{game.homeTeam.abbrev} goalie pulled</span>
                                                 : null
                                             }
