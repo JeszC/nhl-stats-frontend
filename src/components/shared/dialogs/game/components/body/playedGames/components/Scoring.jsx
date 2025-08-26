@@ -15,6 +15,13 @@ import playIcon from "../../../../images/Play.svg";
 
 function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState}) {
 
+    function getGoalSituation(team, situationCode) {
+        if (team === game.homeTeam.abbrev) {
+            return `${situationCode.charAt(2)}-on-${situationCode.charAt(1)}`;
+        }
+        return `${situationCode.charAt(1)}-on-${situationCode.charAt(2)}`;
+    }
+
     return <details className={"gamesContent"} open>
         <summary className={"gamesTitle"}>Scoring</summary>
         <div className={"periodInformation"}>
@@ -143,6 +150,9 @@ function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState
                                                 </button>
                                             )
                                         }
+                                        <span>
+                                            {goal.awayScore.toLocaleString()} - {goal.homeScore.toLocaleString()}
+                                        </span>
                                         <div className={"verticalFlex"}>
                                             <div className={"horizontalFlex stats"}>
                                                 {
@@ -171,10 +181,21 @@ function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState
                                             <div className={"horizontalFlex stats"}>
                                                 <span>{goal.strength.toUpperCase()}</span>
                                                 <span>
-                                                    {goal.awayScore
-                                                         .toLocaleString()} - {goal.homeScore.toLocaleString()}
+                                                    {getGoalSituation(goal.teamAbbrev.default, goal.situationCode)}
                                                 </span>
                                             </div>
+                                            {
+                                                goal.goalModifier !== "penalty-shot"
+                                                && goal.situationCode.charAt(0) === "0"
+                                                ? <span>{game.awayTeam.abbrev} goalie pulled</span>
+                                                : null
+                                            }
+                                            {
+                                                goal.goalModifier !== "penalty-shot"
+                                                && goal.situationCode.charAt(3) === "0"
+                                                ? <span>{game.homeTeam.abbrev} goalie pulled</span>
+                                                : null
+                                            }
                                         </div>
                                     </div>
                                 </div>
