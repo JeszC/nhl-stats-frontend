@@ -12,7 +12,7 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
             case columns.team:
                 return <div className={"horizontalFlex"}>
                     {getClinchIndicator()}
-                    <img className={"standingsImage"} src={team.teamLogo} alt={`${team.teamAbbrev.default} logo`}/>
+                    <img className={"standingsImage"} src={team?.teamLogo} alt={`${team?.teamAbbrev?.default} logo`}/>
                     <span>{value}</span>
                 </div>;
             case columns.pointPercentage:
@@ -23,7 +23,7 @@ function TableRow({team, index, sortedColumn, data, hasPlayoffTeams, setSelected
                 return formatAndParseRecord(getValue(column.nhlKey, team, true));
             case columns.streak: {
                 let values = getValue(column.nhlKey, team, true);
-                if (values[0] !== undefined && values[1] !== undefined) {
+                if (values && values[0] !== undefined && values[1] !== undefined) {
                     return `${values[0]}${values[1].toLocaleString()}`;
                 }
                 return "N/A";

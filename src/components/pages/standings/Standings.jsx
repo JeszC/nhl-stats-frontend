@@ -129,18 +129,10 @@ function Standings({showOptions, setShowOptions, showHelp}) {
             fetch(`${constants.baseURL}/standings/getStandings/${season}`),
             fetch(`${constants.baseURL}/playoffs/getPlayoffTree/${season}`)
         ]);
-        let standings;
-        let playoffTree;
-        try {
-            let data = await getResponsesData(responses, "Error when fetching standings/playoff tree.");
-            standings = data[0];
-            playoffTree = data[1];
-        } catch (ignored) {
-            playoffTree = {};
-        }
+        let data = await getResponsesData(responses, "Error when fetching standings/playoff tree.");
         return {
-            standings,
-            playoffTree
+            standings: data[0],
+            playoffTree: data[1]
         };
     }, []);
 
@@ -226,42 +218,45 @@ function Standings({showOptions, setShowOptions, showHelp}) {
 
     const replaceYearSpecificColumns = useCallback(() => {
         let replacerFunction = () => {
-            let seasonStartYear = parseInt(fullStandings[0]?.seasonId?.toString().substring(0, 4));
-            let recordColumnsToUse = recordColumns.winsLossesOvertimelosses;
-            let overtimeWins = teamStandingsColumns.columns.overtimeWins;
-            let overtimeLosses = teamStandingsColumns.columns.overtimeLosses;
-            let ties = teamStandingsColumns.columns.ties;
-            if (seasonStartYear < 2005 && seasonStartYear >= 1999) {
-                recordColumnsToUse = recordColumns.winsLossesTiesOvertimelosses;
-            } else if (seasonStartYear < 1999) {
-                recordColumnsToUse = recordColumns.winsLossesTies;
-                overtimeLosses = undefined;
-                if (seasonStartYear < 1983 && seasonStartYear >= 1943) {
-                    overtimeWins = undefined;
+            if (fullStandings) {
+                let seasonStartYear = parseInt(fullStandings[0]?.seasonId?.toString().substring(0, 4));
+                let recordColumnsToUse = recordColumns.winsLossesOvertimelosses;
+                let overtimeWins = teamStandingsColumns.columns.overtimeWins;
+                let overtimeLosses = teamStandingsColumns.columns.overtimeLosses;
+                let ties = teamStandingsColumns.columns.ties;
+                if (seasonStartYear < 2005 && seasonStartYear >= 1999) {
+                    recordColumnsToUse = recordColumns.winsLossesTiesOvertimelosses;
+                } else if (seasonStartYear < 1999) {
+                    recordColumnsToUse = recordColumns.winsLossesTies;
+                    overtimeLosses = undefined;
+                    if (seasonStartYear < 1983 && seasonStartYear >= 1943) {
+                        overtimeWins = undefined;
+                    }
+                } else {
+                    ties = undefined;
                 }
-            } else {
-                ties = undefined;
+                return (key, value) => {
+                    switch (key) {
+                        case "record":
+                            return recordColumnsToUse.record;
+                        case "last10":
+                            return recordColumnsToUse.lastTen;
+                        case "homeRecord":
+                            return recordColumnsToUse.homeRecord;
+                        case "awayRecord":
+                            return recordColumnsToUse.awayRecord;
+                        case "overtimeWins":
+                            return overtimeWins;
+                        case "overtimeLosses":
+                            return overtimeLosses;
+                        case "ties":
+                            return ties;
+                        default:
+                            return value;
+                    }
+                };
             }
-            return (key, value) => {
-                switch (key) {
-                    case "record":
-                        return recordColumnsToUse.record;
-                    case "last10":
-                        return recordColumnsToUse.lastTen;
-                    case "homeRecord":
-                        return recordColumnsToUse.homeRecord;
-                    case "awayRecord":
-                        return recordColumnsToUse.awayRecord;
-                    case "overtimeWins":
-                        return overtimeWins;
-                    case "overtimeLosses":
-                        return overtimeLosses;
-                    case "ties":
-                        return ties;
-                    default:
-                        return value;
-                }
-            };
+            return undefined;
         };
         setCustomizedTeamStandings(JSON.parse(JSON.stringify(teamStandingsColumns, replacerFunction())));
     }, [fullStandings]);

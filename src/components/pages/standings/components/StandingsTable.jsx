@@ -30,8 +30,8 @@ function StandingsTable({
         </thead>
         <tbody>
             {
-                standings.map((team, index) =>
-                    <TableRow key={team.teamName.default + index.toString()}
+                standings?.map((team, index) =>
+                    <TableRow key={team?.teamName?.default + index.toString()}
                               team={team}
                               index={index}
                               sortedColumn={sortedColumn}

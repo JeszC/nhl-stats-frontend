@@ -128,17 +128,19 @@ export function parseSeason(season) {
 }
 
 export function formatAndParseRecord(values) {
-    let recordString = values.join(constants.apiRecordSeparator);
+    let recordString = values?.join(constants.apiRecordSeparator);
     return parseRecord(recordString);
 }
 
 export function parseRecord(record, separator = defaultRecordSeparator) {
-    let recordParts = record.split(constants.apiRecordSeparator);
+    let recordParts = record?.split(constants.apiRecordSeparator);
     let result = "";
-    for (let i = 0; i < recordParts.length; i++) {
-        result += parseInt(recordParts[i]).toLocaleString();
-        if (i !== recordParts.length - 1) {
-            result += separator;
+    if (recordParts) {
+        for (let i = 0; i < recordParts.length; i++) {
+            result += parseInt(recordParts[i]).toLocaleString();
+            if (i !== recordParts.length - 1) {
+                result += separator;
+            }
         }
     }
     return result;

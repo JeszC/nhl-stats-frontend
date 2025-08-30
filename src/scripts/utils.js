@@ -142,6 +142,9 @@ export function sortObjects(objects, path, numericCompare = false, secondaryComp
 }
 
 export function getValue(path, object, interpretAsMultipleKeys = false, fallback = undefined) {
+    if (object === null || object === undefined) {
+        return fallback;
+    }
     if (Array.isArray(path)) {
         if (interpretAsMultipleKeys) {
             let values = [];

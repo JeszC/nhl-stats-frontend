@@ -33,20 +33,22 @@ function Filters({fullStandings, setConferences, setDivisions}) {
     const getConferencesAndDivisions = useCallback(() => {
         let uniqueConfs = [];
         let uniqueDivs = [];
-        for (let item of fullStandings) {
-            let isUniqueConf = uniqueConfs.some(conference => conference === item.conferenceName);
-            let isUniqueDiv = uniqueDivs.some(division => division === item.divisionName);
-            if (!isUniqueConf && item.conferenceName) {
-                uniqueConfs.push(item.conferenceName);
+        if (fullStandings) {
+            for (let item of fullStandings) {
+                let isUniqueConf = uniqueConfs.some(conference => conference === item.conferenceName);
+                let isUniqueDiv = uniqueDivs.some(division => division === item.divisionName);
+                if (!isUniqueConf && item.conferenceName) {
+                    uniqueConfs.push(item.conferenceName);
+                }
+                if (!isUniqueDiv && item.divisionName) {
+                    uniqueDivs.push(item.divisionName);
+                }
             }
-            if (!isUniqueDiv && item.divisionName) {
-                uniqueDivs.push(item.divisionName);
-            }
+            uniqueConfs.sort(compareTextual);
+            uniqueDivs.sort(compareTextual);
+            setSelectedConferences(uniqueConfs);
+            setSelectedDivisions(uniqueDivs);
         }
-        uniqueConfs.sort(compareTextual);
-        uniqueDivs.sort(compareTextual);
-        setSelectedConferences(uniqueConfs);
-        setSelectedDivisions(uniqueDivs);
     }, [fullStandings]);
 
     useEffect(() => {
