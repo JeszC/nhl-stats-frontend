@@ -1,7 +1,8 @@
-function ErrorDialog({errorMessage, containsLink = false}) {
+import ErrorContent from "./ErrorContent.jsx";
+
+function ErrorDialog({errorMessage, subErrors}) {
     return <div className={"error"}>
-        <h4>Error occurred</h4>
-        {containsLink ? <>{errorMessage}</> : <span>{errorMessage}</span>}
+        <ErrorContent errorMessage={errorMessage} subErrors={subErrors}></ErrorContent>
     </div>;
 }
 
