@@ -506,15 +506,23 @@ aside > article ul {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    line-height: 2em;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
     overflow-wrap: anywhere;
     border: 1px solid var(--grey);
     box-sizing: border-box;
     border-radius: 5px;
 }
 
-.error span {
-    font-weight: initial;
+.error h4 {
+    line-height: 1em;
+}
+
+.suberrors {
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .selectedColumn {
