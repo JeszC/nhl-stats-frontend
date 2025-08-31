@@ -1,6 +1,6 @@
 import {Fragment, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
-import {getResponseData} from "../../../scripts/utils.js";
+import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Atom from "../../shared/animations/atom/Atom";
 import PlayoffTree from "../../shared/common/playoffTree/PlayoffTree";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -25,6 +25,8 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [playoffTree, setPlayoffTree] = useState({});
     const [injuries, setInjuries] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
 
     function getLocalDateString(dateString) {
         let gameDate = new Date(dateString);
@@ -94,7 +96,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
     function setUpOnLoad() {
         document.title = "Home";
         setShowOptions(false);
-        getData().catch(() => setFetchState(constants.fetchState.error));
+        fetchDataAndHandleErrors(getData, null, setErrorMessage, setSubErrors, setFetchState);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -118,8 +120,14 @@ function Home({showOptions, setShowOptions, showHelp}) {
                              {
                                  fetchState === constants.fetchState.error
                                  ? <ErrorDialogRetry
-                                     onClick={() => getData().catch(() => setFetchState(constants.fetchState.error))}
-                                     errorMessage={"Could not load data. Server might be offline."}>
+                                     onClick={() => fetchDataAndHandleErrors(getData,
+                                         null,
+                                         setErrorMessage,
+                                         setSubErrors,
+                                         setFetchState)
+                                     }
+                                     errorMessage={errorMessage}
+                                     subErrors={subErrors}>
                                  </ErrorDialogRetry>
                                  : null
                              }

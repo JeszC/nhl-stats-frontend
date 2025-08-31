@@ -5,6 +5,7 @@ import teamStandingsColumns from "../../../data/teamStandings.json";
 import {
     compareNumeric,
     compareTextual,
+    fetchDataAndHandleErrors,
     getResponseData,
     getResponsesData,
     getValue,
@@ -106,6 +107,8 @@ function Standings({showOptions, setShowOptions, showHelp}) {
     const [sortedColumn, setSortedColumn] = useState(0);
     const [customizedTeamStandings, setCustomizedTeamStandings] = useState(teamStandingsColumns);
     const [seasonStarted, setSeasonStarted] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
     const defaultHeader = useRef(null);
     const dialog = useRef(null);
     const defaultSortedCategory = customizedTeamStandings.columns.pointPercentage;
@@ -138,9 +141,15 @@ function Standings({showOptions, setShowOptions, showHelp}) {
 
     function retryGetStandingsAndPlayoffTree(season) {
         setFetchState(constants.fetchState.loading);
-        getStandingsAndPlayoffTree(season)
-            .then(result => updateUserInterface(result))
-            .catch(() => setFetchState(constants.fetchState.error));
+        fetchDataAndHandleErrors(() =>
+                getStandingsAndPlayoffTree(season),
+            result => {
+                updateUserInterface(result);
+                setHasPlayoffTeams(hasAnyTeamMadePlayoffs(result.standings));
+            },
+            setErrorMessage,
+            setSubErrors,
+            setFetchState);
     }
 
     function updateUserInterface(result) {
@@ -269,12 +278,15 @@ function Standings({showOptions, setShowOptions, showHelp}) {
             if (season === constants.lockoutSeason) {
                 setFetchState(constants.fetchState.finished);
             } else {
-                getStandingsAndPlayoffTree(season)
-                    .then(result => {
+                fetchDataAndHandleErrors(() =>
+                        getStandingsAndPlayoffTree(season),
+                    result => {
                         updateUserInterface(result);
                         setHasPlayoffTeams(hasAnyTeamMadePlayoffs(result.standings));
-                    })
-                    .catch(() => setFetchState(constants.fetchState.error));
+                    },
+                    setErrorMessage,
+                    setSubErrors,
+                    setFetchState);
             }
         }
     }
@@ -325,7 +337,8 @@ function Standings({showOptions, setShowOptions, showHelp}) {
                 {
                     fetchState === constants.fetchState.error
                     ? <ErrorDialogRetry onClick={() => retryGetStandingsAndPlayoffTree(season)}
-                                        errorMessage={"Failed to fetch team standings. The server might be offline."}>
+                                        errorMessage={errorMessage}
+                                        subErrors={subErrors}>
                     </ErrorDialogRetry>
                     : null
                 }
