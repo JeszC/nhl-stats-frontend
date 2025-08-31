@@ -9,11 +9,17 @@ import constants from "../data/constants.json";
  *
  * @returns {Promise<any>} A promise containing the data in a JSON object.
  *
- * @throws Error HTTP error if the response is not OK.
+ * @throws {Error|AggregateError} HTTP error if the response is not OK. In case the response is OK but parsing the
+ * data in the response fails, an aggregate error is thrown with the given error message. The errors array on the
+ * AggregateError object contains the error that occurred during the parsing operation.
  */
 export async function getResponseData(response, errorMessage) {
     if (response.ok) {
-        return await response.json();
+        try {
+            return await response.json();
+        } catch (error) {
+            throw new AggregateError([new Error(error.message)], errorMessage);
+        }
     }
     throw new Error(errorMessage);
 }
@@ -35,6 +41,16 @@ export async function getResponsesData(responses, errorMessage) {
         data.push(await getResponseData(response, errorMessage));
     }
     return data;
+}
+
+export function fetchDataAndHandleErrors(asyncFunction, thenFunction, setErrorMessage, setSubErrors, setFetchState) {
+    asyncFunction()
+        .then(result => thenFunction ? thenFunction(result) : {})
+        .catch(error => {
+            setErrorMessage(error.message);
+            setSubErrors(error.errors);
+            setFetchState(constants.fetchState.error);
+        });
 }
 
 export function isGameUpcoming(gameState) {
