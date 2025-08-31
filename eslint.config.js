@@ -4,14 +4,14 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 
 export default [
-    {ignores: ["dist"]},
+    {
+        ignores: ["dist"]
+    },
     {
         files: ["**/*.{js,jsx}"],
         languageOptions: {
-            ecmaVersion: 2020,
             globals: globals.browser,
             parserOptions: {
-                ecmaVersion: "latest",
                 ecmaFeatures: {jsx: true},
                 sourceType: "module"
             }
@@ -33,7 +33,9 @@ export default [
             ],
             "react-refresh/only-export-components": [
                 "warn",
-                {allowConstantExport: true}
+                {
+                    allowConstantExport: true
+                }
             ]
         }
     }
