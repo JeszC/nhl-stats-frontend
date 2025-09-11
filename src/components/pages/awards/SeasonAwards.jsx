@@ -1,9 +1,9 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
-import {getResponseData} from "../../../scripts/utils.js";
+import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars.jsx";
 import AwardDialog from "../../shared/dialogs/award/AwardDialog.jsx";
-import ErrorDialog from "../../shared/errors/ErrorDialog.jsx";
+import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SidebarHelp from "../../shared/sidebar/SidebarHelp.jsx";
 import SidebarOptions from "../../shared/sidebar/SidebarOptions.jsx";
@@ -15,6 +15,8 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
     const [trophyWinners, setTrophyWinners] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [trophyWinnerFetchState, setTrophyWinnerFetchState] = useState(constants.fetchState.finished);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
     const dialog = useRef(null);
 
     async function openDialog(trophy) {
@@ -45,12 +47,15 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
     function setUpOnLoad() {
         document.title = "Season Awards";
         setShowOptions(false);
-        getTrophies()
-            .then(result => {
+        fetchDataAndHandleErrors(
+            getTrophies,
+            result => {
                 setTrophies(result);
                 setFetchState(constants.fetchState.finished);
-            })
-            .catch(ignored => setFetchState(constants.fetchState.error));
+            },
+            setErrorMessage,
+            setSubErrors,
+            setFetchState);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +70,20 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                 </div>
                 {
                     fetchState === constants.fetchState.error
-                    ? <ErrorDialog errorMessage={"Failed to fetch award information."}></ErrorDialog>
+                    ? <ErrorDialogRetry
+                        onClick={() => fetchDataAndHandleErrors(
+                            getTrophies,
+                            result => {
+                                setTrophies(result);
+                                setFetchState(constants.fetchState.finished);
+                            },
+                            setErrorMessage,
+                            setSubErrors,
+                            setFetchState)
+                        }
+                        errorMessage={errorMessage}
+                        subErrors={subErrors}>
+                    </ErrorDialogRetry>
                     : fetchState === constants.fetchState.loading
                       ? <Bars></Bars>
                       : <div className={"trophies"}>
