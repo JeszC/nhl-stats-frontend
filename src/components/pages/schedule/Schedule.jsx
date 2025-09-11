@@ -1,6 +1,9 @@
 import {Fragment, useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
-import {getResponseData, getResponsesData} from "../../../scripts/utils.js";
+import {fetchDataAndHandleErrors, getResponseData, getResponsesData} from "../../../scripts/utils.js";
+import Bars from "../../shared/animations/bars/Bars.jsx";
+import ErrorDialogLockout from "../../shared/errors/ErrorDialogLockout.jsx";
+import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SeasonSelect from "../../shared/sidebar/components/SeasonSelect";
 import TeamSelect from "../../shared/sidebar/components/TeamSelect";
@@ -27,6 +30,8 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
     const [filterUpcomingGames, setFilterUpcomingGames] = useState(true);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [fetchTrigger, setFetchTrigger] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
 
     function applySavedView() {
         let savedView = localStorage.getItem(constants.localStorageKeys.schedule.view);
@@ -65,7 +70,7 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
             promises.push(fetch(`${constants.baseURL}/schedule/getSchedule/${season}/${team.teamAbbrev}`));
         }
         const responses = await Promise.all(promises);
-        let data = await getResponsesData(responses, "Error fetching games.");
+        let data = await getResponsesData(responses, "Error fetching schedules.");
         let games = [];
         for (let team of data) {
             games.push(team.games);
@@ -73,30 +78,20 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         return filterDuplicateGames(games);
     }, [filterDuplicateGames]);
 
-    function fetchSelectedTeamSchedules() {
-        async function fetchData() {
-            setGames([]);
-            if (selectedSeason && selectedSeason !== constants.lockoutSeason) {
-                setFetchState(constants.fetchState.loading);
-                try {
-                    let seasonDates = await getSeasonDates(selectedSeason);
-                    setSeasonStartDate(seasonDates.seasonStartDate);
-                    setSeasonEndDate(seasonDates.seasonEndDate);
-                    if (selectedTeams.length > 0) {
-                        let games = await getGames(selectedSeason, selectedTeams);
-                        setGames(games);
-                    }
-                    setFetchState(constants.fetchState.finished);
-                } catch (ignored) {
-                    setFetchState(constants.fetchState.error);
-                }
-            } else {
-                setFetchState(constants.fetchState.finished);
+    const fetchSelectedTeamSchedules = useCallback(async () => {
+        setGames([]);
+        if (selectedSeason && selectedSeason !== constants.lockoutSeason) {
+            setFetchState(constants.fetchState.loading);
+            let seasonDates = await getSeasonDates(selectedSeason);
+            setSeasonStartDate(seasonDates.seasonStartDate);
+            setSeasonEndDate(seasonDates.seasonEndDate);
+            if (selectedTeams.length > 0) {
+                let games = await getGames(selectedSeason, selectedTeams);
+                setGames(games);
             }
         }
-
-        fetchData().then();
-    }
+        setFetchState(constants.fetchState.finished);
+    }, [getGames, getSeasonDates, selectedSeason, selectedTeams]);
 
     function setUpOnLoad() {
         document.title = "Team Schedules";
@@ -104,7 +99,15 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         applySavedView();
     }
 
-    useEffect(fetchSelectedTeamSchedules, [fetchTrigger, selectedSeason, selectedTeams, getSeasonDates, getGames]);
+    useEffect(() => {
+        fetchDataAndHandleErrors(
+            fetchSelectedTeamSchedules,
+            null,
+            setErrorMessage,
+            setSubErrors,
+            setFetchState
+        );
+    }, [fetchSelectedTeamSchedules, fetchTrigger]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
@@ -145,22 +148,37 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         <MainContent showOptions={showOptions} showHelp={showHelp} content={
             <>
                 {
-                    showTable
-                    ? <ScheduleTable season={selectedSeason}
-                                     games={games}
-                                     selectedTeams={selectedTeams}
-                                     showScores={showScores}
-                                     filterUpcomingGames={filterUpcomingGames}
-                                     fetchState={fetchState}>
-                    </ScheduleTable>
-                    : <ScheduleCalendar season={selectedSeason}
-                                        games={games}
-                                        selectedTeams={selectedTeams}
-                                        showScores={showScores}
-                                        fetchState={fetchState}
-                                        startDate={seasonStartDate}
-                                        endDate={seasonEndDate}>
-                    </ScheduleCalendar>
+                    fetchState === constants.fetchState.loading
+                    ? <Bars></Bars>
+                    : fetchState === constants.fetchState.error
+                      ? <ErrorDialogRetry
+                          onClick={() => fetchDataAndHandleErrors(
+                              fetchSelectedTeamSchedules,
+                              null,
+                              setErrorMessage,
+                              setSubErrors,
+                              setFetchState
+                          )}
+                          errorMessage={errorMessage}
+                          subErrors={subErrors}>
+                      </ErrorDialogRetry>
+                      : fetchState === constants.fetchState.finished
+                        ? selectedSeason === constants.lockoutSeason
+                          ? <ErrorDialogLockout></ErrorDialogLockout>
+                          : showTable
+                            ? <ScheduleTable games={games}
+                                             selectedTeams={selectedTeams}
+                                             showScores={showScores}
+                                             filterUpcomingGames={filterUpcomingGames}>
+                            </ScheduleTable>
+                            : <ScheduleCalendar season={selectedSeason}
+                                                games={games}
+                                                selectedTeams={selectedTeams}
+                                                showScores={showScores}
+                                                startDate={seasonStartDate}
+                                                endDate={seasonEndDate}>
+                            </ScheduleCalendar>
+                        : null
                 }
             </>
         }>

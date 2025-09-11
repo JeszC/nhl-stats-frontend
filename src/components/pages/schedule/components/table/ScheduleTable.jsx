@@ -2,11 +2,8 @@ import {Fragment, useEffect, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import scheduleColumns from "../../../../../data/schedule.json";
 import {getValue, isGameFinished, sortObjects} from "../../../../../scripts/utils.js";
-import Bars from "../../../../shared/animations/bars/Bars";
 import PageBar from "../../../../shared/common/pageBar/PageBar.jsx";
 import GameDialog from "../../../../shared/dialogs/game/GameDialog";
-import ErrorDialog from "../../../../shared/errors/ErrorDialog";
-import ErrorDialogLockout from "../../../../shared/errors/ErrorDialogLockout";
 import GamesTable from "./components/GamesTable";
 import TableRow from "./components/TableRow";
 
@@ -17,7 +14,7 @@ function defaultCompare(game1, game2) {
     return new Date(startTimeGame1) - new Date(startTimeGame2);
 }
 
-function ScheduleTable({season, games, selectedTeams, showScores, filterUpcomingGames, fetchState}) {
+function ScheduleTable({games, selectedTeams, showScores, filterUpcomingGames}) {
     const [fullSchedule, setFullSchedule] = useState([]);
     const [filteredSchedule, setFilteredSchedule] = useState([]);
     const [sorting, setSorting] = useState({key: "", ascending: true, target: null});
@@ -106,16 +103,8 @@ function ScheduleTable({season, games, selectedTeams, showScores, filterUpcoming
     useEffect(setUpOnLoad, []);
 
     return <>
-        {fetchState === constants.fetchState.loading ? <Bars></Bars> : null}
         {
-            fetchState === constants.fetchState.error
-            ? <ErrorDialog errorMessage={"Failed to fetch team schedules. The server might be offline."}></ErrorDialog>
-            : null
-        }
-        {
-            season === constants.lockoutSeason
-            ? <ErrorDialogLockout></ErrorDialogLockout>
-            : <>
+            <>
                 <GamesTable defaultHeader={defaultHeader}
                             defaultColumn={defaultSortedCategory}
                             applySorting={applySorting}

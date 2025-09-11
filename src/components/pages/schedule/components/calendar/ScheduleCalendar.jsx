@@ -1,15 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
-import Bars from "../../../../shared/animations/bars/Bars";
 import GameDialog from "../../../../shared/dialogs/game/GameDialog";
-import ErrorDialog from "../../../../shared/errors/ErrorDialog";
-import ErrorDialogLockout from "../../../../shared/errors/ErrorDialogLockout";
 import ErrorDialogSeasonUnstarted from "../../../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
 import CalendarHeader from "./components/calendarheader/CalendarHeader";
 import CalendarSquare from "./components/calendarsquare/CalendarSquare";
 import "../../Schedule.css";
 
-function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState, startDate, endDate}) {
+function ScheduleCalendar({season, games, selectedTeams, showScores, startDate, endDate}) {
     const [month, setMonth] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
     const [seasonStart, setSeasonStart] = useState(null);
@@ -108,37 +105,29 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, fetchState,
 
     return <>
         {
-            fetchState === constants.fetchState.loading
-            ? <Bars></Bars>
-            : fetchState === constants.fetchState.error
-              ? <ErrorDialog errorMessage={"Failed to fetch schedules. The server might be offline."}></ErrorDialog>
-              : season === constants.lockoutSeason
-                ? <ErrorDialogLockout></ErrorDialogLockout>
-                : hasSeasonStarted()
-                  ? <>
-                      <CalendarHeader year={year}
-                                      month={month}
-                                      setYear={setYear}
-                                      setMonth={setMonth}
-                                      seasonStart={seasonStart}
-                                      seasonEnd={seasonEnd}>
-                      </CalendarHeader>
-                      <ul className={"days"}>
-                          {
-                              fetchState === constants.fetchState.finished
-                              ? getCalendarData().map((date, index) =>
-                                  <CalendarSquare key={date.date.toLocaleDateString() + index.toString()}
-                                                  date={date}
-                                                  selectedTeams={selectedTeams}
-                                                  showScores={showScores}
-                                                  openDialog={openDialog}>
-                                  </CalendarSquare>
-                              )
-                              : null
-                          }
-                      </ul>
-                  </>
-                  : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
+            hasSeasonStarted()
+            ? <>
+                <CalendarHeader year={year}
+                                month={month}
+                                setYear={setYear}
+                                setMonth={setMonth}
+                                seasonStart={seasonStart}
+                                seasonEnd={seasonEnd}>
+                </CalendarHeader>
+                <ul className={"days"}>
+                    {
+                        getCalendarData().map((date, index) =>
+                            <CalendarSquare key={date.date.toLocaleDateString() + index.toString()}
+                                            date={date}
+                                            selectedTeams={selectedTeams}
+                                            showScores={showScores}
+                                            openDialog={openDialog}>
+                            </CalendarSquare>
+                        )
+                    }
+                </ul>
+            </>
+            : <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
         }
         <GameDialog dialogReference={dialog}
                     selectedGame={selectedGame}
