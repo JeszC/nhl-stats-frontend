@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
-import {getResponseData} from "../../../scripts/utils.js";
+import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars";
 import GameDialog from "../../shared/dialogs/game/GameDialog";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -15,6 +15,8 @@ function Results({showOptions, setShowOptions, showHelp}) {
     const [selectedGame, setSelectedGame] = useState({});
     const [fetchState, setFetchState] = useState(constants.fetchState.finished);
     const [gameFetchState, setGameFetchState] = useState(constants.fetchState.finished);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
     const dialog = useRef(null);
     const daysToFetch = 7;
     const daysToShow = 5;
@@ -72,25 +74,27 @@ function Results({showOptions, setShowOptions, showHelp}) {
         return results;
     }
 
-    function fetchResults() {
+    async function fetchResults() {
+        setFetchState(constants.fetchState.loading);
         let today = new Date();
         let startDate = new Date().setDate(today.getDate() - daysToFetch);
-        setFetchState(constants.fetchState.loading);
-        getResults(getLocalDateString(startDate))
-            .then(result => {
-                let games = result.filter(game => new Date(game.startTimeUTC) < today);
-                let localDates = getGameLocalDates(games);
-                let resultsByLocalDate = getResultsByLocalDate(games, localDates);
-                setResults(resultsByLocalDate);
-                setFetchState(constants.fetchState.finished);
-            })
-            .catch(() => setFetchState(constants.fetchState.error));
+        let results = await getResults(getLocalDateString(startDate));
+        let games = results.filter(game => new Date(game.startTimeUTC) < today);
+        let localDates = getGameLocalDates(games);
+        let resultsByLocalDate = getResultsByLocalDate(games, localDates);
+        setResults(resultsByLocalDate);
+        setFetchState(constants.fetchState.finished);
     }
 
     function setUpOnLoad() {
         document.title = "Game Results";
         setShowOptions(false);
-        fetchResults();
+        fetchDataAndHandleErrors(
+            fetchResults,
+            null,
+            setErrorMessage,
+            setSubErrors,
+            setFetchState);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,9 +117,15 @@ function Results({showOptions, setShowOptions, showHelp}) {
                                  fetchState === constants.fetchState.loading
                                  ? <Bars></Bars>
                                  : fetchState === constants.fetchState.error
-                                   ? <ErrorDialogRetry errorMessage={"Could not load game results. " +
-                                                                     "Server might be offline."}
-                                                       onClick={fetchResults}>
+                                   ? <ErrorDialogRetry
+                                       onClick={() => fetchDataAndHandleErrors(
+                                           fetchResults,
+                                           null,
+                                           setErrorMessage,
+                                           setSubErrors,
+                                           setFetchState)}
+                                       errorMessage={errorMessage}
+                                       subErrors={subErrors}>
                                    </ErrorDialogRetry>
                                    : results.length === 0 && fetchState === constants.fetchState.finished
                                      ? <div className={"resultsPlaceholder"}>
