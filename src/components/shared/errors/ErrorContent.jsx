@@ -1,7 +1,7 @@
 function ErrorContent({errorMessage, subErrors}) {
 
     return <>
-        <h4>{errorMessage.length === 0 ? "Error occurred" : errorMessage}</h4>
+        <h4>{errorMessage === undefined || errorMessage.length === 0 ? "Error occurred" : errorMessage}</h4>
         {
             subErrors && subErrors.length > 0
             ? <div className={"verticalFlex suberrors"}>
