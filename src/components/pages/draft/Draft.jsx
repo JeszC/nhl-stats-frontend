@@ -125,17 +125,6 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         return await getResponseData(response, "Error fetching draft results.");
     }
 
-    async function retryGetDraftResults(season) {
-        setFetchState(constants.fetchState.loading);
-        getDraftResults(season)
-            .then(result => {
-                setDraft(result);
-                setVisibleDraft(result);
-                setFetchState(constants.fetchState.finished);
-            })
-            .catch(ignored => setFetchState(constants.fetchState.error));
-    }
-
     function filterDraft(draft, positions, countries, draftTeams) {
         let filteredDraft = [].concat(draft);
         if (positions.length > 0) {
