@@ -1,6 +1,13 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
-import {compareNumeric, compareTextual, getResponseData, getValue, sortObjects} from "../../../scripts/utils.js";
+import {
+    compareNumeric,
+    compareTextual,
+    fetchDataAndHandleErrors,
+    getResponseData,
+    getValue,
+    sortObjects
+} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
 import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry";
@@ -89,6 +96,8 @@ function Draft({showOptions, setShowOptions, showHelp}) {
     const [sorting, setSorting] = useState({key: "", ascending: false, target: null});
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const [sortedColumn, setSortedColumn] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
     const defaultHeader = useRef(null);
     const dialog = useRef(null);
     const defaultSortedCategory = draftColumns.columns.overallPick;
@@ -171,16 +180,10 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         setVisibleDraft([]);
         setFetchState(constants.fetchState.loading);
         if (season) {
-            let data;
-            try {
-                data = await Promise.all([
-                    getDraftResults(season),
-                    getSeasonTeams(season)
-                ]);
-            } catch (ignored) {
-                setFetchState(constants.fetchState.error);
-                return;
-            }
+            let data = await Promise.all([
+                getDraftResults(season),
+                getSeasonTeams(season)
+            ]);
             let draftResults = data[0];
             let teams = data[1];
             setDraft(draftResults);
@@ -199,7 +202,13 @@ function Draft({showOptions, setShowOptions, showHelp}) {
     useEffect(filterAndSortDraft, [draft, positions, countries, draftTeams, sorting.key, sorting.ascending]);
 
     useEffect(() => {
-        fetchDraftData().then();
+        fetchDataAndHandleErrors(
+            fetchDraftData,
+            null,
+            setErrorMessage,
+            setSubErrors,
+            setFetchState
+        );
     }, [fetchTrigger, fetchDraftData]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -224,25 +233,41 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         </SidebarOptions>
         <MainContent showOptions={showOptions} showHelp={showHelp} content={
             <>
-                {fetchState === constants.fetchState.loading ? <Spinner></Spinner> : null}
+                {
+                    fetchState === constants.fetchState.loading
+                    ? <Spinner></Spinner>
+                    : null
+                }
                 {
                     fetchState === constants.fetchState.error
-                    ? <ErrorDialogRetry errorMessage={"Failed to fetch draft results. The server might be offline."}
-                                        onClick={() => retryGetDraftResults(season)}>
+                    ? <ErrorDialogRetry
+                        onClick={() => fetchDataAndHandleErrors(
+                            fetchDraftData,
+                            null,
+                            setErrorMessage,
+                            setSubErrors,
+                            setFetchState
+                        )}
+                        errorMessage={errorMessage}
+                        subErrors={subErrors}>
                     </ErrorDialogRetry>
                     : null
                 }
-                <DraftTable defaultHeader={defaultHeader}
-                            defaultColumn={defaultSortedCategory}
-                            applySorting={applySorting}
-                            sortingDirection={sorting.ascending}
-                            sortedColumn={sortedColumn}
-                            draftResults={visibleDraft}
-                            teams={teams}
-                            dialog={dialog}
-                            setSelectedPlayer={setSelectedPlayer}
-                            setPlayerFetchState={setPlayerFetchState}>
-                </DraftTable>
+                {
+                    fetchState === constants.fetchState.finished
+                    ? <DraftTable defaultHeader={defaultHeader}
+                                  defaultColumn={defaultSortedCategory}
+                                  applySorting={applySorting}
+                                  sortingDirection={sorting.ascending}
+                                  sortedColumn={sortedColumn}
+                                  draftResults={visibleDraft}
+                                  teams={teams}
+                                  dialog={dialog}
+                                  setSelectedPlayer={setSelectedPlayer}
+                                  setPlayerFetchState={setPlayerFetchState}>
+                    </DraftTable>
+                    : null
+                }
                 <PlayerDialog dialogReference={dialog}
                               selectedPlayer={selectedPlayer}
                               fetchState={playerFetchState}>

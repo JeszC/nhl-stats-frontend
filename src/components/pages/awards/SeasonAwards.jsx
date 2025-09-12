@@ -25,12 +25,16 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
         if (trophy) {
             setTrophyWinnerFetchState(constants.fetchState.loading);
             dialog.current.showModal();
-            try {
-                setTrophyWinners(await getTrophyWinners(trophy.categoryId, trophy.id));
-                setTrophyWinnerFetchState(constants.fetchState.finished);
-            } catch (ignored) {
-                setTrophyWinnerFetchState(constants.fetchState.error);
-            }
+            fetchDataAndHandleErrors(
+                () => getTrophyWinners(trophy.categoryId, trophy.id),
+                result => {
+                    setTrophyWinners(result);
+                    setTrophyWinnerFetchState(constants.fetchState.finished);
+                },
+                setErrorMessage,
+                setSubErrors,
+                setTrophyWinnerFetchState
+            );
         }
     }
 
@@ -107,8 +111,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                 <AwardDialog dialogReference={dialog}
                              trophy={selectedTrophy}
                              trophyWinners={trophyWinners}
-                             fetchState={trophyWinnerFetchState}
-                             setFetchState={setTrophyWinnerFetchState}>
+                             fetchState={trophyWinnerFetchState}>
                 </AwardDialog>
             </>
         }>
