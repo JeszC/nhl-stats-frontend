@@ -2,7 +2,7 @@ import DialogContent from "../shared/DialogContent.jsx";
 import Trophy from "./components/body/Trophy.jsx";
 import Header from "./components/header/Header.jsx";
 
-function AwardDialog({dialogReference, trophy, trophyWinners, fetchState}) {
+function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, errorMessage, subErrors}) {
 
     function resetDialogOnEscape(event) {
         if (event.key === "Escape") {
@@ -30,6 +30,8 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState}) {
             renderContent(
                 <DialogContent fetchState={fetchState}
                                closeDialog={closeDialog}
+                               errorMessage={errorMessage}
+                               subErrors={subErrors}
                                headerData={<Header trophy={trophy}></Header>}
                                bodyData={<Trophy trophy={trophy} trophyWinners={trophyWinners}></Trophy>}>
                 </DialogContent>

@@ -7,11 +7,13 @@ import PlayerInformation from "./body/PlayerInformation.jsx";
 import SeasonHistory from "./body/SeasonHistory.jsx";
 import Header from "./header/Header.jsx";
 
-function PlayerContent({selectedPlayer, fetchState, closeDialog, onBack}) {
+function PlayerContent({selectedPlayer, fetchState, closeDialog, onBack, errorMessage, subErrors}) {
 
     return <DialogContent fetchState={fetchState}
                           closeDialog={closeDialog}
                           onBack={onBack}
+                          errorMessage={errorMessage}
+                          subErrors={subErrors}
                           headerData={<Header player={selectedPlayer}></Header>}
                           bodyData={
                               <>

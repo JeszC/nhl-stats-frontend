@@ -5,7 +5,7 @@ import ErrorDialog from "../../errors/ErrorDialog.jsx";
 import BackButtonIcon from "../../images/Back.svg";
 import CloseButtonIcon from "../../images/Close.svg";
 
-function DialogContent({headerData, bodyData, fetchState, onBack, closeDialog}) {
+function DialogContent({headerData, bodyData, fetchState, onBack, closeDialog, errorMessage, subErrors}) {
     const backButton = useRef(null);
 
     function setUpOnLoad() {
@@ -44,7 +44,7 @@ function DialogContent({headerData, bodyData, fetchState, onBack, closeDialog}) 
             fetchState === constants.fetchState.loading
             ? <Slider></Slider>
             : fetchState === constants.fetchState.error
-              ? <ErrorDialog errorMessage={"Could not load content. Server might be offline."}></ErrorDialog>
+              ? <ErrorDialog errorMessage={errorMessage} subErrors={subErrors}></ErrorDialog>
               : bodyData
         }
     </>;

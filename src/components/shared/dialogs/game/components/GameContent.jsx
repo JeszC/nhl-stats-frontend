@@ -13,12 +13,16 @@ function GameContent({
                          fetchState,
                          setFetchState,
                          closeDialog,
-                         onBack
+                         onBack,
+                         errorMessage,
+                         subErrors
                      }) {
 
     return <DialogContent fetchState={fetchState}
                           closeDialog={closeDialog}
                           onBack={onBack}
+                          errorMessage={errorMessage}
+                          subErrors={subErrors}
                           headerData={<Header game={selectedGame}></Header>}
                           bodyData={
                               <>

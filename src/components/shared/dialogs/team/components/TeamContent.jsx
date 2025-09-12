@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import recordFormats from "../../../../../data/recordFormats.json";
+import {getSeasonID} from "../../../../../scripts/utils.js";
 import DialogContent from "../../shared/DialogContent.jsx";
 import Games from "./body/Games.jsx";
 import Injuries from "./body/Injuries.jsx";
@@ -7,9 +8,18 @@ import TeamInformation from "./body/TeamInformation.jsx";
 import TeamRoster from "./body/TeamRoster.jsx";
 import TeamStatistics from "./body/TeamStatistics.jsx";
 import Header from "./header/Header.jsx";
-import {getSeasonID} from "../../../../../scripts/utils.js";
 
-function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog, setActiveView, setFetchState}) {
+function TeamContent({
+                         setGame,
+                         setPlayer,
+                         selectedTeam,
+                         fetchState,
+                         closeDialog,
+                         setActiveView,
+                         setFetchState,
+                         errorMessage,
+                         subErrors
+                     }) {
     const [pastGames, setPastGames] = useState([]);
     const [upcomingGames, setUpcomingGames] = useState([]);
     const [injuries, setInjuries] = useState([]);
@@ -63,6 +73,8 @@ function TeamContent({setGame, setPlayer, selectedTeam, fetchState, closeDialog,
 
     return <DialogContent fetchState={fetchState}
                           closeDialog={closeDialog}
+                          errorMessage={errorMessage}
+                          subErrors={subErrors}
                           headerData={<Header team={selectedTeam}></Header>}
                           bodyData={
                               <>
