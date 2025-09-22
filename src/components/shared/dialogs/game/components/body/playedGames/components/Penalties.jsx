@@ -58,10 +58,21 @@ function Penalties({game, setPlayer, setActiveView, setPreviousView, setFetchSta
                                                     setPreviousView)}>
                                         <img className={`defaultImage gamesImage zoom
                                         default ${penalty.teamAbbrev.default} gradient`}
-                                             src={penalty.headshot}
-                                             alt={penalty.committedByPlayer
-                                                  ? `${penalty.committedByPlayer.default} headshot`
-                                                  : `${penalty.servedBy.default} headshot`}/>
+                                             src={
+                                                 penalty.type === "BEN" && !penalty.servedBy?.default
+                                                 ? penalty.teamAbbrev.default === game.awayTeam.teamAbbrev
+                                                   ? game.awayTeam.logo
+                                                   : game.homeTeam.logo
+                                                 : penalty.headshot
+                                             }
+                                             alt={
+                                                 penalty.committedByPlayer
+                                                 ? `${penalty.committedByPlayer.default} headshot`
+                                                 : penalty.servedBy
+                                                   ? `${penalty.servedBy.default} headshot`
+                                                   : `${penalty.teamAbbrev.default} logo`
+                                             }
+                                        />
                                     </button>
                                     <div className={"verticalFlex"}>
                                         <button type={"button"}
