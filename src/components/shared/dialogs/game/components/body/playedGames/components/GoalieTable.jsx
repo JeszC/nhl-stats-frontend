@@ -1,12 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../../../../../../data/constants.json";
 import goalieData from "../../../../../../../../data/goalieStats.json";
-import {
-    getOrdinalNumber,
-    getPlayerName,
-    parseDecimals,
-    parseIceTime
-} from "../../../../../../../../scripts/parsing.js";
+import {getOrdinalNumber, getPlayerName, parseDecimals, parseIceTime} from "../../../../../../../../scripts/parsing.js";
 import {
     compareNumeric,
     compareTextual,
@@ -112,6 +107,8 @@ function GoalieTable({goalies, team, setPlayer, setActiveView, setPreviousView, 
             case columns.savePercentage:
                 return value === undefined ? parseDecimals(0) : parseDecimals(value);
             case columns.shotsAgainst:
+                return value === undefined ? parseInt("0").toLocaleString() : value.toLocaleString();
+            case columns.penaltyMinutes:
                 return value === undefined ? parseInt("0").toLocaleString() : value.toLocaleString();
             case columns.timeOnIce:
                 return value === undefined ? parseIceTime("00:00") : parseIceTime(value);
