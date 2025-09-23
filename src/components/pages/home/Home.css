@@ -67,7 +67,7 @@
 }
 
 .teamRosterEvents {
-    margin: 0 1em;
+    margin: 0 1em 1em;
     gap: 1em;
 }
 
@@ -79,6 +79,10 @@
     margin: 0;
     padding-left: 0;
     list-style-type: none;
+}
+
+.injuriesTradesSigningsByDate:not(:last-child) {
+    margin-bottom: 1em;
 }
 
 .individualDay:not(:last-of-type) {
@@ -277,10 +281,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 1em;
-}
-
-.loadMoreButton {
-    margin: 1em 0;
 }
 
 .homePageTables {
