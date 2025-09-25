@@ -2,7 +2,7 @@ import constants from "../../../../../../../../data/constants.json";
 import FinalTeamInfo from "./FinalTeamInfo.jsx";
 
 function StatisticsFinal({game}) {
-    const categories = ["Shots", "Face-off win percentage", "Power play", "Penalty minutes",
+    const categories = ["Shots", "Face-offs", "Power play", "Penalty minutes",
                         "Hits", "Blocked shots", "Giveaways", "Takeaways"];
 
     return <div className={"gamesContent"}>

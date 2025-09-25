@@ -22,11 +22,15 @@ function FinalTeamInfo({game, team, numberOfCategories}) {
     }
 
     function removeUnusedCategories(categories) {
-        let powerPlayPctgKey = categories.findIndex(value => value.category === "powerPlayPctg");
-        if (powerPlayPctgKey >= 0) {
-            return categories.toSpliced(powerPlayPctgKey, 1);
+        let categoriesToRemove = ["faceoffWinningPctg", "powerPlayPctg"];
+        let categoriesCopy = categories.slice();
+        for (let categoryToRemove of categoriesToRemove) {
+            let categoryKey = categoriesCopy.findIndex(value => value.category === categoryToRemove);
+            if (categoryKey >= 0) {
+                categoriesCopy.splice(categoryKey, 1);
+            }
         }
-        return categories;
+        return categoriesCopy;
     }
 
     function fillMissingCategories(categories) {
