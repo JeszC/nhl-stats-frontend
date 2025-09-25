@@ -1,17 +1,13 @@
-import {parseDecimals} from "../../../../../../../../scripts/parsing.js";
-
 function FinalTeamInfo({game, team, numberOfCategories}) {
     const teamGameStatsKey = `${team.substring(0, team.length - 4)}Value`;
     const placeholderValue = "N/A";
 
     function parseCategory(category) {
-        if (category.category === "faceoffWinningPctg") {
-            return parseDecimals(category[teamGameStatsKey]);
-        } else if (category.category === "powerPlay") {
-            let powerPlayParts = category[teamGameStatsKey].split("/");
-            let goals = parseInt(powerPlayParts[0]).toLocaleString();
-            let powerPlays = parseInt(powerPlayParts[1]).toLocaleString();
-            return `${goals}/${powerPlays}`;
+        if (category.category === "powerPlay" || category.category === "faceoffWins") {
+            let parts = category[teamGameStatsKey].split("/");
+            let teamValues = parseInt(parts[0]).toLocaleString();
+            let allValues = parseInt(parts[1]).toLocaleString();
+            return `${teamValues}/${allValues}`;
         }
         return category[teamGameStatsKey]?.toLocaleString();
     }
