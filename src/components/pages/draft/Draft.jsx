@@ -200,7 +200,6 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         );
     }, [fetchTrigger, fetchDraftData]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

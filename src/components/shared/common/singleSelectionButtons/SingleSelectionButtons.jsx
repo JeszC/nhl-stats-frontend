@@ -9,8 +9,6 @@ function SingleSelectionButtons({buttonData, setData, classes, selectionClasses}
             addSelectionClasses(defaultButton);
             setSelectedButton(defaultButton);
         }
-        // Following eslint recommendations breaks the buttons visually, which is why this rule is ignored.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function selectButton(event) {

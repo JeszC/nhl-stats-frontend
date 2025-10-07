@@ -309,7 +309,6 @@ function Chart({game}) {
 
     useEffect(drawEvents, [period, type, team, data, width, height, draw, drawTeamMarkers]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <details className={"gamesContent"} open>

@@ -94,7 +94,6 @@ function SkaterTable({skaters, team, setPlayer, setActiveView, setPreviousView, 
 
     useEffect(sortSkaters, [skaters, sorting.key, sorting.ascending]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <div className={"gamesTableWithHeader"}>

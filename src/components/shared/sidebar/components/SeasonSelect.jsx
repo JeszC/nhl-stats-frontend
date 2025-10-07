@@ -66,7 +66,6 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
 
     useEffect(() => applySavedSeason(), [seasons, applySavedSeason]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

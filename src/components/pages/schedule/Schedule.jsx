@@ -109,7 +109,6 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         );
     }, [fetchSelectedTeamSchedules, fetchTrigger]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

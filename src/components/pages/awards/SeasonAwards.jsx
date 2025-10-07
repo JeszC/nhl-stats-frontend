@@ -62,7 +62,6 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
             setFetchState);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

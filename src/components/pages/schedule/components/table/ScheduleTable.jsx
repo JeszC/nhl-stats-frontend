@@ -99,7 +99,6 @@ function ScheduleTable({games, selectedTeams, showScores, filterUpcomingGames}) 
 
     useEffect(updateSchedule, [games]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>
