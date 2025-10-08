@@ -627,7 +627,7 @@
 }
 
 @media (min-width: 1280px) {
-    .injuriesTradesSignings:not(:last-of-type) {
+    .teamRosterEvents .injuriesTradesSignings:not(:last-of-type) {
         padding-right: 1em;
         border-right: 2px dotted var(--grey);
     }

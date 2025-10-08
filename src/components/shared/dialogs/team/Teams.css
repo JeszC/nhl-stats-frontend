@@ -23,7 +23,7 @@
 }
 
 .teamsContent .injuries {
-    padding: 0;
+    padding: 0 1em;
     margin: 0;
     grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
     gap: 1em;
