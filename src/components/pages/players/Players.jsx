@@ -291,6 +291,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
 
     useEffect(resetPlayerFilters, [showGoalies]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

@@ -123,6 +123,7 @@ function GoalieTable({goalies, team, setPlayer, setActiveView, setPreviousView, 
 
     useEffect(sortGoalies, [goalies, sorting.key, sorting.ascending]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <div className={"gamesTableWithHeader"}>

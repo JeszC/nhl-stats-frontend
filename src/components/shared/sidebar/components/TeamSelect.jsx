@@ -66,6 +66,7 @@ function TeamSelect({season, localStorageKey, setSelectedTeams, fetchState, setF
 
     useEffect(fetchTeamsForSeason, [fetchTrigger, season, setFetchState]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

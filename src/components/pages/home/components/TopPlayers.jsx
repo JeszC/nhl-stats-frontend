@@ -78,6 +78,7 @@ function TopPlayers({players, headerText, areGoalies}) {
         }
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <div>

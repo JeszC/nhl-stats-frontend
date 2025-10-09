@@ -99,6 +99,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
         fetchDataAndHandleErrors(getData, null, setErrorMessage, setSubErrors, setFetchState);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>

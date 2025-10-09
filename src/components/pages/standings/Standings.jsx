@@ -305,10 +305,15 @@ function Standings({showOptions, setShowOptions, showHelp}) {
 
     useEffect(fetchSeasonData, [fetchTrigger, season, getStandingsAndPlayoffTree]);
 
-    // Reset sorting to default column when changing season, as different seasons might have different columns
-    // and sorting breaks if the season is changed and the new season does not have the previously selected column.
-    useEffect(() => applySorting(defaultSortedCategory, false, defaultHeader.current), [season]);
+    useEffect(() => {
+        applySorting(defaultSortedCategory, false, defaultHeader.current);
+        // Reset sorting to default column when changing season, as different seasons might have different columns
+        // and sorting breaks if the season is changed and the new season does not have the previously selected column.
+        // Dependencies are also intentionally omitted because they break functionality.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [season]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(setUpOnLoad, []);
 
     return <>
