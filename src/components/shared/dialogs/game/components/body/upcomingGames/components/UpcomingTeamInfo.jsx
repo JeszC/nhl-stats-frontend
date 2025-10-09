@@ -29,8 +29,14 @@ function UpcomingTeamInfo({game, team}) {
                 ? <>
                     <span>{parseRecord(game.matchup.last10Record[team].record)}</span>
                     <span>
-                        {game.matchup.last10Record[team].streakType}
-                        {game.matchup.last10Record[team].streak.toLocaleString()}
+                        {
+                            game.matchup.last10Record[team].streakType && game.matchup.last10Record[team].streak
+                            ? <>
+                                {game.matchup.last10Record[team].streakType}
+                                {game.matchup.last10Record[team].streak.toLocaleString()}
+                            </>
+                            : "N/A"
+                        }
                     </span>
                 </>
                 : null
