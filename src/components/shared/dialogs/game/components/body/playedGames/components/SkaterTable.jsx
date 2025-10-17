@@ -42,7 +42,7 @@ function compareName(player1, player2) {
 }
 
 function SkaterTable({skaters, team, setPlayer, setActiveView, setPreviousView, setFetchState}) {
-    const [sorting, setSorting] = useState({key: "points", ascending: false, target: null});
+    const [sorting, setSorting] = useState({key: "", ascending: false, target: null});
     const [sortedSkaters, setSortedSkaters] = useState([]);
     const [sortedColumn, setSortedColumn] = useState(0);
     const defaultHeader = useRef(null);

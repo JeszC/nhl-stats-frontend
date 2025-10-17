@@ -54,7 +54,7 @@ function compareShotsAgainst(player1, player2) {
 }
 
 function GoalieTable({goalies, team, setPlayer, setActiveView, setPreviousView, setFetchState}) {
-    const [sorting, setSorting] = useState({key: "savePctg", ascending: false, target: null});
+    const [sorting, setSorting] = useState({key: "", ascending: false, target: null});
     const [sortedGoalies, setSortedGoalies] = useState([]);
     const [sortedColumn, setSortedColumn] = useState(0);
     const defaultHeader = useRef(null);
