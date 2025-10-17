@@ -86,7 +86,8 @@ function Penalties({game, setPlayer, setActiveView, setPreviousView, setFetchSta
                                                         setPreviousView)}>
                                             {
                                                 penalty.committedByPlayer
-                                                ? penalty.committedByPlayer.default
+                                                ? `${penalty.committedByPlayer.firstName.default}
+                                                  ${penalty.committedByPlayer.lastName.default}`
                                                 : penalty.servedBy
                                                   ? penalty.servedBy.default
                                                   : penalty.teamAbbrev.default
@@ -94,7 +95,12 @@ function Penalties({game, setPlayer, setActiveView, setPreviousView, setFetchSta
                                         </button>
                                         {
                                             penalty.drawnBy
-                                            ? <span className={"secondary"}>{penalty.drawnBy.default}</span>
+                                            ? <span className={"secondary"}>
+                                                {
+                                                    `${penalty.drawnBy.firstName.default}
+                                                    ${penalty.drawnBy.lastName.default}`
+                                                }
+                                            </span>
                                             : null
                                         }
                                         <div className={"horizontalFlex stats"}>
