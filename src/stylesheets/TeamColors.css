@@ -133,7 +133,7 @@
 }
 
 .CAR {
-    --color: #C8102E;
+    --color: #CD001A;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -274,7 +274,7 @@
 }
 
 .CHI {
-    --color: #CE1126;
+    --color: #C8102E;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -373,7 +373,7 @@
 }
 
 .COL {
-    --color: #8A2432;
+    --color: #862633;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -404,7 +404,7 @@
 }
 
 .DAL {
-    --color: #00823E;
+    --color: #00843D;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -627,7 +627,7 @@
 }
 
 .MIN {
-    --color: #0E4431;
+    --color: #154734;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -725,7 +725,7 @@
 
 .NJ,
 .NJD {
-    --color: #CC0000;
+    --color: #CD001A;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -796,7 +796,7 @@
 }
 
 .NYI {
-    --color: #00468B;
+    --color: #003087;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -827,7 +827,7 @@
 }
 
 .NYR {
-    --color: #154B94;
+    --color: #0033A0;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -924,7 +924,7 @@
 }
 
 .PHI {
-    --color: #D24303;
+    --color: #FC4C02;
     accent-color: var(--color);
     background-color: var(--color);
     color: white;
@@ -1021,7 +1021,7 @@
 }
 
 .SEA {
-    --color: #96D8D8;
+    --color: #9CDBD9;
     accent-color: var(--color);
     background-color: var(--color);
     color: black;
