@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import PlayerContent from "../player/components/PlayerContent.jsx";
 import GameContent from "./components/GameContent.jsx";
@@ -26,34 +26,29 @@ function GameDialog({dialogReference, selectedGame, fetchState, setFetchState}) 
         dialogReference.current.close();
     }
 
-    function renderContent(content) {
+    useEffect(() => {
         if (dialogReference && dialogReference.current) {
             dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
         }
-        return content;
-    }
+    }, [activeView, dialogReference]);
 
     return <>
         <dialog ref={dialogReference} aria-label={"Game information"} tabIndex={-1} onKeyDown={resetDialogOnEscape}>
             {
                 activeView === constants.dialogViews.game
-                ? renderContent(
-                    <GameContent selectedGame={selectedGame}
-                                 setPlayer={setPlayer}
-                                 setActiveView={setActiveView}
-                                 fetchState={fetchState}
-                                 setFetchState={setFetchState}
-                                 closeDialog={closeDialog}>
-                    </GameContent>
-                )
+                ? <GameContent selectedGame={selectedGame}
+                               setPlayer={setPlayer}
+                               setActiveView={setActiveView}
+                               fetchState={fetchState}
+                               setFetchState={setFetchState}
+                               closeDialog={closeDialog}>
+                </GameContent>
                 : activeView === constants.dialogViews.player
-                  ? renderContent(
-                        <PlayerContent selectedPlayer={player}
-                                       fetchState={fetchState}
-                                       closeDialog={closeDialog}
-                                       onBack={backToDefaultView}>
-                        </PlayerContent>
-                    )
+                  ? <PlayerContent selectedPlayer={player}
+                                   fetchState={fetchState}
+                                   closeDialog={closeDialog}
+                                   onBack={backToDefaultView}>
+                  </PlayerContent>
                   : null
             }
         </dialog>

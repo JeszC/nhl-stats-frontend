@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useEffectEvent, useState} from "react";
 import teamRoster from "../../../../../../data/teamRoster.json";
 import SingleSelectionButtons from "../../../../common/singleSelectionButtons/SingleSelectionButtons.jsx";
 import Goalies from "./Goalies.jsx";
@@ -11,7 +11,7 @@ function TeamRoster({selectedTeam, setPlayer, setFetchState, setActiveView}) {
     const prospects = teamRoster.upperCategories[1].value;
     const goalies = teamRoster.lowerCategories[2].value;
 
-    function setUpOnLoad() {
+    const setUpOnLoad = useEffectEvent(() => {
         for (let upperCategory of teamRoster.upperCategories) {
             if (upperCategory.default) {
                 setUpperCategory(upperCategory.value);
@@ -22,9 +22,9 @@ function TeamRoster({selectedTeam, setPlayer, setFetchState, setActiveView}) {
                 setLowerCategory(lowerCategory.value);
             }
         }
-    }
+    });
 
-    useEffect(setUpOnLoad, []);
+    useEffect(setUpOnLoad, [setUpOnLoad]);
 
     return <div className={"teamsContent teamsRoster"}>
         <h2 className={"teamsRosterHeader"}>Roster</h2>

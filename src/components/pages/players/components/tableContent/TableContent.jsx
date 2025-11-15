@@ -31,7 +31,7 @@ function TableContent({
         } catch (ignored) {
             setPlayerFetchState(constants.fetchState.error);
         }
-    }, [dialog, setSelectedPlayer, setPlayerFetchState]);
+    }, [dialog, dialog.current, setSelectedPlayer, setPlayerFetchState]);
 
     const openDialogKeyboard = useCallback(async (event, playerID) => {
         if (event.key === "Enter" || event.key === " ") {

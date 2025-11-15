@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useEffectEvent, useState} from "react";
 
 function Biography({player}) {
     const [showMoreButtonVisible, setShowMoreButtonVisible] = useState(false);
@@ -94,11 +94,9 @@ function Biography({player}) {
         }
     }
 
-    function setUpOnLoad() {
-        setShowMoreButtonStyle();
-    }
+    const setUpOnLoad = useEffectEvent(() => setShowMoreButtonStyle());
 
-    useEffect(setUpOnLoad, []);
+    useEffect(setUpOnLoad, [setUpOnLoad]);
 
     return <>
         {

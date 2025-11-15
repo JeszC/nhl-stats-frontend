@@ -1,9 +1,9 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useEffectEvent, useState} from "react";
 import constants from "../../../../data/constants.json";
+import {fixAbbreviation} from "../../../../scripts/parsing.js";
 import {getResponseData, getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
 import TradeTeam from "./TradeTeam.jsx";
-import {fixAbbreviation} from "../../../../scripts/parsing.js";
 
 function Trades({teams}) {
     const [trades, setTrades] = useState([]);
@@ -25,7 +25,7 @@ function Trades({teams}) {
         return await getResponseData(tradesResponse, "Error fetching trades.");
     }, [fetchOffset]);
 
-    useEffect(() => {
+    const showTradesOnPage = useEffectEvent(() => {
         if (!areAllTradesFetched) {
             setFetchState(constants.fetchState.loading);
             getTrades()
@@ -38,6 +38,10 @@ function Trades({teams}) {
                 })
                 .catch(ignored => setFetchState(constants.fetchState.error));
         }
+    });
+
+    useEffect(() => {
+        showTradesOnPage();
     }, [areAllTradesFetched, getTrades]);
 
     return trades.length === 0

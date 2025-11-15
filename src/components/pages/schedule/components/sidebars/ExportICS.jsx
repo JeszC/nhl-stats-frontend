@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useEffectEvent, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import {getICSFile} from "../../../../../scripts/exportICS.js";
 
@@ -15,16 +15,18 @@ function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
         }
     }
 
-    function updateICSFile() {
+    const updateICSFile = useEffectEvent(() => {
         if (selectedTeams.length > 0) {
             let gamesToImport = upcomingChecked
                                 ? games.filter(game => new Date(game.startTimeUTC) > new Date())
                                 : games;
             setGamesToImport(gamesToImport);
         }
-    }
+    });
 
-    useEffect(updateICSFile, [selectedTeams, games, upcomingChecked]);
+    useEffect(() => {
+        updateICSFile();
+    }, [selectedTeams, games, upcomingChecked]);
 
     return <>
         <h4>Export to ICS</h4>

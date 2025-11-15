@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useEffectEvent, useState} from "react";
 
 function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
     const [hideBottomBorder, setHideBottomBorder] = useState(false);
@@ -31,7 +31,7 @@ function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
         return `${currentPage} / ${pages}`;
     }
 
-    function showOrHideBottomBorder() {
+    const showOrHideBottomBorder = useEffectEvent(() => {
         let mainContent = Array.from(document.getElementsByTagName("main"));
         let navBar = Array.from(document.getElementsByTagName("nav"));
         if (mainContent.length > 0 && navBar.length > 0) {
@@ -42,9 +42,9 @@ function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
             let navBarHeight = parseInt(navBarStyle.height);
             windowHeight - navBarHeight <= mainContentHeight ? setHideBottomBorder(true) : setHideBottomBorder(false);
         }
-    }
+    });
 
-    useEffect(showOrHideBottomBorder, [items, options, page]);
+    useEffect(showOrHideBottomBorder, [items, options, page, showOrHideBottomBorder]);
 
     return <div className={hideBottomBorder ? "horizontalFlex pageBar noBottomBorder" : "horizontalFlex pageBar"}>
         <button type={"button"}

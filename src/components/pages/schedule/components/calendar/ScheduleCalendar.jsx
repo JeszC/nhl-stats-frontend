@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useEffectEvent, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import GameDialog from "../../../../shared/dialogs/game/GameDialog";
 import ErrorDialogSeasonUnstarted from "../../../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
@@ -84,7 +84,13 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, startDate, 
         return end.getMonth() < august ? august : end.getMonth();
     }
 
-    function updateSeasonDates() {
+    function hasSeasonStarted() {
+        let start = season.substring(0, 4);
+        let end = season.substring(4);
+        return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() <= 1;
+    }
+
+    const updateSeasonDates = useEffectEvent(() => {
         let start = new Date(startDate);
         let end = new Date(endDate);
         setSeasonStart(new Date(start.getFullYear(), getSeasonStartMonth(start, end), start.getDate()));
@@ -93,15 +99,11 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, startDate, 
         } else {
             setSeasonEnd(new Date(end.getFullYear(), getSeasonEndMonth(end), end.getDate()));
         }
-    }
+    });
 
-    function hasSeasonStarted() {
-        let start = season.substring(0, 4);
-        let end = season.substring(4);
-        return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() <= 1;
-    }
-
-    useEffect(updateSeasonDates, [startDate, endDate]);
+    useEffect(() => {
+        updateSeasonDates();
+    }, [startDate, endDate]);
 
     return <>
         {

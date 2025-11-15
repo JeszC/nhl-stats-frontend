@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useEffectEvent, useRef, useState} from "react";
 import {compareTextual} from "../../../../scripts/utils.js";
 
 function Filters({draft, setSelectedPositions, setSelectedCountries, setSelectedDraftTeams}) {
@@ -63,12 +63,16 @@ function Filters({draft, setSelectedPositions, setSelectedCountries, setSelected
         setSelectedDraftTeams([]);
     }, [setSelectedPositions, setSelectedCountries, setSelectedDraftTeams]);
 
-    useEffect(() => {
+    const getFilterValues = useEffectEvent(() => {
         resetFilters();
         getPositions();
         getCountries();
         getDraftTeams();
-    }, [resetFilters, getPositions, getCountries, getDraftTeams]);
+    });
+
+    useEffect(() => {
+        getFilterValues();
+    }, [draft]);
 
     return <details>
         <summary>Filters</summary>

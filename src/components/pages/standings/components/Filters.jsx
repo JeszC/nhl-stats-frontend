@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useEffectEvent, useRef, useState} from "react";
 import {compareTextual} from "../../../../scripts/utils.js";
 
 function Filters({fullStandings, setConferences, setDivisions}) {
@@ -30,7 +30,7 @@ function Filters({fullStandings, setConferences, setDivisions}) {
         setDivisions([]);
     }, [conferenceSelect, divisionSelect, setConferences, setDivisions]);
 
-    const getConferencesAndDivisions = useCallback(() => {
+    const getConferencesAndDivisions = useEffectEvent(() => {
         let uniqueConfs = [];
         let uniqueDivs = [];
         if (fullStandings) {
@@ -49,12 +49,12 @@ function Filters({fullStandings, setConferences, setDivisions}) {
             setSelectedConferences(uniqueConfs);
             setSelectedDivisions(uniqueDivs);
         }
-    }, [fullStandings]);
+    });
 
     useEffect(() => {
         resetFilters();
         getConferencesAndDivisions();
-    }, [resetFilters, getConferencesAndDivisions]);
+    }, [fullStandings, resetFilters]);
 
     return <details>
         <summary>Filters</summary>

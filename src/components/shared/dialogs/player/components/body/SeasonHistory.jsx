@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useEffectEvent, useState} from "react";
 import constants from "../../../../../../data/constants.json";
 import {parseSeason} from "../../../../../../scripts/parsing.js";
 import SingleSelectionButtons from "../../../../common/singleSelectionButtons/SingleSelectionButtons.jsx";
@@ -65,8 +65,8 @@ function SeasonHistory({player}) {
         }
     }
 
-    function getPlayerStatsBySeason(seasonData) {
-        let nhlSeasons = seasonData.filter(season => season.leagueAbbrev === "NHL");
+    const getSeasonalStats = useEffectEvent(() => {
+        let nhlSeasons = player.seasonTotals.filter(season => season.leagueAbbrev === "NHL");
         let years = [];
         for (let i = 0; i < nhlSeasons.length; i++) {
             let sameSeasons = [nhlSeasons[i]];
@@ -84,54 +84,56 @@ function SeasonHistory({player}) {
         }
         years.reverse();
         setSeasons(years);
-    }
+    });
 
-    function getSeasonalStats() {
-        getPlayerStatsBySeason(player.seasonTotals);
-    }
+    useEffect(() => {
+        getSeasonalStats();
+    }, []);
 
-    useEffect(getSeasonalStats, [player.seasonTotals]);
-
-    return seasons.length > 0
-           ? <div className={"teamsContent"}>
-               <h2>Season history</h2>
-               <div className={"horizontalFlex seasonHistory"}>
-                   <div className={"verticalFlex seasonButtons"}>
-                       <SingleSelectionButtons buttonData={getSeasons()}
-                                               setData={setSelectedSeasonIndex}
-                                               classes={"seasonButton"}>
-                       </SingleSelectionButtons>
-                   </div>
-                   <div className={"verticalFlex seasonStats"}>
-                       <div className={"horizontalFlex seasonStatsTabs tabs teamsTabs"}>
-                           <SingleSelectionButtons buttonData={getSeasonTypes()}
-                                                   setData={setSelectedSeasonType}
-                                                   classes={"tab teamsTab"}>
-                           </SingleSelectionButtons>
-                       </div>
-                       {
-                           selectedSeasonType === "season"
-                           ? getValidStats(seasons[selectedSeasonIndex]
-                               .filter(teamsTypes => teamsTypes.gameTypeId === constants.gameType.season.index))
-                               .map(teamsTypes =>
-                                   <SeasonStatistics key={teamsTypes.teamName.default}
-                                                     player={player}
-                                                     teamsTypes={teamsTypes}>
-                                   </SeasonStatistics>
-                               )
-                           : getValidStats(seasons[selectedSeasonIndex]
-                               .filter(teamsTypes => teamsTypes.gameTypeId === constants.gameType.playoff.index))
-                               .map(teamsTypes =>
-                                   <SeasonStatistics key={teamsTypes.teamName}
-                                                     player={player}
-                                                     teamsTypes={teamsTypes}>
-                                   </SeasonStatistics>
-                               )
-                       }
-                   </div>
-               </div>
-           </div>
-           : null;
+    return <>
+        {
+            seasons.length > 0
+            ? <div className={"teamsContent"}>
+                <h2>Season history</h2>
+                <div className={"horizontalFlex seasonHistory"}>
+                    <div className={"verticalFlex seasonButtons"}>
+                        <SingleSelectionButtons buttonData={getSeasons()}
+                                                setData={setSelectedSeasonIndex}
+                                                classes={"seasonButton"}>
+                        </SingleSelectionButtons>
+                    </div>
+                    <div className={"verticalFlex seasonStats"}>
+                        <div className={"horizontalFlex seasonStatsTabs tabs teamsTabs"}>
+                            <SingleSelectionButtons buttonData={getSeasonTypes()}
+                                                    setData={setSelectedSeasonType}
+                                                    classes={"tab teamsTab"}>
+                            </SingleSelectionButtons>
+                        </div>
+                        {
+                            selectedSeasonType === "season"
+                            ? getValidStats(seasons[selectedSeasonIndex]
+                                .filter(teamsTypes => teamsTypes.gameTypeId === constants.gameType.season.index))
+                                .map(teamsTypes =>
+                                    <SeasonStatistics key={teamsTypes.teamName.default}
+                                                      player={player}
+                                                      teamsTypes={teamsTypes}>
+                                    </SeasonStatistics>
+                                )
+                            : getValidStats(seasons[selectedSeasonIndex]
+                                .filter(teamsTypes => teamsTypes.gameTypeId === constants.gameType.playoff.index))
+                                .map(teamsTypes =>
+                                    <SeasonStatistics key={teamsTypes.teamName}
+                                                      player={player}
+                                                      teamsTypes={teamsTypes}>
+                                    </SeasonStatistics>
+                                )
+                        }
+                    </div>
+                </div>
+            </div>
+            : null
+        }
+    </>;
 }
 
 export default SeasonHistory;

@@ -15,27 +15,18 @@ function AwardDialog({dialogReference, trophy, trophyWinners, fetchState, errorM
         dialogReference.current.close();
     }
 
-    function renderContent(content) {
-        if (dialogReference && dialogReference.current) {
-            dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
-        }
-        return content;
-    }
-
     return <dialog ref={dialogReference}
                    aria-label={"Trophy information"}
                    tabIndex={-1}
                    onKeyDown={resetDialogOnEscape}>
         {
-            renderContent(
-                <DialogContent fetchState={fetchState}
-                               closeDialog={closeDialog}
-                               errorMessage={errorMessage}
-                               subErrors={subErrors}
-                               headerData={<Header trophy={trophy}></Header>}
-                               bodyData={<Trophy trophy={trophy} trophyWinners={trophyWinners}></Trophy>}>
-                </DialogContent>
-            )
+            <DialogContent fetchState={fetchState}
+                           closeDialog={closeDialog}
+                           errorMessage={errorMessage}
+                           subErrors={subErrors}
+                           headerData={<Header trophy={trophy}></Header>}
+                           bodyData={<Trophy trophy={trophy} trophyWinners={trophyWinners}></Trophy>}>
+            </DialogContent>
         }
     </dialog>;
 }

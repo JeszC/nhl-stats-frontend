@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import GameContent from "../game/components/GameContent.jsx";
 import PlayerContent from "../player/components/PlayerContent.jsx";
@@ -40,12 +40,11 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
         dialogReference.current.close();
     }
 
-    function renderContent(content) {
+    useEffect(() => {
         if (dialogReference && dialogReference.current) {
             dialogReference.current.scrollTo({top: 0, left: 0, behavior: "instant"});
         }
-        return content;
-    }
+    }, [activeView, dialogReference]);
 
     return <dialog ref={dialogReference}
                    className={"playoffDialog"}
@@ -54,35 +53,30 @@ function PlayoffDialog({dialogReference, playoffSeries, fetchState, setFetchStat
                    onKeyDown={resetDialogOnEscape}>
         {
             activeView === constants.dialogViews.playoff
-            ? renderContent(
-                <PlayoffContent setGame={setGame}
-                                selectedSeries={playoffSeries}
-                                fetchState={fetchState}
-                                setFetchState={setFetchState}
-                                closeDialog={closeDialog}
-                                setActiveView={setActiveView}>
-                </PlayoffContent>
-            )
+            ?
+            <PlayoffContent setGame={setGame}
+                            selectedSeries={playoffSeries}
+                            fetchState={fetchState}
+                            setFetchState={setFetchState}
+                            closeDialog={closeDialog}
+                            setActiveView={setActiveView}>
+            </PlayoffContent>
             : activeView === constants.dialogViews.game
-              ? renderContent(
-                    <GameContent selectedGame={game}
-                                 setPlayer={setPlayer}
-                                 setActiveView={setActiveView}
-                                 setPreviousView={setPreviousView}
-                                 fetchState={fetchState}
-                                 setFetchState={setFetchState}
-                                 closeDialog={closeDialog}
-                                 onBack={backToDefaultView}>
-                    </GameContent>
-                )
+              ? <GameContent selectedGame={game}
+                             setPlayer={setPlayer}
+                             setActiveView={setActiveView}
+                             setPreviousView={setPreviousView}
+                             fetchState={fetchState}
+                             setFetchState={setFetchState}
+                             closeDialog={closeDialog}
+                             onBack={backToDefaultView}>
+              </GameContent>
               : activeView === constants.dialogViews.player
-                ? renderContent(
-                        <PlayerContent selectedPlayer={player}
-                                       fetchState={fetchState}
-                                       closeDialog={closeDialog}
-                                       onBack={backToPreviousView}>
-                        </PlayerContent>
-                    )
+                ? <PlayerContent selectedPlayer={player}
+                                 fetchState={fetchState}
+                                 closeDialog={closeDialog}
+                                 onBack={backToPreviousView}>
+                </PlayerContent>
                 : null
         }
     </dialog>;

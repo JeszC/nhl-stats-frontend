@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useEffectEvent, useState} from "react";
 import recordFormats from "../../../../../data/recordFormats.json";
 import {getSeasonID} from "../../../../../scripts/utils.js";
 import DialogContent from "../../shared/DialogContent.jsx";
@@ -45,7 +45,7 @@ function TeamContent({
         return recordFormats.winsLossesOvertimelosses.lastTen.nhlKey;
     }
 
-    function setTeamGames() {
+    const setTeamGames = useEffectEvent(() => {
         if (selectedTeam.schedule) {
             setPastGames(selectedTeam.schedule
                                      .filter(game => new Date(game.startTimeUTC) < new Date())
@@ -56,20 +56,30 @@ function TeamContent({
                                          .filter(game => new Date(game.startTimeUTC) > new Date())
                                          .slice(0, maxGames));
         }
-    }
+    });
+
+    const showInjuries = useEffectEvent(() => {
+        setInjuries([]);
+        try {
+            let injuryData = JSON.parse(JSON.stringify(selectedTeam?.injuries?.playerInjuries));
+            if (injuryData) {
+                for (let player of injuryData) {
+                    player.teamAbbrev = selectedTeam.franchiseInfo[0].triCode;
+                }
+                setInjuries(injuryData);
+            }
+        } catch (ignored) {
+            // Do nothing
+        }
+    });
 
     useEffect(() => {
-        setInjuries([]);
-        let injuryData = selectedTeam?.injuries?.playerInjuries;
-        if (injuryData) {
-            for (let player of injuryData) {
-                player.teamAbbrev = selectedTeam.franchiseInfo[0].triCode;
-            }
-            setInjuries(injuryData);
-        }
-    }, [selectedTeam]);
+        setTeamGames();
+    }, [selectedTeam.schedule]);
 
-    useEffect(setTeamGames, [selectedTeam.schedule]);
+    useEffect(() => {
+        showInjuries();
+    }, [selectedTeam]);
 
     return <DialogContent fetchState={fetchState}
                           closeDialog={closeDialog}

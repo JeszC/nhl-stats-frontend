@@ -1,8 +1,8 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useEffectEvent, useState} from "react";
 import constants from "../../../../data/constants.json";
+import {fixAbbreviation} from "../../../../scripts/parsing.js";
 import {getResponseData, getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
-import {fixAbbreviation} from "../../../../scripts/parsing.js";
 
 function Signings({teams}) {
     const [signings, setSignings] = useState([]);
@@ -37,7 +37,7 @@ function Signings({teams}) {
         return await getResponseData(signingsResponse, "Error fetching signings.");
     }, [fetchOffset]);
 
-    useEffect(() => {
+    const showSigningsOnPage = useEffectEvent(() => {
         if (!areAllSigningsFetched) {
             setFetchState(constants.fetchState.loading);
             getSignings()
@@ -50,6 +50,10 @@ function Signings({teams}) {
                 })
                 .catch(ignored => setFetchState(constants.fetchState.error));
         }
+    });
+
+    useEffect(() => {
+        showSigningsOnPage();
     }, [areAllSigningsFetched, getSignings]);
 
     return signings.length === 0
