@@ -24,7 +24,9 @@ function TeamRoster({selectedTeam, setPlayer, setFetchState, setActiveView}) {
         }
     });
 
-    useEffect(setUpOnLoad, [setUpOnLoad]);
+    useEffect(() => {
+        setUpOnLoad();
+    }, []);
 
     return <div className={"teamsContent teamsRoster"}>
         <h2 className={"teamsRosterHeader"}>Roster</h2>
