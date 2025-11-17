@@ -1,4 +1,3 @@
-import {useCallback} from "react";
 import constants from "../../../../../data/constants.json";
 import goalieStandings from "../../../../../data/goalieStandings.json";
 import skaterStandings from "../../../../../data/skaterStandings.json";
@@ -16,7 +15,7 @@ function TableContent({
                           numberOfPlayersToShowPerPage
                       }) {
 
-    const openDialog = useCallback(async playerID => {
+    async function openDialog(playerID) {
         setSelectedPlayer({});
         setPlayerFetchState(constants.fetchState.loading);
         dialog.current.showModal();
@@ -31,16 +30,16 @@ function TableContent({
         } catch (ignored) {
             setPlayerFetchState(constants.fetchState.error);
         }
-    }, [dialog, dialog.current, setSelectedPlayer, setPlayerFetchState]);
+    }
 
-    const openDialogKeyboard = useCallback(async (event, playerID) => {
+    async function openDialogKeyboard(event, playerID) {
         if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             await openDialog(playerID);
         }
-    }, [openDialog]);
+    }
 
-    const renderPlayers = useCallback(isGoalies => {
+    function renderPlayers(isGoalies) {
         let players = isGoalies ? goalies : skaters;
         let upperLimit = Math.min((page + 1) * numberOfPlayersToShowPerPage, players.length);
         let rows = [];
@@ -58,7 +57,7 @@ function TableContent({
             );
         }
         return rows;
-    }, [goalies, skaters, numberOfPlayersToShowPerPage, page, sortedColumn, openDialog, openDialogKeyboard]);
+    }
 
     return <>
         {
