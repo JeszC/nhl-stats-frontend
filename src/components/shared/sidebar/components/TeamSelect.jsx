@@ -32,42 +32,43 @@ function TeamSelect({season, localStorageKey, setSelectedTeams, fetchState, setF
         localStorage.removeItem(localStorageKey);
     }
 
-    async function getTeams(season) {
-        let response = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
-        return await getResponseData(response, "Error fetching teams.");
-    }
-
-    function selectOptions() {
-        let savedTeams = JSON.parse(localStorage.getItem(localStorageKey));
-        if (savedTeams) {
-            let options = Array.from(teamSelect.current);
-            options.filter(option => savedTeams.some(team => team.teamAbbrev === option.value))
-                   .forEach(option => {
-                       option.selected = true;
-                   });
+    useEffect(() => {
+        function selectOptions() {
+            let savedTeams = JSON.parse(localStorage.getItem(localStorageKey));
+            if (savedTeams) {
+                let options = Array.from(teamSelect.current);
+                options.filter(option => savedTeams.some(team => team.teamAbbrev === option.value))
+                       .forEach(option => {
+                           option.selected = true;
+                       });
+            }
         }
-    }
 
-    function fetchTeamsForSeason() {
-        if (season) {
-            setTeams([]);
-            getTeams(season)
-                .then(result => setTeams(result))
-                .catch(() => setFetchState(constants.fetchState.error));
+        selectOptions();
+    }, [localStorageKey, teams]);
+
+    useEffect(() => {
+        async function getTeams(season) {
+            let response = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
+            return await getResponseData(response, "Error fetching teams.");
         }
-    }
 
-    function setUpOnLoad() {
+        function fetchTeamsForSeason() {
+            if (season) {
+                setTeams([]);
+                getTeams(season)
+                    .then(result => setTeams(result))
+                    .catch(() => setFetchState(constants.fetchState.error));
+            }
+        }
+
+        fetchTeamsForSeason();
+    }, [fetchTrigger, season, setFetchState]);
+
+    useEffect(() => {
         let savedTeams = JSON.parse(localStorage.getItem(localStorageKey)) ?? [];
         setSelectedTeams(savedTeams);
-    }
-
-    useEffect(selectOptions, [localStorageKey, teams]);
-
-    useEffect(fetchTeamsForSeason, [fetchTrigger, season, setFetchState]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [localStorageKey, setSelectedTeams]);
 
     return <>
         <label className={"labelTitle"}>
