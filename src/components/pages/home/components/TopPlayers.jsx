@@ -57,29 +57,30 @@ function TopPlayers({players, headerText, areGoalies}) {
         return [];
     }
 
-    function setUpOnLoad() {
-        for (let upperCategory of Object.keys(homeCategories.upperCategories)) {
-            if (homeCategories.upperCategories[upperCategory].default) {
-                setUpperCategory(upperCategory);
-            }
-        }
-        if (areGoalies) {
-            for (let lowerCategory of Object.keys(homeCategories.lowerCategoriesGoalie)) {
-                if (homeCategories.lowerCategoriesGoalie[lowerCategory].default) {
-                    setLowerCategory(lowerCategory);
+    useEffect(() => {
+        function createCategories() {
+            for (let upperCategory of Object.keys(homeCategories.upperCategories)) {
+                if (homeCategories.upperCategories[upperCategory].default) {
+                    setUpperCategory(upperCategory);
                 }
             }
-        } else {
-            for (let lowerCategory of Object.keys(homeCategories.lowerCategoriesSkater)) {
-                if (homeCategories.lowerCategoriesSkater[lowerCategory].default) {
-                    setLowerCategory(lowerCategory);
+            if (areGoalies) {
+                for (let lowerCategory of Object.keys(homeCategories.lowerCategoriesGoalie)) {
+                    if (homeCategories.lowerCategoriesGoalie[lowerCategory].default) {
+                        setLowerCategory(lowerCategory);
+                    }
+                }
+            } else {
+                for (let lowerCategory of Object.keys(homeCategories.lowerCategoriesSkater)) {
+                    if (homeCategories.lowerCategoriesSkater[lowerCategory].default) {
+                        setLowerCategory(lowerCategory);
+                    }
                 }
             }
         }
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+        createCategories();
+    }, [areGoalies]);
 
     return <div>
         <h2>{headerText}</h2>
