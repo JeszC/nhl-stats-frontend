@@ -2,36 +2,23 @@ import {useCallback, useState} from "react";
 
 function SingleSelectionButtons({buttonData, setData, classes, selectionClasses}) {
     const [selectedButton, setSelectedButton] = useState(null);
-    const selectedItemClassNames = ["selectedSingleSelectionButton", ...(selectionClasses ? selectionClasses : [])];
+    const separator = " ";
+    const selectedClassNames = `selectedSingleSelectionButton ${selectionClasses?.toString().replace(",", separator)}`;
 
     const highlightDefaultButton = useCallback(defaultButton => {
         if (defaultButton) {
-            addSelectionClasses(defaultButton);
+            defaultButton.classList.add(...selectedClassNames.split(separator));
             setSelectedButton(defaultButton);
         }
-        // Following eslint recommendations breaks the buttons visually, which is why this rule is ignored.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [selectedClassNames]);
 
     function selectButton(event) {
         setData(event.target.value);
         if (selectedButton) {
-            removeSelectionClasses(selectedButton);
+            selectedButton.classList.remove(...selectedClassNames.split(separator));
         }
-        addSelectionClasses(event.target);
+        event.target.classList.add(...selectedClassNames.split(separator));
         setSelectedButton(event.target);
-    }
-
-    function addSelectionClasses(target) {
-        for (let selectedItemClassName of selectedItemClassNames) {
-            target.classList.add(selectedItemClassName);
-        }
-    }
-
-    function removeSelectionClasses(target) {
-        for (let selectedItemClassName of selectedItemClassNames) {
-            target.classList.remove(selectedItemClassName);
-        }
     }
 
     return <>
