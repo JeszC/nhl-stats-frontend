@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {getResponseData} from "../../../../scripts/utils.js";
 
@@ -6,26 +6,6 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
     const [seasons, setSeasons] = useState([]);
     const seasonSelect = useRef(null);
     const earliestSeason = 2000;
-
-    const applySavedSeason = useCallback(() => {
-        let season = localStorage.getItem(localStorageKey);
-        if (season) {
-            setSelectedSeasons(season);
-            let options = Array.from(seasonSelect.current);
-            options.forEach(option => {
-                if (option.value === season) {
-                    option.selected = true;
-                }
-            });
-        } else {
-            let options = Array.from(seasonSelect.current);
-            if (options.length > 0) {
-                let latestSeason = options[options.length - 1];
-                latestSeason.selected = true;
-                setSelectedSeasons(latestSeason.value);
-            }
-        }
-    }, [localStorageKey, setSelectedSeasons]);
 
     function applySelection() {
         let selectedSeason = seasonSelect.current.value;
@@ -38,36 +18,58 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
         setFetchTrigger(previousFetchTrigger => previousFetchTrigger + 1);
     }
 
-    async function getLatestSeason() {
-        let latestSeasonResponse = await fetch(`${constants.baseURL}/home/getLatestUpcomingSeason`);
-        return await getResponseData(latestSeasonResponse, "Error fetching latest season.");
-    }
-
-    async function getSeasons() {
-        let latestSeasonStartYear = 0;
-        try {
-            latestSeasonStartYear = parseInt((await getLatestSeason()).slice(0, 4));
-        } catch (ignored) {
-            setFetchState(constants.fetchState.error);
+    useEffect(() => {
+        function applySavedSeason() {
+            let season = localStorage.getItem(localStorageKey);
+            if (season) {
+                setSelectedSeasons(season);
+                let options = Array.from(seasonSelect.current);
+                options.forEach(option => {
+                    if (option.value === season) {
+                        option.selected = true;
+                    }
+                });
+            } else {
+                let options = Array.from(seasonSelect.current);
+                if (options.length > 0) {
+                    let latestSeason = options[options.length - 1];
+                    latestSeason.selected = true;
+                    setSelectedSeasons(latestSeason.value);
+                }
+            }
         }
-        let seasons = [];
-        for (let i = earliestSeason; i <= latestSeasonStartYear; i++) {
-            seasons.push({
-                title: `${i}-${i + 1}`,
-                value: i.toString() + (i + 1).toString()
+
+        applySavedSeason();
+    }, [seasons, localStorageKey, setSelectedSeasons]);
+
+    useEffect(() => {
+        async function getLatestSeason() {
+            let latestSeasonResponse = await fetch(`${constants.baseURL}/home/getLatestUpcomingSeason`);
+            return await getResponseData(latestSeasonResponse, "Error fetching latest season.");
+        }
+
+        async function getSeasons() {
+            let latestSeasonStartYear = 0;
+            try {
+                latestSeasonStartYear = parseInt((await getLatestSeason()).slice(0, 4));
+            } catch (ignored) {
+                setFetchState(constants.fetchState.error);
+            }
+            let seasons = [];
+            for (let i = earliestSeason; i <= latestSeasonStartYear; i++) {
+                seasons.push({
+                    title: `${i}-${i + 1}`,
+                    value: i.toString() + (i + 1).toString()
+                });
+            }
+            return seasons;
+        }
+
+        getSeasons()
+            .then(result => {
+                setSeasons(result);
             });
-        }
-        return seasons;
-    }
-
-    function setUpOnLoad() {
-        getSeasons().then(result => setSeasons(result));
-    }
-
-    useEffect(() => applySavedSeason(), [seasons, applySavedSeason]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [setFetchState]);
 
     return <>
         <label className={"labelTitle"}>

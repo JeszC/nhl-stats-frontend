@@ -48,7 +48,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
         return await getResponseData(response, "Error fetching trophy winners.");
     }
 
-    function setUpOnLoad() {
+    useEffect(() => {
         document.title = "Season Awards";
         setShowOptions(false);
         fetchDataAndHandleErrors(
@@ -60,10 +60,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
             setErrorMessage,
             setSubErrors,
             setFetchState);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [setShowOptions]);
 
     return <>
         <SidebarOptions showSidebar={showOptions} title={"Options"}></SidebarOptions>

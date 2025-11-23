@@ -66,12 +66,9 @@ function TopTeams({teams}) {
         }
     }
 
-    function setUpOnLoad() {
+    useEffect(() => {
         setTopTeams(teams.slice(0, 10));
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [teams]);
 
     return <div>
         <h2>Top teams</h2>
