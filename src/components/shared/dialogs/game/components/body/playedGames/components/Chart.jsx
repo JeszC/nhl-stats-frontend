@@ -125,29 +125,6 @@ function Chart({game}) {
         }
     }, [drawTeamMarkerBasedOnPeriod, game.plays]);
 
-    const draw = useCallback((context, xScale, yScale, data) => {
-        if (type === "goals") {
-            drawDots(data.goals, "red", context, xScale, yScale);
-        } else if (type === "shots") {
-            drawDots(data.shots, "blue", context, xScale, yScale);
-        } else if (type === "hits") {
-            drawDots(data.hits, "green", context, xScale, yScale);
-        } else if (type === "penalties") {
-            drawDots(data.penalties, "purple", context, xScale, yScale);
-        } else if (type === "faceoffs") {
-            drawFaceoffCounts(data.faceoffs, "black", context, xScale, yScale);
-        }
-    }, [type]);
-
-    function drawEvents() {
-        let context = canvas.current.getContext("2d");
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(0, 0, canvas.current.width, canvas.current.height);
-        context.translate(width / 2, height / 2);
-        drawTeamMarkers(context);
-        draw(context, width / 200, height / 85, filterByPeriodAndTeam(data, period, team));
-    }
-
     function drawDots(data, style, context, xScale, yScale) {
         let size = 10;
         let sizeX = size * xScale / 5;
@@ -195,18 +172,19 @@ function Chart({game}) {
         }
     }
 
-    function makeFaceoffDataStructure() {
-        let faceoffPositions = {};
-        for (let i = 0; i <= game.periodDescriptor.number; i++) {
-            faceoffPositions[i] = {};
-            if (i > 0) {
-                faceoffPositions[i].total = {};
-                faceoffPositions[i][game.awayTeam.id] = {};
-                faceoffPositions[i][game.homeTeam.id] = {};
-            }
+    const draw = useCallback((context, xScale, yScale, data) => {
+        if (type === "goals") {
+            drawDots(data.goals, "red", context, xScale, yScale);
+        } else if (type === "shots") {
+            drawDots(data.shots, "blue", context, xScale, yScale);
+        } else if (type === "hits") {
+            drawDots(data.hits, "green", context, xScale, yScale);
+        } else if (type === "penalties") {
+            drawDots(data.penalties, "purple", context, xScale, yScale);
+        } else if (type === "faceoffs") {
+            drawFaceoffCounts(data.faceoffs, "black", context, xScale, yScale);
         }
-        return faceoffPositions;
-    }
+    }, [type]);
 
     function addFaceoffCounts(playByPlayFaceoffs, faceoffData) {
         for (let faceoff of playByPlayFaceoffs) {
@@ -229,66 +207,92 @@ function Chart({game}) {
         }
     }
 
-    function addFaceoffWins(faceoffData) {
-        for (let i = 1; i <= game.periodDescriptor.number; i++) {
-            let periodFaceoffs = faceoffData[i];
-            for (let key of Object.keys(periodFaceoffs)) {
-                if (key !== "total") {
-                    let teamPeriodFaceoffs = periodFaceoffs[key];
-                    for (let faceoffPosition of Object.keys(teamPeriodFaceoffs)) {
-                        let teamWins = teamPeriodFaceoffs[faceoffPosition];
-                        let totalFaceoffs = periodFaceoffs.total[faceoffPosition];
-                        teamPeriodFaceoffs[faceoffPosition] = `${teamWins}/${totalFaceoffs}`;
+    useEffect(() => {
+        function drawEvents() {
+            let context = canvas.current.getContext("2d");
+            context.setTransform(1, 0, 0, 1, 0, 0);
+            context.clearRect(0, 0, canvas.current.width, canvas.current.height);
+            context.translate(width / 2, height / 2);
+            drawTeamMarkers(context);
+            draw(context, width / 200, height / 85, filterByPeriodAndTeam(data, period, team));
+        }
+
+        drawEvents();
+    }, [period, type, team, data, width, height, draw, drawTeamMarkers]);
+
+    useEffect(() => {
+        function addFaceoffWins(faceoffData) {
+            for (let i = 1; i <= game.periodDescriptor.number; i++) {
+                let periodFaceoffs = faceoffData[i];
+                for (let key of Object.keys(periodFaceoffs)) {
+                    if (key !== "total") {
+                        let teamPeriodFaceoffs = periodFaceoffs[key];
+                        for (let faceoffPosition of Object.keys(teamPeriodFaceoffs)) {
+                            let teamWins = teamPeriodFaceoffs[faceoffPosition];
+                            let totalFaceoffs = periodFaceoffs.total[faceoffPosition];
+                            teamPeriodFaceoffs[faceoffPosition] = `${teamWins}/${totalFaceoffs}`;
+                        }
                     }
                 }
             }
         }
-    }
 
-    function getFaceoffCounts(playByPlayFaceoffs) {
-        let faceoffData = makeFaceoffDataStructure();
-        addFaceoffCounts(playByPlayFaceoffs, faceoffData);
-        addFaceoffWins(faceoffData);
-        return faceoffData;
-    }
-
-    function addEventsToData() {
-        let goals = [];
-        let shots = [];
-        let hits = [];
-        let penalties = [];
-        let faceoffs = [];
-        for (let play of game.plays) {
-            switch (play.typeDescKey) {
-                case "goal":
-                    goals.push(play);
-                    break;
-                case "shot-on-goal":
-                    shots.push(play);
-                    break;
-                case "hit":
-                    hits.push(play);
-                    break;
-                case "penalty":
-                    penalties.push(play);
-                    break;
-                case "faceoff":
-                    faceoffs.push(play);
-                    break;
-                default:
-                    break;
+        function makeFaceoffDataStructure() {
+            let faceoffPositions = {};
+            for (let i = 0; i <= game.periodDescriptor.number; i++) {
+                faceoffPositions[i] = {};
+                if (i > 0) {
+                    faceoffPositions[i].total = {};
+                    faceoffPositions[i][game.awayTeam.id] = {};
+                    faceoffPositions[i][game.homeTeam.id] = {};
+                }
             }
+            return faceoffPositions;
         }
-        setData({
-            goals,
-            shots,
-            hits,
-            penalties,
-            faceoffs: getFaceoffCounts(faceoffs)
-        });
-    }
 
-    function setUpOnLoad() {
+        function getFaceoffCounts(playByPlayFaceoffs) {
+            let faceoffData = makeFaceoffDataStructure();
+            addFaceoffCounts(playByPlayFaceoffs, faceoffData);
+            addFaceoffWins(faceoffData);
+            return faceoffData;
+        }
+
+        function addEventsToData() {
+            let goals = [];
+            let shots = [];
+            let hits = [];
+            let penalties = [];
+            let faceoffs = [];
+            for (let play of game.plays) {
+                switch (play.typeDescKey) {
+                    case "goal":
+                        goals.push(play);
+                        break;
+                    case "shot-on-goal":
+                        shots.push(play);
+                        break;
+                    case "hit":
+                        hits.push(play);
+                        break;
+                    case "penalty":
+                        penalties.push(play);
+                        break;
+                    case "faceoff":
+                        faceoffs.push(play);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            setData({
+                goals,
+                shots,
+                hits,
+                penalties,
+                faceoffs: getFaceoffCounts(faceoffs)
+            });
+        }
+
         const onResize = () => {
             if (backgroundImage.current) {
                 let imageWidth = backgroundImage.current.width;
@@ -302,15 +306,11 @@ function Chart({game}) {
                 }
             }
         };
+
         window.addEventListener("resize", onResize);
         addEventsToData();
         return () => window.removeEventListener("resize", onResize);
-    }
-
-    useEffect(drawEvents, [period, type, team, data, width, height, draw, drawTeamMarkers]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [game.plays, game.periodDescriptor.number, game.awayTeam.id, game.homeTeam.id]);
 
     return <details className={"gamesContent"} open>
         <summary className={"gamesTitle"}>Event chart</summary>

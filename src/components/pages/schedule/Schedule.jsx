@@ -33,13 +33,6 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
     const [errorMessage, setErrorMessage] = useState("");
     const [subErrors, setSubErrors] = useState([]);
 
-    function applySavedView() {
-        let savedView = localStorage.getItem(constants.localStorageKeys.schedule.view);
-        if (savedView && savedView.trim().toLowerCase() === "true") {
-            setShowTable(true);
-        }
-    }
-
     const getSeasonDates = useCallback(async season => {
         let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
         return await getResponseData(response, "Error fetching season dates.");
@@ -93,12 +86,6 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         setFetchState(constants.fetchState.finished);
     }, [getGames, getSeasonDates, selectedSeason, selectedTeams]);
 
-    function setUpOnLoad() {
-        document.title = "Team Schedules";
-        setShowOptions(true);
-        applySavedView();
-    }
-
     useEffect(() => {
         fetchDataAndHandleErrors(
             fetchSelectedTeamSchedules,
@@ -109,8 +96,18 @@ function Schedule({showOptions, setShowOptions, showHelp}) {
         );
     }, [fetchSelectedTeamSchedules, fetchTrigger]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    useEffect(() => {
+        function applySavedView() {
+            let savedView = localStorage.getItem(constants.localStorageKeys.schedule.view);
+            if (savedView && savedView.trim().toLowerCase() === "true") {
+                setShowTable(true);
+            }
+        }
+
+        document.title = "Team Schedules";
+        setShowOptions(true);
+        applySavedView();
+    }, [setShowOptions]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}

@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Atom from "../../shared/animations/atom/Atom";
@@ -36,12 +36,12 @@ function Home({showOptions, setShowOptions, showHelp}) {
         return `${year}-${month}-${date}`;
     }
 
-    async function getUpcomingGames() {
+    const getUpcomingGames = useCallback(async () => {
         let todayLosAngeles = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
         let todayDateString = getLocalDateString(todayLosAngeles);
         let upcomingGamesResponse = await fetch(`${constants.baseURL}/home/getUpcomingGames/${todayDateString}`);
         return await getResponseData(upcomingGamesResponse, "Error fetching upcoming games.");
-    }
+    }, []);
 
     async function getTopTeams() {
         let teamResponse = await fetch(`${constants.baseURL}/home/getTopTen/teams`);
@@ -74,7 +74,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
         return await getResponseData(injuryResponse, "Error fetching injuries.");
     }
 
-    async function getData() {
+    const getData = useCallback(async () => {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
             getUpcomingGames(),
@@ -91,16 +91,13 @@ function Home({showOptions, setShowOptions, showHelp}) {
         setPlayoffTree(responses[4]);
         setInjuries(responses[5]);
         setFetchState(constants.fetchState.finished);
-    }
+    }, [getUpcomingGames]);
 
-    function setUpOnLoad() {
+    useEffect(() => {
         document.title = "Home";
         setShowOptions(false);
         fetchDataAndHandleErrors(getData, null, setErrorMessage, setSubErrors, setFetchState);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [setShowOptions, getData]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
