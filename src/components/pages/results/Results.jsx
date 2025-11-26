@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars";
@@ -51,7 +51,7 @@ function Results({showOptions, setShowOptions, showHelp}) {
         return `${year}-${month}-${date}`;
     }
 
-    function getGameLocalDates(games) {
+    const getGameLocalDates = useCallback(games => {
         let dates = [];
         for (let game of games) {
             let gameDate = getLocalDateString(game.startTimeUTC);
@@ -60,9 +60,9 @@ function Results({showOptions, setShowOptions, showHelp}) {
             }
         }
         return dates.slice(Math.max(dates.length - daysToShow, 0), dates.length);
-    }
+    }, []);
 
-    function getResultsByLocalDate(games, dates) {
+    const getResultsByLocalDate = useCallback((games, dates) => {
         let results = [];
         for (let date of dates) {
             let gameDate = {
@@ -72,9 +72,9 @@ function Results({showOptions, setShowOptions, showHelp}) {
             results.push(gameDate);
         }
         return results;
-    }
+    }, []);
 
-    async function fetchResults() {
+    const fetchResults = useCallback(async () => {
         setFetchState(constants.fetchState.loading);
         let today = new Date();
         let startDate = new Date().setDate(today.getDate() - daysToFetch);
@@ -84,9 +84,9 @@ function Results({showOptions, setShowOptions, showHelp}) {
         let resultsByLocalDate = getResultsByLocalDate(games, localDates);
         setResults(resultsByLocalDate);
         setFetchState(constants.fetchState.finished);
-    }
+    }, [getGameLocalDates, getResultsByLocalDate]);
 
-    function setUpOnLoad() {
+    useEffect(() => {
         document.title = "Game Results";
         setShowOptions(false);
         fetchDataAndHandleErrors(
@@ -95,10 +95,7 @@ function Results({showOptions, setShowOptions, showHelp}) {
             setErrorMessage,
             setSubErrors,
             setFetchState);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [setShowOptions, fetchResults]);
 
     return <>
         <SidebarOptions showSidebar={showOptions} title={"Options"}></SidebarOptions>
