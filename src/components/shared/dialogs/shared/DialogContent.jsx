@@ -8,13 +8,11 @@ import CloseButtonIcon from "../../images/Close.svg";
 function DialogContent({headerData, bodyData, fetchState, onBack, closeDialog, errorMessage, subErrors}) {
     const backButton = useRef(null);
 
-    function setUpOnLoad() {
+    useEffect(() => {
         if (backButton.current) {
             backButton.current.focus();
         }
-    }
-
-    useEffect(setUpOnLoad, []);
+    }, []);
 
     return <>
         <div className={"horizontalFlex gamesSummary"}>

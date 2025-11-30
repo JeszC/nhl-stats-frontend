@@ -1,4 +1,4 @@
-import {useEffect, useEffectEvent, useState} from "react";
+import {useEffect, useState} from "react";
 
 function Biography({player}) {
     const [showMoreButtonVisible, setShowMoreButtonVisible] = useState(false);
@@ -82,21 +82,21 @@ function Biography({player}) {
         }
     }
 
-    function setShowMoreButtonStyle() {
-        let biographyElement = Array.from(document.getElementsByClassName("biography"));
-        if (biographyElement.length > 0) {
-            let biographyStyle = window.getComputedStyle(biographyElement[0]);
-            let biographyHeight = parseInt(biographyStyle.height);
-            let biographyMaxHeight = parseInt(biographyStyle.maxHeight);
-            biographyHeight >= biographyMaxHeight ? setShowMoreButtonVisible(true) : setShowMoreButtonVisible(false);
-        } else {
-            setShowMoreButtonVisible(false);
+    useEffect(() => {
+        function setShowMoreButtonStyle() {
+            let biographyElement = Array.from(document.getElementsByClassName("biography"));
+            if (biographyElement.length > 0) {
+                let biographyStyle = window.getComputedStyle(biographyElement[0]);
+                let biographyHeight = parseInt(biographyStyle.height);
+                let biographyMaxHeight = parseInt(biographyStyle.maxHeight);
+                biographyHeight >= biographyMaxHeight ? setShowMoreButtonVisible(true) : setShowMoreButtonVisible(false);
+            } else {
+                setShowMoreButtonVisible(false);
+            }
         }
-    }
 
-    const setUpOnLoad = useEffectEvent(() => setShowMoreButtonStyle());
-
-    useEffect(setUpOnLoad, [setUpOnLoad]);
+        setShowMoreButtonStyle();
+    }, []);
 
     return <>
         {

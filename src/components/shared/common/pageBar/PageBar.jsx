@@ -44,7 +44,9 @@ function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
         }
     });
 
-    useEffect(showOrHideBottomBorder, [items, options, page, showOrHideBottomBorder]);
+    useEffect(() => {
+        showOrHideBottomBorder();
+    }, [items, options, page]);
 
     return <div className={hideBottomBorder ? "horizontalFlex pageBar noBottomBorder" : "horizontalFlex pageBar"}>
         <button type={"button"}

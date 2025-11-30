@@ -44,20 +44,22 @@ function CalendarHeader({year, month, setYear, setMonth, seasonStart, seasonEnd}
         setMonth(seasonEnd.getMonth());
     }
 
-    function setCalendarDefaultView() {
-        if (seasonStart && seasonEnd) {
-            let today = new Date();
-            if (today > seasonStart && today < seasonEnd) {
-                setMonth(today.getMonth());
-                setYear(today.getFullYear());
-            } else {
-                setMonth(seasonStart.getMonth());
-                setYear(seasonStart.getFullYear());
+    useEffect(() => {
+        function setCalendarDefaultView() {
+            if (seasonStart && seasonEnd) {
+                let today = new Date();
+                if (today > seasonStart && today < seasonEnd) {
+                    setMonth(today.getMonth());
+                    setYear(today.getFullYear());
+                } else {
+                    setMonth(seasonStart.getMonth());
+                    setYear(seasonStart.getFullYear());
+                }
             }
         }
-    }
 
-    useEffect(setCalendarDefaultView, [seasonStart, seasonEnd, setMonth, setYear]);
+        setCalendarDefaultView();
+    }, [seasonStart, seasonEnd, setMonth, setYear]);
 
     return <div className={"calendarHeader"}>
         <div className={"horizontalFlex"}>
