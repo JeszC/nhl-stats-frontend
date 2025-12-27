@@ -1,14 +1,21 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useEffectEvent, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import goalieStandings from "../../../data/goalieStandings.json";
 import skaterStandings from "../../../data/skaterStandings.json";
 import {getPlayerFirstName, getPlayerLastName} from "../../../scripts/parsing.js";
-import {compareTextual, getResponseData, getValue, sortObjects} from "../../../scripts/utils.js";
+import {
+    compareTextual,
+    fetchDataAndHandleErrors,
+    getResponseData,
+    getValue,
+    sortObjects
+} from "../../../scripts/utils.js";
 import Spinner from "../../shared/animations/spinner/Spinner";
 import PageBar from "../../shared/common/pageBar/PageBar.jsx";
 import PlayerDialog from "../../shared/dialogs/player/PlayerDialog";
 import ErrorDialog from "../../shared/errors/ErrorDialog";
 import ErrorDialogLockout from "../../shared/errors/ErrorDialogLockout";
+import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry.jsx";
 import ErrorDialogSeasonUnstarted from "../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SeasonSelect from "../../shared/sidebar/components/SeasonSelect";
@@ -63,6 +70,8 @@ function Players({showOptions, setShowOptions, showHelp}) {
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const [sortedColumn, setSortedColumn] = useState(0);
     const [seasonStarted, setSeasonStarted] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [subErrors, setSubErrors] = useState([]);
     const defaultSkaterHeader = useRef(null);
     const defaultGoalieHeader = useRef(null);
     const dialog = useRef(null);
@@ -83,7 +92,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
         setSorting({key, ascending, target});
     }
 
-    function applySavedView() {
+    const applySavedView = useEffectEvent(() => {
         let savedView = localStorage.getItem(constants.localStorageKeys.player.view);
         if (savedView && savedView.trim().toLowerCase() === "true") {
             setShowGoalies(true);
@@ -91,7 +100,7 @@ function Players({showOptions, setShowOptions, showHelp}) {
         } else {
             applySorting(defaultSortedCategorySkater, false, defaultSkaterHeader.current);
         }
-    }
+    });
 
     function filterSkaters(skaters, positions, countries) {
         let filteredSkaters = skaters;
@@ -159,15 +168,6 @@ function Players({showOptions, setShowOptions, showHelp}) {
         return teamsThatExistInSeason;
     }
 
-    const getTeamsPlayerStats = useCallback(async (teams, season) => {
-        let teamsThatExistInSeason = await getListOfTeamsThatExistInTheSelectedSeason(teams, season);
-        let teamStats = [];
-        for await (let team of teamsThatExistInSeason) {
-            teamStats.push(getPlayerStats(team.teamAbbrev, season));
-        }
-        return teamStats;
-    }, []);
-
     function setPlayerData() {
         if (fetchState === constants.fetchState.finished) {
             let goalies = [];
@@ -189,42 +189,38 @@ function Players({showOptions, setShowOptions, showHelp}) {
         }
     }
 
-    function getPlayerData() {
-        async function getPlayers() {
-            setFetchState(constants.fetchState.loading);
-            setData([]);
-            setPlayers({skaters: [], goalies: []});
-            setVisibleSkaters([]);
-            setVisibleGoalies([]);
-            setPositions([]);
-            setCountries([]);
-            setShowPlayoffs(false);
-            if (selectedSeason) {
-                setSeasonStarted(await hasSeasonStarted(selectedSeason));
-                try {
-                    let promises = await getTeamsPlayerStats(selectedTeams, selectedSeason);
-                    let result = await Promise.all(promises);
-                    let goalies = [];
-                    let skaters = [];
-                    for (let team of result) {
-                        goalies = goalies.concat(team.regularSeason.goalies);
-                        skaters = skaters.concat(team.regularSeason.skaters);
-                    }
-                    setData(result);
-                    setPlayers({goalies, skaters});
-                    setVisibleGoalies(goalies);
-                    setVisibleSkaters(skaters);
-                    setFetchState(constants.fetchState.finished);
-                } catch (ignored) {
-                    setFetchState(constants.fetchState.error);
-                }
-            } else {
-                setFetchState(constants.fetchState.finished);
+    const getPlayers = useCallback(async () => {
+        setFetchState(constants.fetchState.loading);
+        setData([]);
+        setPlayers({skaters: [], goalies: []});
+        setVisibleSkaters([]);
+        setVisibleGoalies([]);
+        setPositions([]);
+        setCountries([]);
+        setShowPlayoffs(false);
+        if (selectedSeason) {
+            setSeasonStarted(await hasSeasonStarted(selectedSeason));
+            let teamsInSeason = await getListOfTeamsThatExistInTheSelectedSeason(selectedTeams, selectedSeason);
+            let teamStats = [];
+            for await (let team of teamsInSeason) {
+                teamStats.push(getPlayerStats(team.teamAbbrev, selectedSeason));
             }
+            let result = await Promise.all(teamStats);
+            let goalies = [];
+            let skaters = [];
+            for (let team of result) {
+                goalies = goalies.concat(team.regularSeason.goalies);
+                skaters = skaters.concat(team.regularSeason.skaters);
+            }
+            setData(result);
+            setPlayers({goalies, skaters});
+            setVisibleGoalies(goalies);
+            setVisibleSkaters(skaters);
+            setFetchState(constants.fetchState.finished);
+        } else {
+            setFetchState(constants.fetchState.finished);
         }
-
-        getPlayers().then();
-    }
+    }, [selectedSeason, selectedTeams]);
 
     async function hasSeasonStarted(season) {
         let response = await fetch(`${constants.baseURL}/schedule/getSeasonDates/${season}`);
@@ -276,23 +272,22 @@ function Players({showOptions, setShowOptions, showHelp}) {
         }
     }
 
-    function setUpOnLoad() {
-        document.title = "Player Standings";
-        setShowOptions(true);
-        applySavedView();
-    }
-
     useEffect(setPlayerData, [fetchState, showPlayoffs, data]);
 
-    useEffect(getPlayerData, [fetchTrigger, selectedTeams, selectedSeason, getTeamsPlayerStats]);
+    useEffect(() => {
+        fetchDataAndHandleErrors(getPlayers, null, setErrorMessage, setSubErrors, setFetchState);
+    }, [fetchTrigger, selectedTeams, selectedSeason, getPlayers]);
 
     useEffect(filterAndSortPlayers, [fetchState, showGoalies, players.goalies, players.skaters,
                                      countries, positions, searchString, sorting.key, sorting.ascending]);
 
     useEffect(resetPlayerFilters, [showGoalies]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    useEffect(() => {
+        document.title = "Player Standings";
+        setShowOptions(true);
+        applySavedView();
+    }, [setShowOptions]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}
@@ -345,11 +340,22 @@ function Players({showOptions, setShowOptions, showHelp}) {
                         ? <ErrorDialogSeasonUnstarted></ErrorDialogSeasonUnstarted>
                         : null
                 }
-                {fetchState === constants.fetchState.loading ? <Spinner></Spinner> : null}
+                {
+                    fetchState === constants.fetchState.loading ? <Spinner></Spinner> : null
+                }
                 {
                     fetchState === constants.fetchState.error
-                    ? <ErrorDialog errorMessage={"Failed to fetch player standings. The server might be offline."}>
-                    </ErrorDialog>
+                    ? <ErrorDialogRetry
+                        onClick={() => fetchDataAndHandleErrors(
+                            getPlayers,
+                            null,
+                            setErrorMessage,
+                            setSubErrors,
+                            setFetchState)
+                        }
+                        errorMessage={errorMessage}
+                        subErrors={subErrors}>
+                    </ErrorDialogRetry>
                     : null
                 }
                 <table className={"playersTable tableAlternateRows"} aria-label={"Player standings table"}>
