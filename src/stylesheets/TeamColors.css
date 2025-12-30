@@ -1024,11 +1024,7 @@
     --color: #041c2c;
     accent-color: var(--color);
     background-color: var(--color);
-    color: black;
-}
-
-.SEA.day:not(.notThisMonth, .noGame, .default) .currentDayIndicator {
-    filter: invert(0%);
+    color: white;
 }
 
 .SEA.gradient {
@@ -1052,7 +1048,7 @@
 
 .SEA.layerImage {
     background: transparent;
-    filter: invert(0%);
+    filter: invert(100%);
 }
 
 .SJ,
