@@ -214,7 +214,7 @@ function Scoring({game, setPlayer, setActiveView, setPreviousView, setFetchState
             game?.summary?.shootout
             ? <div className={"shootoutShooters"}>
                 {
-                    game?.summary?.shootout?.map(shooter =>
+                    game?.summary?.shootout?.events?.map(shooter =>
                         <div key={shooter.playerId} className={"verticalFlex shootoutShooter"}>
                             <div className={"horizontalFlex shootoutImageAndResult"}>
                                 <button type={"button"}
