@@ -36,7 +36,7 @@ function Staff({game}) {
                         <div className={"horizontalFlex stats scratchStats playersCountryOfBirth"}>
                             <span className={"scratchSingleStat"}>{game.awayTeam.abbrev}</span>
                             {
-                                game.summary.gameInfo.awayTeam.headCoach.nationalityCode
+                                game.summary.gameInfo.awayTeam.headCoach?.nationalityCode
                                 ? <img src={game.summary.gameInfo.awayTeam.headCoach.countryFlag}
                                        alt={`${game.summary.gameInfo.awayTeam.headCoach.nationalityCode} flag`}
                                        title={game.summary.gameInfo.awayTeam.headCoach.nationalityCode}/>
@@ -77,7 +77,7 @@ function Staff({game}) {
                         <div className={"horizontalFlex stats scratchStats playersCountryOfBirth"}>
                             <span className={"scratchSingleStat"}>{game.homeTeam.abbrev}</span>
                             {
-                                game.summary.gameInfo.homeTeam.headCoach.nationalityCode
+                                game.summary.gameInfo.homeTeam.headCoach?.nationalityCode
                                 ? <img src={game.summary.gameInfo.homeTeam.headCoach.countryFlag}
                                        alt={`${game.summary.gameInfo.homeTeam.headCoach.nationalityCode} flag`}
                                        title={game.summary.gameInfo.homeTeam.headCoach.nationalityCode}/>
