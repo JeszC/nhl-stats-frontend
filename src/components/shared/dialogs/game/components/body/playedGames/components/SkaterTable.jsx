@@ -1,12 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import constants from "../../../../../../../../data/constants.json";
 import skaterData from "../../../../../../../../data/skaterStats.json";
-import {
-    getOrdinalNumber,
-    getPlayerName,
-    parseDecimals,
-    parseIceTime
-} from "../../../../../../../../scripts/parsing.js";
+import {getOrdinalNumber, getPlayerName, parseDecimals, parseIceTime} from "../../../../../../../../scripts/parsing.js";
 import {
     compareNumeric,
     compareTextual,
@@ -80,7 +75,7 @@ function SkaterTable({skaters, team, setPlayer, setActiveView, setPreviousView, 
             case columns.player:
                 return <span className={"playerName"}>{getPlayerName(skater)}</span>;
             case columns.faceoffPercentage:
-                return parseDecimals(value);
+                return value === undefined ? "N/A" : parseDecimals(value);
             case columns.timeOnIce:
                 return value === undefined ? parseIceTime("00:00") : parseIceTime(value);
             default:
