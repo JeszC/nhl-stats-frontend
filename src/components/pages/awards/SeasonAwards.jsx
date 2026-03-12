@@ -7,6 +7,7 @@ import ErrorDialogRetry from "../../shared/errors/ErrorDialogRetry.jsx";
 import MainContent from "../../shared/main/MainContent.jsx";
 import SidebarHelp from "../../shared/sidebar/SidebarHelp.jsx";
 import SidebarOptions from "../../shared/sidebar/SidebarOptions.jsx";
+import AwardGrid from "../awards/components/AwardGrid.jsx";
 import "./Awards.css";
 
 function SeasonAwards({showOptions, setShowOptions, showHelp}) {
@@ -87,23 +88,7 @@ function SeasonAwards({showOptions, setShowOptions, showHelp}) {
                     </ErrorDialogRetry>
                     : fetchState === constants.fetchState.loading
                       ? <Bars></Bars>
-                      : <div className={"trophies"}>
-                          {
-                              trophies.map(trophy =>
-                                  <button key={trophy.id}
-                                          type={"button"}
-                                          className={"horizontalFlex trophy"}
-                                          title={"Show trophy details"}
-                                          onClick={() => openDialog(trophy)}>
-                                      <img className={"trophyImageButton"} src={trophy.imageUrl} alt={trophy.name}/>
-                                      <div className={"verticalFlex trophyInformation"}>
-                                          <span className={"trophyName"}>{trophy.name}</span>
-                                          <span>{trophy.briefDescription}</span>
-                                      </div>
-                                  </button>
-                              )
-                          }
-                      </div>
+                      : <AwardGrid awards={trophies} openDialog={openDialog}></AwardGrid>
                 }
                 <AwardDialog dialogReference={dialog}
                              trophy={selectedTrophy}
