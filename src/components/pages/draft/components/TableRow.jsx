@@ -44,7 +44,7 @@ function TableRow({player, index, sortedColumn, teams, dialog, setSelectedPlayer
                 }
                 return "";
             default:
-                return value === undefined || value === null ? "N/A" : column.numeric ? value.toLocaleString() : value;
+                return value === undefined || value == null ? "N/A" : column.numeric ? value.toLocaleString() : value;
         }
     }
 

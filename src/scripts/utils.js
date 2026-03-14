@@ -44,13 +44,12 @@ export async function getResponsesData(responses, errorMessage) {
 }
 
 export function fetchDataAndHandleErrors(asyncFunction, thenFunction, setErrorMessage, setSubErrors, setFetchState) {
-    asyncFunction()
-        .then(result => thenFunction ? thenFunction(result) : {})
-        .catch(error => {
-            setErrorMessage(error.message);
-            setSubErrors(error.errors);
-            setFetchState(constants.fetchState.error);
-        });
+    asyncFunction().then(result => thenFunction ? thenFunction(result) : {})
+                   .catch(error => {
+                       setErrorMessage(error.message);
+                       setSubErrors(error.errors);
+                       setFetchState(constants.fetchState.error);
+                   });
 }
 
 export function isGameUpcoming(gameState) {
@@ -158,7 +157,7 @@ export function sortObjects(objects, path, numericCompare = false, secondaryComp
 }
 
 export function getValue(path, object, interpretAsMultipleKeys = false, fallback = undefined) {
-    if (object === null || object === undefined) {
+    if (object == null) {
         return fallback;
     }
     if (Array.isArray(path)) {
