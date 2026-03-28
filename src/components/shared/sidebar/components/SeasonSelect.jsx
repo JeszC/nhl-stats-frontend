@@ -65,10 +65,9 @@ function SeasonSelect({localStorageKey, setSelectedSeasons, fetchState, setFetch
             return seasons;
         }
 
-        getSeasons()
-            .then(result => {
-                setSeasons(result);
-            });
+        getSeasons().then(result => {
+            setSeasons(result);
+        });
     }, [setFetchState]);
 
     return <>

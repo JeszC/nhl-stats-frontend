@@ -112,7 +112,7 @@ function PlayerInformation({player}) {
             </div>
             <div className={"verticalFlex"}>
                 {player.position === "G" ? <h4>Glove side</h4> : <h4>Shooting side</h4>}
-                <span>{getHandSideTitle(player.shootsCatches)}</span>
+                <span>{player.shootsCatches ? getHandSideTitle(player.shootsCatches) : "N/A"}</span>
             </div>
         </div>
     </div>;
