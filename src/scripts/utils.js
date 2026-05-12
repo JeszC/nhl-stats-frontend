@@ -18,7 +18,9 @@ export async function getResponseData(response, errorMessage) {
         try {
             return await response.json();
         } catch (error) {
-            throw new AggregateError([new Error(error.message)], errorMessage);
+            const aggregateError = new AggregateError([error], errorMessage);
+            aggregateError.cause = error;
+            throw aggregateError;
         }
     }
     throw new Error(errorMessage);

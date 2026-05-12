@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../../../../../../data/constants.json";
 import skaterData from "../../../../../../../../data/skaterStats.json";
 import {getOrdinalNumber, getPlayerName, parseDecimals, parseIceTime} from "../../../../../../../../scripts/parsing.js";
@@ -37,36 +37,26 @@ function compareName(player1, player2) {
 }
 
 function SkaterTable({skaters, team, setPlayer, setActiveView, setPreviousView, setFetchState}) {
-    const [sorting, setSorting] = useState({key: "", ascending: false, target: null});
+    const [sorting, setSorting] = useState({key: "", ascending: false});
     const [sortedSkaters, setSortedSkaters] = useState([]);
     const [sortedColumn, setSortedColumn] = useState(0);
+    const previousTargetElement = useRef(null);
     const defaultHeader = useRef(null);
     const defaultSortedCategory = skaterData.columns.points;
 
-    function applySorting(key, ascending, target) {
-        if (sorting.target) {
-            sorting.target.classList.remove(constants.sortedColumnClassName);
-            sorting.target.children[0].textContent = "";
+    const applySorting = useCallback((key, ascending, target) => {
+        if (previousTargetElement.current) {
+            previousTargetElement.current.classList.remove(constants.sortedColumnClassName);
+            previousTargetElement.current.children[0].textContent = "";
         }
         if (target) {
             target.classList.add(constants.sortedColumnClassName);
             target.children[0].textContent = ascending ? constants.indicator.ascending : constants.indicator.descending;
             setSortedColumn(target.parentNode.cellIndex - 1);
         }
-        setSorting({key, ascending, target});
-    }
-
-    function sortSkaters() {
-        if (sorting.key) {
-            let skatersCopy = [...skaters];
-            if (sorting.key === skaterData.columns.player) {
-                skatersCopy.sort(compareName);
-            } else {
-                sortObjects(skatersCopy, sorting.key.nhlKey, sorting.key.numeric, defaultCompare);
-            }
-            setSortedSkaters(sorting.ascending ? skatersCopy : skatersCopy.reverse());
-        }
-    }
+        previousTargetElement.current = target;
+        setSorting({key, ascending});
+    }, []);
 
     function getContents(skater, column) {
         let columns = skaterData.columns;
@@ -83,14 +73,25 @@ function SkaterTable({skaters, team, setPlayer, setActiveView, setPreviousView, 
         }
     }
 
-    function setUpOnLoad() {
+    useEffect(() => {
+        function sortSkaters() {
+            if (sorting.key) {
+                let skatersCopy = [...skaters];
+                if (sorting.key === skaterData.columns.player) {
+                    skatersCopy.sort(compareName);
+                } else {
+                    sortObjects(skatersCopy, sorting.key.nhlKey, sorting.key.numeric, defaultCompare);
+                }
+                setSortedSkaters(sorting.ascending ? skatersCopy : skatersCopy.reverse());
+            }
+        }
+
+        sortSkaters();
+    }, [skaters, sorting.key, sorting.ascending]);
+
+    useEffect(() => {
         applySorting(defaultSortedCategory, false, defaultHeader.current);
-    }
-
-    useEffect(sortSkaters, [skaters, sorting.key, sorting.ascending]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [applySorting, defaultSortedCategory]);
 
     return <div className={"gamesTableWithHeader"}>
         <h4 className={`${team} border`}>{team}</h4>
