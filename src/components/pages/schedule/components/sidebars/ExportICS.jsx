@@ -1,32 +1,27 @@
-import {useEffect, useEffectEvent, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import {getICSFile} from "../../../../../scripts/exportICS.js";
 
 function ExportICS({games, selectedSeason, selectedTeams, fetchState}) {
-    const [gamesToImport, setGamesToImport] = useState([]);
     const [upcomingChecked, setUpcomingChecked] = useState(true);
     const [useAlarmChecked, setUseAlarmChecked] = useState(false);
     const [alarmTime, setAlarmTime] = useState("30");
     const downloadLink = useRef(null);
+
+    const gamesToImport = useMemo(() => {
+        if (selectedTeams.length > 0) {
+            return upcomingChecked
+                   ? games.filter(game => new Date(game.startTimeUTC) > new Date())
+                   : games;
+        }
+        return [];
+    }, [selectedTeams.length, games, upcomingChecked]);
 
     async function createICSFile() {
         if (selectedTeams.length > 0) {
             downloadLink.current.click();
         }
     }
-
-    const updateICSFile = useEffectEvent(() => {
-        if (selectedTeams.length > 0) {
-            let gamesToImport = upcomingChecked
-                                ? games.filter(game => new Date(game.startTimeUTC) > new Date())
-                                : games;
-            setGamesToImport(gamesToImport);
-        }
-    });
-
-    useEffect(() => {
-        updateICSFile();
-    }, [selectedTeams, games, upcomingChecked]);
 
     return <>
         <h4>Export to ICS</h4>

@@ -1,4 +1,4 @@
-import {useEffect, useEffectEvent, useState} from "react";
+import {useEffect, useState} from "react";
 
 function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
     const [hideBottomBorder, setHideBottomBorder] = useState(false);
@@ -31,21 +31,27 @@ function PageBar({items, options, numberOfItemsToShowPerPage, page, setPage}) {
         return `${currentPage} / ${pages}`;
     }
 
-    const showOrHideBottomBorder = useEffectEvent(() => {
-        let mainContent = Array.from(document.getElementsByTagName("main"));
-        let navBar = Array.from(document.getElementsByTagName("nav"));
-        if (mainContent.length > 0 && navBar.length > 0) {
-            let windowHeight = window.innerHeight;
-            let mainContentStyle = window.getComputedStyle(mainContent[0]);
-            let navBarStyle = window.getComputedStyle(navBar[0]);
-            let mainContentHeight = parseInt(mainContentStyle.height);
-            let navBarHeight = parseInt(navBarStyle.height);
-            windowHeight - navBarHeight <= mainContentHeight ? setHideBottomBorder(true) : setHideBottomBorder(false);
-        }
-    });
-
     useEffect(() => {
-        showOrHideBottomBorder();
+        const checkAndUpdateBorder = () => {
+            let mainContent = Array.from(document.getElementsByTagName("main"));
+            let navBar = Array.from(document.getElementsByTagName("nav"));
+            if (mainContent.length > 0 && navBar.length > 0) {
+                let windowHeight = window.innerHeight;
+                let mainContentStyle = window.getComputedStyle(mainContent[0]);
+                let navBarStyle = window.getComputedStyle(navBar[0]);
+                let mainContentHeight = parseInt(mainContentStyle.height);
+                let navBarHeight = parseInt(navBarStyle.height);
+                const shouldHideBorder = windowHeight - navBarHeight <= mainContentHeight;
+                setHideBottomBorder(shouldHideBorder);
+            }
+        };
+
+        checkAndUpdateBorder();
+        window.addEventListener("resize", checkAndUpdateBorder);
+
+        return () => {
+            window.removeEventListener("resize", checkAndUpdateBorder);
+        };
     }, [items, options, page]);
 
     return <div className={hideBottomBorder ? "horizontalFlex pageBar noBottomBorder" : "horizontalFlex pageBar"}>

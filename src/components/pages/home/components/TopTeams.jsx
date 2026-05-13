@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import constants from "../../../../data/constants.json";
 import homeCategories from "../../../../data/home.json";
 import {getOrdinalNumber} from "../../../../scripts/parsing.js";
@@ -7,10 +7,18 @@ import SingleSelectionButtons from "../../../shared/common/singleSelectionButton
 import TeamDialog from "../../../shared/dialogs/team/TeamDialog";
 
 function TopTeams({teams}) {
-    const [topTeams, setTopTeams] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState({});
     const [fetchState, setFetchState] = useState(constants.fetchState.finished);
+    const [filterConference, setFilterConference] = useState(null);
     const dialog = useRef(null);
+
+    const topTeams = useMemo(() => {
+        if (filterConference) {
+            return teams.filter(team => team.conferenceAbbrev === filterConference).slice(0, 10);
+        } else {
+            return teams.slice(0, 10);
+        }
+    }, [teams, filterConference]);
 
     function getFilterCategories() {
         let data = [];
@@ -59,16 +67,8 @@ function TopTeams({teams}) {
     }
 
     function filterTeams(conference) {
-        if (conference) {
-            setTopTeams(teams.filter(team => team.conferenceAbbrev === conference).slice(0, 10));
-        } else {
-            setTopTeams(teams.slice(0, 10));
-        }
+        setFilterConference(conference || null);
     }
-
-    useEffect(() => {
-        setTopTeams(teams.slice(0, 10));
-    }, [teams]);
 
     return <div>
         <h2>Top teams</h2>
