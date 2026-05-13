@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import {
     compareNumeric,
@@ -85,7 +85,6 @@ function compareAge(player1, player2) {
 function Draft({showOptions, setShowOptions, showHelp}) {
     const [season, setSeason] = useState("");
     const [draft, setDraft] = useState([]);
-    const [visibleDraft, setVisibleDraft] = useState([]);
     const [teams, setTeams] = useState([]);
     const [positions, setPositions] = useState([]);
     const [countries, setCountries] = useState([]);
@@ -93,27 +92,35 @@ function Draft({showOptions, setShowOptions, showHelp}) {
     const [selectedPlayer, setSelectedPlayer] = useState({});
     const [fetchState, setFetchState] = useState(constants.fetchState.finished);
     const [playerFetchState, setPlayerFetchState] = useState(constants.fetchState.finished);
-    const [sorting, setSorting] = useState({key: "", ascending: false, target: null});
+    const [sorting, setSorting] = useState({key: "", ascending: false});
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const [sortedColumn, setSortedColumn] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
     const [subErrors, setSubErrors] = useState([]);
     const defaultHeader = useRef(null);
     const dialog = useRef(null);
+    const previousTargetElement = useRef(null);
     const defaultSortedCategory = draftColumns.columns.overallPick;
 
-    function applySorting(key, ascending, target) {
-        if (sorting.target) {
-            sorting.target.classList.remove(constants.sortedColumnClassName);
-            sorting.target.children[0].textContent = "";
+    const visibleDraft = useMemo(() => {
+        let filteredDraft = filterDraft(draft, positions, countries, draftTeams);
+        sortDraft(sorting.key, filteredDraft);
+        return sorting.ascending ? filteredDraft : filteredDraft.reverse();
+    }, [draft, positions, countries, draftTeams, sorting.key, sorting.ascending]);
+
+    const applySorting = useCallback((key, ascending, target) => {
+        if (previousTargetElement.current) {
+            previousTargetElement.current.classList.remove(constants.sortedColumnClassName);
+            previousTargetElement.current.children[0].textContent = "";
         }
         if (target) {
             target.classList.add(constants.sortedColumnClassName);
             target.children[0].textContent = ascending ? constants.indicator.ascending : constants.indicator.descending;
             setSortedColumn(target.parentNode.cellIndex - 1);
+            previousTargetElement.current = target;
         }
-        setSorting({key, ascending, target});
-    }
+        setSorting({key, ascending});
+    }, []);
 
     async function getSeasonTeams(season) {
         let teamResponse = await fetch(`${constants.baseURL}/teams/getTeams/${season}`);
@@ -158,15 +165,8 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         }
     }
 
-    function filterAndSortDraft() {
-        let filteredDraft = filterDraft(draft, positions, countries, draftTeams);
-        sortDraft(sorting.key, filteredDraft);
-        setVisibleDraft(sorting.ascending ? filteredDraft : filteredDraft.reverse());
-    }
-
     const fetchDraftData = useCallback(async () => {
         setDraft([]);
-        setVisibleDraft([]);
         setFetchState(constants.fetchState.loading);
         if (season) {
             let data = await Promise.all([
@@ -176,19 +176,10 @@ function Draft({showOptions, setShowOptions, showHelp}) {
             let draftResults = data[0];
             let teams = data[1];
             setDraft(draftResults);
-            setVisibleDraft(draftResults);
             setTeams(teams);
         }
         setFetchState(constants.fetchState.finished);
     }, [season]);
-
-    function setUpOnLoad() {
-        document.title = "Draft Results";
-        setShowOptions(true);
-        applySorting(defaultSortedCategory, true, defaultHeader.current);
-    }
-
-    useEffect(filterAndSortDraft, [draft, positions, countries, draftTeams, sorting.key, sorting.ascending]);
 
     useEffect(() => {
         fetchDataAndHandleErrors(
@@ -200,8 +191,11 @@ function Draft({showOptions, setShowOptions, showHelp}) {
         );
     }, [fetchTrigger, fetchDraftData]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    useEffect(() => {
+        document.title = "Draft Results";
+        setShowOptions(true);
+        applySorting(defaultSortedCategory, true, defaultHeader.current);
+    }, [applySorting, defaultSortedCategory, setShowOptions]);
 
     return <>
         <SidebarOptions showSidebar={showOptions}

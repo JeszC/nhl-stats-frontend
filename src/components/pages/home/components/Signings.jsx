@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useEffectEvent, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {fixAbbreviation} from "../../../../scripts/parsing.js";
 import {getResponseData, getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
@@ -37,8 +37,9 @@ function Signings({teams}) {
         return await getResponseData(signingsResponse, "Error fetching signings.");
     }, [fetchOffset]);
 
-    const showSigningsOnPage = useEffectEvent(() => {
+    useEffect(() => {
         if (!areAllSigningsFetched) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFetchState(constants.fetchState.loading);
             getSignings()
                 .then(fetchedSignings => {
@@ -50,10 +51,6 @@ function Signings({teams}) {
                 })
                 .catch(ignored => setFetchState(constants.fetchState.error));
         }
-    });
-
-    useEffect(() => {
-        showSigningsOnPage();
     }, [areAllSigningsFetched, getSignings]);
 
     return signings.length === 0

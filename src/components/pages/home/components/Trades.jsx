@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useEffectEvent, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
 import {fixAbbreviation} from "../../../../scripts/parsing.js";
 import {getResponseData, getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
@@ -25,8 +25,9 @@ function Trades({teams}) {
         return await getResponseData(tradesResponse, "Error fetching trades.");
     }, [fetchOffset]);
 
-    const showTradesOnPage = useEffectEvent(() => {
+    useEffect(() => {
         if (!areAllTradesFetched) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFetchState(constants.fetchState.loading);
             getTrades()
                 .then(fetchedTrades => {
@@ -38,11 +39,7 @@ function Trades({teams}) {
                 })
                 .catch(ignored => setFetchState(constants.fetchState.error));
         }
-    });
-
-    useEffect(() => {
-        showTradesOnPage();
-    }, [areAllTradesFetched, getTrades]);
+    }, [areAllTradesFetched, getTrades, numberOfItemsToFetch]);
 
     return trades.length === 0
            ? null
