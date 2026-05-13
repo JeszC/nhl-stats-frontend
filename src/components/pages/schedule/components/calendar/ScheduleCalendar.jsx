@@ -1,4 +1,4 @@
-import {useEffect, useEffectEvent, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import GameDialog from "../../../../shared/dialogs/game/GameDialog";
 import ErrorDialogSeasonUnstarted from "../../../../shared/errors/ErrorDialogSeasonUnstarted.jsx";
@@ -9,10 +9,22 @@ import "../../Schedule.css";
 function ScheduleCalendar({season, games, selectedTeams, showScores, startDate, endDate}) {
     const [month, setMonth] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
-    const [seasonStart, setSeasonStart] = useState(null);
-    const [seasonEnd, setSeasonEnd] = useState(null);
     const [selectedGame, setSelectedGame] = useState({});
     const [gameFetchState, setGameFetchState] = useState(constants.fetchState.finished);
+    const seasonStart = useMemo(() => {
+        let start = new Date(startDate);
+        let end = new Date(endDate);
+        return new Date(start.getFullYear(), getSeasonStartMonth(start, end), start.getDate());
+    }, [startDate, endDate]);
+    const seasonEnd = useMemo(() => {
+        let start = new Date(startDate);
+        let end = new Date(endDate);
+        if (end <= start && start >= new Date()) {
+            return new Date(end.getFullYear() + 1, getSeasonStartMonth(end), end.getDate());
+        } else {
+            return new Date(end.getFullYear(), getSeasonEndMonth(end), end.getDate());
+        }
+    }, [startDate, endDate]);
     const dialog = useRef(null);
 
     async function openDialog(gameID) {
@@ -89,21 +101,6 @@ function ScheduleCalendar({season, games, selectedTeams, showScores, startDate, 
         let end = season.substring(4);
         return start - seasonStart?.getFullYear() < 1 && end - seasonEnd?.getFullYear() <= 1;
     }
-
-    const updateSeasonDates = useEffectEvent(() => {
-        let start = new Date(startDate);
-        let end = new Date(endDate);
-        setSeasonStart(new Date(start.getFullYear(), getSeasonStartMonth(start, end), start.getDate()));
-        if (end <= start && start >= new Date()) {
-            setSeasonEnd(new Date(end.getFullYear() + 1, getSeasonStartMonth(end), end.getDate()));
-        } else {
-            setSeasonEnd(new Date(end.getFullYear(), getSeasonEndMonth(end), end.getDate()));
-        }
-    });
-
-    useEffect(() => {
-        updateSeasonDates();
-    }, [startDate, endDate]);
 
     return <>
         {

@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useRef, useState} from "react";
+import {Fragment, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import constants from "../../../../../data/constants.json";
 import scheduleColumns from "../../../../../data/schedule.json";
 import {getValue, isGameFinished, sortObjects} from "../../../../../scripts/utils.js";
@@ -15,48 +15,26 @@ function defaultCompare(game1, game2) {
 }
 
 function ScheduleTable({games, selectedTeams, showScores, filterUpcomingGames}) {
-    const [fullSchedule, setFullSchedule] = useState([]);
-    const [filteredSchedule, setFilteredSchedule] = useState([]);
-    const [sorting, setSorting] = useState({key: "", ascending: true, target: null});
+    const [sorting, setSorting] = useState({key: "", ascending: true});
     const [selectedGame, setSelectedGame] = useState({});
     const [gameInfoFetchState, setGameInfoFetchState] = useState(constants.fetchState.finished);
     const [page, setPage] = useState(0);
     const defaultHeader = useRef(null);
     const dialog = useRef(null);
+    const previousTargetElement = useRef(null);
     const numberOfGamesToShowPerPage = 50;
     const defaultSortedCategory = scheduleColumns.columns.startTimeUTC;
 
-    function applySorting(key, ascending, target) {
-        if (sorting.target) {
-            sorting.target.classList.remove(constants.sortedColumnClassName);
-            sorting.target.children[0].textContent = "";
-        }
-        if (target) {
-            target.classList.add(constants.sortedColumnClassName);
-            target.children[0].textContent = ascending ? constants.indicator.ascending : constants.indicator.descending;
-        }
-        setSorting({key, ascending, target});
-    }
+    const filteredSchedule = useMemo(() => {
+        let filtered = filterSchedule(games, filterUpcomingGames);
+        sortSchedule(sorting.key, filtered);
+        return sorting.ascending ? filtered : filtered.reverse();
+    }, [games, filterUpcomingGames, sorting.key, sorting.ascending]);
 
-    function renderGames() {
-        let upperLimit = Math.min((page + 1) * numberOfGamesToShowPerPage, filteredSchedule.length);
-        let rows = [];
-        for (let i = page * numberOfGamesToShowPerPage; i < upperLimit; i++) {
-            let game = filteredSchedule[i];
-            rows.push(
-                <TableRow key={game.id + game.homeTeam.abbrev + i}
-                          game={game}
-                          index={i}
-                          selectedTeams={selectedTeams}
-                          showScores={showScores}
-                          setSelectedGame={setSelectedGame}
-                          dialog={dialog}
-                          setFetchState={setGameInfoFetchState}>
-                </TableRow>
-            );
-        }
-        return rows;
-    }
+    const safePage = useMemo(() => {
+        const maxPage = Math.max(0, Math.floor(filteredSchedule.length / numberOfGamesToShowPerPage));
+        return Math.min(page, maxPage);
+    }, [page, filteredSchedule.length, numberOfGamesToShowPerPage]);
 
     function filterSchedule(schedule, filterUpcomingGames) {
         if (filterUpcomingGames) {
@@ -79,28 +57,42 @@ function ScheduleTable({games, selectedTeams, showScores, filterUpcomingGames}) 
         }
     }
 
-    function filterAndSortSchedule() {
-        let filteredSchedule = filterSchedule(fullSchedule, filterUpcomingGames);
-        sortSchedule(sorting.key, filteredSchedule);
-        setFilteredSchedule(sorting.ascending ? filteredSchedule : filteredSchedule.reverse());
-        setPage(0);
+    const applySorting = useCallback((key, ascending, target) => {
+        if (previousTargetElement.current) {
+            previousTargetElement.current.classList.remove(constants.sortedColumnClassName);
+            previousTargetElement.current.children[0].textContent = "";
+        }
+        if (target) {
+            target.classList.add(constants.sortedColumnClassName);
+            target.children[0].textContent = ascending ? constants.indicator.ascending : constants.indicator.descending;
+            previousTargetElement.current = target;
+        }
+        setSorting({key, ascending});
+    }, []);
+
+    function renderGames() {
+        let upperLimit = Math.min((safePage + 1) * numberOfGamesToShowPerPage, filteredSchedule.length);
+        let rows = [];
+        for (let i = safePage * numberOfGamesToShowPerPage; i < upperLimit; i++) {
+            let game = filteredSchedule[i];
+            rows.push(
+                <TableRow key={game.id + game.homeTeam.abbrev + i}
+                          game={game}
+                          index={i}
+                          selectedTeams={selectedTeams}
+                          showScores={showScores}
+                          setSelectedGame={setSelectedGame}
+                          dialog={dialog}
+                          setFetchState={setGameInfoFetchState}>
+                </TableRow>
+            );
+        }
+        return rows;
     }
 
-    function updateSchedule() {
-        setFullSchedule(games);
-        setFilteredSchedule(games);
-    }
-
-    function setUpOnLoad() {
+    useEffect(() => {
         applySorting(defaultSortedCategory, true, defaultHeader.current);
-    }
-
-    useEffect(filterAndSortSchedule, [filterUpcomingGames, fullSchedule, sorting.key, sorting.ascending]);
-
-    useEffect(updateSchedule, [games]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(setUpOnLoad, []);
+    }, [applySorting, defaultSortedCategory]);
 
     return <>
         {

@@ -1,13 +1,32 @@
-import {useEffect, useEffectEvent, useState} from "react";
+import {useMemo, useState} from "react";
 import constants from "../../../../../../data/constants.json";
 import {parseSeason} from "../../../../../../scripts/parsing.js";
 import SingleSelectionButtons from "../../../../common/singleSelectionButtons/SingleSelectionButtons.jsx";
 import SeasonStatistics from "./SeasonStatistics.jsx";
 
 function SeasonHistory({player}) {
-    const [seasons, setSeasons] = useState([]);
     const [selectedSeasonIndex, setSelectedSeasonIndex] = useState(0);
     const [selectedSeasonType, setSelectedSeasonType] = useState("season");
+    const seasons = useMemo(() => {
+        let nhlSeasons = player.seasonTotals.filter(season => season.leagueAbbrev === "NHL");
+        let years = [];
+        for (let i = 0; i < nhlSeasons.length; i++) {
+            let sameSeasons = [nhlSeasons[i]];
+            let sum = 0;
+            for (let j = i + 1; j < nhlSeasons.length; j++) {
+                if (nhlSeasons[j].season === nhlSeasons[i].season) {
+                    sameSeasons.push(nhlSeasons[j]);
+                    sum++;
+                } else {
+                    break;
+                }
+            }
+            i += sum;
+            years.push(sameSeasons);
+        }
+        years.reverse();
+        return years;
+    }, [player.seasonTotals]);
 
     function getSeasons() {
         let data = [];
@@ -64,31 +83,6 @@ function SeasonHistory({player}) {
             object[key] = {};
         }
     }
-
-    const getSeasonalStats = useEffectEvent(() => {
-        let nhlSeasons = player.seasonTotals.filter(season => season.leagueAbbrev === "NHL");
-        let years = [];
-        for (let i = 0; i < nhlSeasons.length; i++) {
-            let sameSeasons = [nhlSeasons[i]];
-            let sum = 0;
-            for (let j = i + 1; j < nhlSeasons.length; j++) {
-                if (nhlSeasons[j].season === nhlSeasons[i].season) {
-                    sameSeasons.push(nhlSeasons[j]);
-                    sum++;
-                } else {
-                    break;
-                }
-            }
-            i += sum;
-            years.push(sameSeasons);
-        }
-        years.reverse();
-        setSeasons(years);
-    });
-
-    useEffect(() => {
-        getSeasonalStats();
-    }, []);
 
     return <>
         {
