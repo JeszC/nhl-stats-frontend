@@ -7,7 +7,7 @@ function AwardGrid({awards, openDialog}) {
     function getAwardsForCategory(category) {
         if (awardsGroupedByCategory[category] != null) {
             return awardsGroupedByCategory[category].map(trophy =>
-                <Award award={trophy} openDialog={openDialog}></Award>
+                <Award key={trophy.id?.toString()} award={trophy} openDialog={openDialog}></Award>
             );
         }
         return null;
