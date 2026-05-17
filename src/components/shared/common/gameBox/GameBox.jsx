@@ -1,5 +1,5 @@
-import {isGameLive} from "../../../../scripts/utils.js";
 import constants from "../../../../data/constants.json";
+import {isGameLive} from "../../../../scripts/utils.js";
 
 function GameBox({game, onClick, gameDate, isScorable = false}) {
 
@@ -72,7 +72,7 @@ function GameBox({game, onClick, gameDate, isScorable = false}) {
                         })
                 }
             </span>
-            <span>{game.venue.default}</span>
+            <span>{game.venue?.default}</span>
         </div>
     </button>;
 }
