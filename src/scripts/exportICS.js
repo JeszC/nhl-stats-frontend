@@ -22,7 +22,7 @@ export function getICSFile(games, useAlarm, alarmTime) {
             status = "CONFIRMED";
         }
         let summary = `NHL: ${game.awayTeam.abbrev}-${game.homeTeam.abbrev} (${getGameType(game)})`;
-        let location = `${game.venue.default}, ${game.homeTeam.placeName.default}`;
+        let location = game.venue ? `${game.venue.default}, ${game.homeTeam.placeName.default}` : "TBD";
         let description = `NHL game between ${getTeamName(game.awayTeam)} and ${getTeamName(game.homeTeam)}`;
         let event = createEvent(uid, creationTime, startTime, status, summary,
             description, location, useAlarm, alarmTime);
