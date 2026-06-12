@@ -5,7 +5,7 @@ import globals from "globals";
 
 export default [
     {
-        ignores: ["dist"]
+        ignores: ["dist", "src/components/pages/players", "src/components/pages/standings"]
     },
     {
         files: ["**/*.{js,jsx}"],

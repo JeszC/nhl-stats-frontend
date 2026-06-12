@@ -1,11 +1,37 @@
-import {useCallback, useEffect, useEffectEvent, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef} from "react";
 import {compareTextual} from "../../../../scripts/utils.js";
 
 function Filters({fullStandings, setConferences, setDivisions}) {
-    const [selectedConferences, setSelectedConferences] = useState([]);
-    const [selectedDivisions, setSelectedDivisions] = useState([]);
     const conferenceSelect = useRef(null);
     const divisionSelect = useRef(null);
+
+    const selectedConferences = useMemo(() => {
+        let uniqueConfs = [];
+        if (fullStandings) {
+            for (let item of fullStandings) {
+                let isUniqueConf = uniqueConfs.some(conference => conference === item.conferenceName);
+                if (!isUniqueConf && item.conferenceName) {
+                    uniqueConfs.push(item.conferenceName);
+                }
+            }
+            uniqueConfs.sort(compareTextual);
+        }
+        return uniqueConfs;
+    }, [fullStandings]);
+
+    const selectedDivisions = useMemo(() => {
+        let uniqueDivs = [];
+        if (fullStandings) {
+            for (let item of fullStandings) {
+                let isUniqueDiv = uniqueDivs.some(division => division === item.divisionName);
+                if (!isUniqueDiv && item.divisionName) {
+                    uniqueDivs.push(item.divisionName);
+                }
+            }
+            uniqueDivs.sort(compareTextual);
+        }
+        return uniqueDivs;
+    }, [fullStandings]);
 
     function removeOtherSelections(event) {
         let select = event.target;
@@ -28,32 +54,10 @@ function Filters({fullStandings, setConferences, setDivisions}) {
         divisionSelect.current.selectedIndex = -1;
         setConferences([]);
         setDivisions([]);
-    }, [conferenceSelect, divisionSelect, setConferences, setDivisions]);
-
-    const getConferencesAndDivisions = useEffectEvent(() => {
-        let uniqueConfs = [];
-        let uniqueDivs = [];
-        if (fullStandings) {
-            for (let item of fullStandings) {
-                let isUniqueConf = uniqueConfs.some(conference => conference === item.conferenceName);
-                let isUniqueDiv = uniqueDivs.some(division => division === item.divisionName);
-                if (!isUniqueConf && item.conferenceName) {
-                    uniqueConfs.push(item.conferenceName);
-                }
-                if (!isUniqueDiv && item.divisionName) {
-                    uniqueDivs.push(item.divisionName);
-                }
-            }
-            uniqueConfs.sort(compareTextual);
-            uniqueDivs.sort(compareTextual);
-            setSelectedConferences(uniqueConfs);
-            setSelectedDivisions(uniqueDivs);
-        }
-    });
+    }, [setConferences, setDivisions]);
 
     useEffect(() => {
         resetFilters();
-        getConferencesAndDivisions();
     }, [fullStandings, resetFilters]);
 
     return <details>

@@ -1,15 +1,12 @@
-import {useCallback, useEffect, useEffectEvent, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef} from "react";
 import {compareTextual} from "../../../../scripts/utils.js";
 
 function Filters({draft, setSelectedPositions, setSelectedCountries, setSelectedDraftTeams}) {
-    const [positions, setPositions] = useState([]);
-    const [countries, setCountries] = useState([]);
-    const [draftTeams, setDraftTeams] = useState([]);
     const positionSelect = useRef(null);
     const countrySelect = useRef(null);
     const draftTeamSelect = useRef(null);
 
-    const getPositions = useCallback(() => {
+    const positions = useMemo(() => {
         let uniquePositions = [];
         for (let player of draft) {
             let isUniquePosition = uniquePositions.some(position => position === player.position);
@@ -18,10 +15,10 @@ function Filters({draft, setSelectedPositions, setSelectedCountries, setSelected
             }
         }
         uniquePositions.sort(compareTextual);
-        setPositions(uniquePositions);
+        return uniquePositions;
     }, [draft]);
 
-    const getCountries = useCallback(() => {
+    const countries = useMemo(() => {
         let uniqueCountries = [];
         for (let player of draft) {
             let isUniqueCountry = uniqueCountries.some(country => country === player.countryCode);
@@ -30,10 +27,10 @@ function Filters({draft, setSelectedPositions, setSelectedCountries, setSelected
             }
         }
         uniqueCountries.sort(compareTextual);
-        setCountries(uniqueCountries);
+        return uniqueCountries;
     }, [draft]);
 
-    const getDraftTeams = useCallback(() => {
+    const draftTeams = useMemo(() => {
         let uniqueDraftTeams = [];
         for (let player of draft) {
             let isUniqueDraftTeam = uniqueDraftTeams.some(draftTeam => draftTeam === player.triCode);
@@ -42,7 +39,7 @@ function Filters({draft, setSelectedPositions, setSelectedCountries, setSelected
             }
         }
         uniqueDraftTeams.sort(compareTextual);
-        setDraftTeams(uniqueDraftTeams);
+        return uniqueDraftTeams;
     }, [draft]);
 
     function applyFilters() {
@@ -63,16 +60,9 @@ function Filters({draft, setSelectedPositions, setSelectedCountries, setSelected
         setSelectedDraftTeams([]);
     }, [setSelectedPositions, setSelectedCountries, setSelectedDraftTeams]);
 
-    const getFilterValues = useEffectEvent(() => {
-        resetFilters();
-        getPositions();
-        getCountries();
-        getDraftTeams();
-    });
-
     useEffect(() => {
-        getFilterValues();
-    }, [draft]);
+        resetFilters();
+    }, [draft, resetFilters]);
 
     return <details>
         <summary>Filters</summary>
