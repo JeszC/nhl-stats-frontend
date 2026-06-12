@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import constants from "../../../data/constants.json";
 import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Bars from "../../shared/animations/bars/Bars";

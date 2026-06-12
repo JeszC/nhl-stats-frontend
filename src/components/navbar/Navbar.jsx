@@ -1,4 +1,3 @@
-import {Fragment} from "react";
 import {Link, Route, Routes, useLocation} from "react-router";
 import ErrorPage from "../pages/error/ErrorPage";
 import hamburgerMenuIcon from "./images/Hamburger.svg";

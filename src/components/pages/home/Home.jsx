@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import constants from "../../../data/constants.json";
 import {fetchDataAndHandleErrors, getResponseData} from "../../../scripts/utils.js";
 import Atom from "../../shared/animations/atom/Atom";
