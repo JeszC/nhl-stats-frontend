@@ -23,7 +23,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
     const [goalies, setGoalies] = useState([]);
     const [teams, setTeams] = useState([]);
     const [playoffTree, setPlayoffTree] = useState({});
-    const [injuries, setInjuries] = useState([]);
     const [fetchState, setFetchState] = useState(constants.fetchState.loading);
     const [errorMessage, setErrorMessage] = useState("");
     const [subErrors, setSubErrors] = useState([]);
@@ -69,11 +68,6 @@ function Home({showOptions, setShowOptions, showHelp}) {
         }
     }
 
-    async function getInjuries() {
-        let injuryResponse = await fetch(`${constants.baseURL}/injuries/getInjuries`);
-        return await getResponseData(injuryResponse, "Error fetching injuries.");
-    }
-
     const getData = useCallback(async () => {
         setFetchState(constants.fetchState.loading);
         let responses = await Promise.all([
@@ -81,15 +75,13 @@ function Home({showOptions, setShowOptions, showHelp}) {
             getTopTeams(),
             getTopSkaters(),
             getTopGoalies(),
-            getPlayoffTree(),
-            getInjuries()
+            getPlayoffTree()
         ]);
         setGames(responses[0]);
         setTeams(responses[1]);
         setSkaters(responses[2]);
         setGoalies(responses[3]);
         setPlayoffTree(responses[4]);
-        setInjuries(responses[5]);
         setFetchState(constants.fetchState.finished);
     }, [getUpcomingGames]);
 
@@ -144,7 +136,7 @@ function Home({showOptions, setShowOptions, showHelp}) {
                                      </div>
                                      <PlayoffTree playoffTree={playoffTree} fetchState={fetchState}></PlayoffTree>
                                      <div className={"horizontalFlex teamRosterEvents"}>
-                                         <Injuries injuries={injuries} teams={teams}></Injuries>
+                                         <Injuries teams={teams}></Injuries>
                                          <Trades teams={teams}></Trades>
                                          <Signings teams={teams}></Signings>
                                      </div>
