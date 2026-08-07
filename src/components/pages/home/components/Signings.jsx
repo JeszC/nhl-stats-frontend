@@ -58,30 +58,32 @@ function Signings({teams}) {
         {
             fetchState === constants.fetchState.error
             ? <span className={"injuriesTradesSigningsPlaceholder"}>Error fetching signings.</span>
-            : signings.length === 0
-              ? <span className={"injuriesTradesSigningsPlaceholder"}>No signings to display.</span>
-              : <ul className={"injuriesTradesSigningsByDate"}>
-                  {
-                      splitArrayByKey(signings, "signing_date").map((day, index) =>
-                          <li key={index.toString()} className={"individualDay"}>
+            : fetchState === constants.fetchState.loading
+              ? <span className={"injuriesTradesSigningsPlaceholder"}>Loading signings...</span>
+              : signings.length === 0
+                ? <span className={"injuriesTradesSigningsPlaceholder"}>No signings to display.</span>
+                : <ul className={"injuriesTradesSigningsByDate"}>
+                    {
+                        splitArrayByKey(signings, "signing_date").map((day, index) =>
+                            <li key={index.toString()} className={"individualDay"}>
                                  <span className={"injuryTradeSigningHeader"}>
                                      {formatterDate.format(new Date(day[0].signing_date))}
                                  </span>
-                              <ul className={"signings"}>
-                                  {
-                                      day.map(signing =>
-                                          <li key={signing.post_id} className={"signing"}>
-                                              <div className={"horizontalFlex signingImageAndInformation"}>
-                                                  <img className={`signingLogo default
+                                <ul className={"signings"}>
+                                    {
+                                        day.map(signing =>
+                                            <li key={signing.post_id} className={"signing"}>
+                                                <div className={"horizontalFlex signingImageAndInformation"}>
+                                                    <img className={`signingLogo default
                                                      ${fixAbbrev(signing)} gradient`}
-                                                       src={getTeamLogo(teams, fixAbbrev(signing))}
-                                                       alt={`${signing.team_shortname} logo`}/>
-                                                  <div className={"verticalFlex signingInformation"}>
-                                                      <div className={"verticalFlex signingDetails"}>
+                                                         src={getTeamLogo(teams, fixAbbrev(signing))}
+                                                         alt={`${signing.team_shortname} logo`}/>
+                                                    <div className={"verticalFlex signingInformation"}>
+                                                        <div className={"verticalFlex signingDetails"}>
                                                              <span className={"signingInformationTitle"}>
                                                                  {signing.name}
                                                              </span>
-                                                          <div className={"horizontalFlex signingPlayerDetails"}>
+                                                            <div className={"horizontalFlex signingPlayerDetails"}>
                                                                  <span>
                                                                      {
                                                                          signing.player_position
@@ -89,33 +91,33 @@ function Signings({teams}) {
                                                                          : "N/A"
                                                                      }
                                                                  </span>
-                                                              <span>
+                                                                <span>
                                                                      {
                                                                          signing.age
                                                                          ? signing.age.toLocaleString()
                                                                          : "N/A"
                                                                      } y/o</span>
-                                                          </div>
-                                                          <span>{getTeamName(teams, fixAbbrev(signing))}</span>
-                                                      </div>
-                                                      <div className={"verticalFlex signingDetails"}>
+                                                            </div>
+                                                            <span>{getTeamName(teams, fixAbbrev(signing))}</span>
+                                                        </div>
+                                                        <div className={"verticalFlex signingDetails"}>
                                                              <span>
                                                                  {signing.contract_details[1].value}
                                                                  , {signing.contract_details[0].value}
                                                              </span>
-                                                          <span>{signing.contract_details[2].value} AAV</span>
-                                                          <span>{signing.contract_details[3].value} Total</span>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                      )
-                                  }
-                              </ul>
-                          </li>
-                      )
-                  }
-              </ul>
+                                                            <span>{signing.contract_details[2].value} AAV</span>
+                                                            <span>{signing.contract_details[3].value} Total</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+                                </ul>
+                            </li>
+                        )
+                    }
+                </ul>
         }
         <LoadMoreButton areAllFetched={areAllSigningsFetched}
                         fetchState={fetchState}

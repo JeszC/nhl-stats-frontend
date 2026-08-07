@@ -35,53 +35,55 @@ function Injuries({teams}) {
         {
             fetchState === constants.fetchState.error
             ? <span className={"injuriesTradesSigningsPlaceholder"}>Error fetching injuries.</span>
-            : injuries.length === 0
-              ? <span className={"injuriesTradesSigningsPlaceholder"}>No injuries to display.</span>
-              : <ul className={"injuriesTradesSigningsByDate"}>
-                  {
-                      splitArrayByKey(injuries.slice(0, totalInjuriesOnPage), "date").map((day, index) =>
-                          <li key={index.toString()} className={"individualDay"}>
+            : fetchState === constants.fetchState.loading
+              ? <span className={"injuriesTradesSigningsPlaceholder"}>Loading injuries...</span>
+              : injuries.length === 0
+                ? <span className={"injuriesTradesSigningsPlaceholder"}>No injuries to display.</span>
+                : <ul className={"injuriesTradesSigningsByDate"}>
+                    {
+                        splitArrayByKey(injuries.slice(0, totalInjuriesOnPage), "date").map((day, index) =>
+                            <li key={index.toString()} className={"individualDay"}>
                                <span className={"injuryTradeSigningHeader"}>
                                    {formatterDate.format(new Date(day[0].date))}
                                </span>
-                              <ul className={"injuries"}>
-                                  {
-                                      day.map(injury =>
-                                          <li key={injury.competitorId.toString() + injury.player.id.toString()}
-                                              className={"injury"}>
-                                              <div className={"horizontalFlex injuryTeamAndPlayerInformation"}>
-                                                  <img className={`injuryHeadshot default
+                                <ul className={"injuries"}>
+                                    {
+                                        day.map(injury =>
+                                            <li key={injury.competitorId.toString() + injury.player.id.toString()}
+                                                className={"injury"}>
+                                                <div className={"horizontalFlex injuryTeamAndPlayerInformation"}>
+                                                    <img className={`injuryHeadshot default
                                                    ${injury.teamAbbrev} gradient`}
-                                                       src={getTeamLogo(teams, injury.teamAbbrev)}
-                                                       alt={`${injury.teamAbbrev}`}/>
-                                                  <div className={"verticalFlex injuryInformation"}>
-                                                      <div className={"verticalFlex injuryDetails"}>
+                                                         src={getTeamLogo(teams, injury.teamAbbrev)}
+                                                         alt={`${injury.teamAbbrev}`}/>
+                                                    <div className={"verticalFlex injuryInformation"}>
+                                                        <div className={"verticalFlex injuryDetails"}>
                                                            <span className={"injuryName"}>
                                                                {injury.player.displayName}
                                                            </span>
-                                                          <div className={"horizontalFlex injuryPlayerDetails"}>
-                                                              <span>#{injury.player.number.toLocaleString()}</span>
-                                                              <span>
+                                                            <div className={"horizontalFlex injuryPlayerDetails"}>
+                                                                <span>#{injury.player.number.toLocaleString()}</span>
+                                                                <span>
                                                                    {getPositionTitle(injury.player.positionShort)}
                                                                </span>
-                                                              <span>{injury.player.age.toLocaleString()} y/o</span>
-                                                          </div>
-                                                          <span>{injury.teamName}</span>
-                                                      </div>
-                                                      <div className={"verticalFlex injuryDetails"}>
-                                                          <span>{capitalize(injury.description)}</span>
-                                                          <span>{injury.status}</span>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                      )
-                                  }
-                              </ul>
-                          </li>
-                      )
-                  }
-              </ul>
+                                                                <span>{injury.player.age.toLocaleString()} y/o</span>
+                                                            </div>
+                                                            <span>{injury.teamName}</span>
+                                                        </div>
+                                                        <div className={"verticalFlex injuryDetails"}>
+                                                            <span>{capitalize(injury.description)}</span>
+                                                            <span>{injury.status}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+                                </ul>
+                            </li>
+                        )
+                    }
+                </ul>
         }
         <LoadMoreButton areAllFetched={fetchState !== constants.fetchState.error
                                        && totalInjuriesOnPage >= injuries.length}

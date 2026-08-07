@@ -46,35 +46,37 @@ function Trades({teams}) {
         {
             fetchState === constants.fetchState.error
             ? <span className={"injuriesTradesSigningsPlaceholder"}>Error fetching trades.</span>
-            : trades.length === 0
-              ? <span className={"injuriesTradesSigningsPlaceholder"}>No trades to display.</span>
-              : <ul className={"injuriesTradesSigningsByDate"}>
-                  {
-                      splitArrayByKey(trades, "trade_date").map((day, index) =>
-                          <li key={index.toString()} className={"individualDay"}>
+            : fetchState === constants.fetchState.loading
+              ? <span className={"injuriesTradesSigningsPlaceholder"}>Loading trades...</span>
+              : trades.length === 0
+                ? <span className={"injuriesTradesSigningsPlaceholder"}>No trades to display.</span>
+                : <ul className={"injuriesTradesSigningsByDate"}>
+                    {
+                        splitArrayByKey(trades, "trade_date").map((day, index) =>
+                            <li key={index.toString()} className={"individualDay"}>
                                  <span className={"injuryTradeSigningHeader"}>
                                      {formatterDate.format(new Date(day[0].trade_date))}
                                  </span>
-                              <ul className={"trades"}>
-                                  {
-                                      day.map(trade =>
-                                          <li key={trade.post_id} className={"verticalFlex trade"}>
-                                              <TradeTeam team={trade.details[0]}
-                                                         teamLogo={getTeamLogo(teams, fixAbbrev(trade.details[0]))}
-                                                         teamAbbrev={fixAbbrev(trade.details[0])}>
-                                              </TradeTeam>
-                                              <TradeTeam team={trade.details[1]}
-                                                         teamLogo={getTeamLogo(teams, fixAbbrev(trade.details[1]))}
-                                                         teamAbbrev={fixAbbrev(trade.details[1])}>
-                                              </TradeTeam>
-                                          </li>
-                                      )
-                                  }
-                              </ul>
-                          </li>
-                      )
-                  }
-              </ul>
+                                <ul className={"trades"}>
+                                    {
+                                        day.map(trade =>
+                                            <li key={trade.post_id} className={"verticalFlex trade"}>
+                                                <TradeTeam team={trade.details[0]}
+                                                           teamLogo={getTeamLogo(teams, fixAbbrev(trade.details[0]))}
+                                                           teamAbbrev={fixAbbrev(trade.details[0])}>
+                                                </TradeTeam>
+                                                <TradeTeam team={trade.details[1]}
+                                                           teamLogo={getTeamLogo(teams, fixAbbrev(trade.details[1]))}
+                                                           teamAbbrev={fixAbbrev(trade.details[1])}>
+                                                </TradeTeam>
+                                            </li>
+                                        )
+                                    }
+                                </ul>
+                            </li>
+                        )
+                    }
+                </ul>
         }
         <LoadMoreButton areAllFetched={areAllTradesFetched}
                         fetchState={fetchState}
