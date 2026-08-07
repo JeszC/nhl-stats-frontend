@@ -57,9 +57,9 @@ function Signings({teams}) {
         <h2>Signings</h2>
         {
             fetchState === constants.fetchState.error
-            ? <span>Error fetching signings.</span>
+            ? <span className={"injuriesTradesSigningsPlaceholder"}>Error fetching signings.</span>
             : signings.length === 0
-              ? <span>No signings to display.</span>
+              ? <span className={"injuriesTradesSigningsPlaceholder"}>No signings to display.</span>
               : <ul className={"injuriesTradesSigningsByDate"}>
                   {
                       splitArrayByKey(signings, "signing_date").map((day, index) =>

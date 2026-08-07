@@ -3,18 +3,26 @@ import constants from "../../../../data/constants.json";
 function LoadMoreButton({areAllFetched, fetchState, setPage}) {
     const isLoading = fetchState === constants.fetchState.loading;
 
+    function getTitle() {
+        if (fetchState === constants.fetchState.error) {
+            return "Retry";
+        }
+        if (isLoading) {
+            return "Loading...";
+        }
+        return "Load more";
+    }
+
     return <>
         {
             areAllFetched
             ? null
             : <button type={"button"}
                       className={"loadMoreButton"}
-                      title={isLoading ? "Loading..." : "Load more"}
+                      title={getTitle()}
                       disabled={isLoading}
                       onClick={() => setPage(previousPage => previousPage + 1)}>
-                {
-                    isLoading ? "Loading..." : "Load more"
-                }
+                {getTitle()}
             </button>
         }
     </>;

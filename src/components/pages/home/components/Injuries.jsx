@@ -34,9 +34,9 @@ function Injuries({teams}) {
         <h2>Injuries</h2>
         {
             fetchState === constants.fetchState.error
-            ? <span>Error fetching injuries.</span>
+            ? <span className={"injuriesTradesSigningsPlaceholder"}>Error fetching injuries.</span>
             : injuries.length === 0
-              ? <span>No injuries to display.</span>
+              ? <span className={"injuriesTradesSigningsPlaceholder"}>No injuries to display.</span>
               : <ul className={"injuriesTradesSigningsByDate"}>
                   {
                       splitArrayByKey(injuries.slice(0, totalInjuriesOnPage), "date").map((day, index) =>
