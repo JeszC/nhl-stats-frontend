@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
-import {capitalize, getPositionTitle} from "../../../../scripts/parsing.js";
-import {getResponseData, getTeamLogo, splitArrayByKey} from "../../../../scripts/utils.js";
+import {getResponseData, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
+import Injury from "./Injury.jsx";
 
 function Injuries({teams}) {
     const [injuries, setInjuries] = useState([]);
@@ -51,31 +51,7 @@ function Injuries({teams}) {
                                         day.map(injury =>
                                             <li key={injury.competitorId.toString() + injury.player.id.toString()}
                                                 className={"injury"}>
-                                                <div className={"horizontalFlex injuryTeamAndPlayerInformation"}>
-                                                    <img className={`injuryHeadshot default
-                                                   ${injury.teamAbbrev} gradient`}
-                                                         src={getTeamLogo(teams, injury.teamAbbrev)}
-                                                         alt={`${injury.teamAbbrev}`}/>
-                                                    <div className={"verticalFlex injuryInformation"}>
-                                                        <div className={"verticalFlex injuryDetails"}>
-                                                           <span className={"injuryName"}>
-                                                               {injury.player.displayName}
-                                                           </span>
-                                                            <div className={"horizontalFlex injuryPlayerDetails"}>
-                                                                <span>#{injury.player.number.toLocaleString()}</span>
-                                                                <span>
-                                                                   {getPositionTitle(injury.player.positionShort)}
-                                                               </span>
-                                                                <span>{injury.player.age.toLocaleString()} y/o</span>
-                                                            </div>
-                                                            <span>{injury.teamName}</span>
-                                                        </div>
-                                                        <div className={"verticalFlex injuryDetails"}>
-                                                            <span>{capitalize(injury.description)}</span>
-                                                            <span>{injury.status}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <Injury injury={injury} teams={teams}></Injury>
                                             </li>
                                         )
                                     }

@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useState} from "react";
 import constants from "../../../../data/constants.json";
-import {fixAbbreviation} from "../../../../scripts/parsing.js";
-import {getResponseData, getTeamLogo, getTeamName, splitArrayByKey} from "../../../../scripts/utils.js";
+import {getResponseData, splitArrayByKey} from "../../../../scripts/utils.js";
 import LoadMoreButton from "../../../shared/common/loadMoreButton/LoadMoreButton.jsx";
+import Signing from "./Signing.jsx";
 
 function Signings({teams}) {
     const [signings, setSignings] = useState([]);
@@ -14,23 +14,6 @@ function Signings({teams}) {
     const formatterDate = new Intl.DateTimeFormat(undefined, {
         weekday: "long", day: "2-digit", month: "2-digit", year: "numeric"
     });
-
-    function fixAbbrev(team) {
-        return fixAbbreviation(team?.team_shortname);
-    }
-
-    function fixPositionTitle(positionTitle) {
-        switch (positionTitle) {
-            case "Left Wing":
-                return "Left Winger";
-            case "Right Wing":
-                return "Right Winger";
-            case "Defense":
-                return "Defender";
-            default:
-                return positionTitle;
-        }
-    }
 
     const getSignings = useCallback(async () => {
         let signingsResponse = await fetch(`${constants.baseURL}/signings/getSignings/${fetchOffset}`);
@@ -73,43 +56,7 @@ function Signings({teams}) {
                                     {
                                         day.map(signing =>
                                             <li key={signing.post_id} className={"signing"}>
-                                                <div className={"horizontalFlex signingImageAndInformation"}>
-                                                    <img className={`signingLogo default
-                                                     ${fixAbbrev(signing)} gradient`}
-                                                         src={getTeamLogo(teams, fixAbbrev(signing))}
-                                                         alt={`${signing.team_shortname} logo`}/>
-                                                    <div className={"verticalFlex signingInformation"}>
-                                                        <div className={"verticalFlex signingDetails"}>
-                                                             <span className={"signingInformationTitle"}>
-                                                                 {signing.name}
-                                                             </span>
-                                                            <div className={"horizontalFlex signingPlayerDetails"}>
-                                                                 <span>
-                                                                     {
-                                                                         signing.player_position
-                                                                         ? fixPositionTitle(signing.player_position)
-                                                                         : "N/A"
-                                                                     }
-                                                                 </span>
-                                                                <span>
-                                                                     {
-                                                                         signing.age
-                                                                         ? signing.age.toLocaleString()
-                                                                         : "N/A"
-                                                                     } y/o</span>
-                                                            </div>
-                                                            <span>{getTeamName(teams, fixAbbrev(signing))}</span>
-                                                        </div>
-                                                        <div className={"verticalFlex signingDetails"}>
-                                                             <span>
-                                                                 {signing.contract_details[1].value}
-                                                                 , {signing.contract_details[0].value}
-                                                             </span>
-                                                            <span>{signing.contract_details[2].value} AAV</span>
-                                                            <span>{signing.contract_details[3].value} Total</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <Signing signing={signing} teams={teams}/>
                                             </li>
                                         )
                                     }
