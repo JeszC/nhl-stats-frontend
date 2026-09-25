@@ -50,7 +50,7 @@ function TableRow({player, playerStandings, openDialog, openDialogKeyboard, inde
             case columns.savesPerGame:
                 return value === undefined ? "N/A" : parseDecimals(value, 1);
             default:
-                return value === undefined ? "N/A" : column.numeric ? value.toLocaleString() : value;
+                return value === undefined || value === null ? "N/A" : column.numeric ? value.toLocaleString() : value;
         }
     }
 
